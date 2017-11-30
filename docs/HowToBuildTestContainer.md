@@ -1,5 +1,5 @@
 
-# How to build test container images
+# How to build MSI test container images
 
 
 - ## Get the source code
