@@ -20,9 +20,7 @@ This experiment was to find a way to access the Instance Metadata Service endpoi
             msitest/test:proxycontainer
             msitest/test:pythonwindow1709
             
-            For test images, you can use above prebuilt images or build from the source.
-            
-[test imagse build instructions](https://github.com/soccerGB/MSIExperiment/blob/master/docs/HowToBuildTestContainer.md)
+For test images, you can use above prebuilt images or build from the source [test cotnainer images build instructions](https://github.com/soccerGB/MSIExperiment/blob/master/docs/HowToBuildTestContainer.md)
 
 ## Building test images for running on the WindowsServerCore 1709 image
 
