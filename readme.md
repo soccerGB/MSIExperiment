@@ -24,16 +24,16 @@ For test images, you can use above prebuilt images or build from the source [tes
 
 ## How to run this test 
 
-### Pull images
+- Pull images
       docker pull msitest/test:pythonwindow17097
       docker pull msitest/test:proxycontainer
       docker pull msitest/test:clientcontainer
       
-### Launch proxy container
+- Launch proxy container
 
-   docker run -it --label MSIProxyContainer msitest/test:proxycontainer
+      docker run -it --label MSIProxyContainer msitest/test:proxycontainer
 
-### Locate the ip address of the proxy container and set it to a environment variable, IMSProxyIpAddress
+- Locate the ip address of the proxy container and set it to a environment variable, IMSProxyIpAddress
 
       PS C:\MSIExperiment> .\LocateProxyAndSetEnv.ps1
       Searching for the proxy container and set the IMSProxyIpAddress to its ip address if found
@@ -46,11 +46,11 @@ For test images, you can use above prebuilt images or build from the source [tes
 
       PS C:\MSIExperiment> set IMSProxyIpAddress=172.24.43.111
       
-### Launch client container
+- Launch client container
 
    docker run -it -e IMSProxyIpAddress msitest/test:clientcontainer
 
-
+## Example run 
 You should have the following images in the "docker images" output
    
          C:\DCOS\MSI>docker images
