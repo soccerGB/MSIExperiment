@@ -1,84 +1,73 @@
-build images and tag with account namespace
+
+# How to build MSI test container images
 
 
+- ## Get the source code
 
-## Building test images for running on the WindowsServerCore 1709 image
+      PS D:\github\git clone git@github.com:soccerGB/MSIExperiment.git 
 
-1. Build a python image on top of for WindowsServerCore 1709
+- ## Building test images for running on the WindowsServerCore 1709 image
 
+  ### Build a python container image
+
+      PS D:\github\MSIExperiment\pythonOn1709> docker build -t pythonwindow1709 .
+      PS D:\github\MSIExperiment\pythonOn1709> docker tag  pythonwindow1709 msitest/test:pythonwindow1709
       
-
-
-- cd pythonOn1709
-
-      - docker build -t pythonwindow1709 
-.
-
-3. Build a proxy container image
-
-            
-
-To make Instance Metadat Service acessible from the proxy container, 
-add a new net route for 169.254.169.254 to the active netowrk interface( see setupproxynet.ps1 for details)
+      Note: we need a custom python image that can run on WindowsServerCore 1709
       
+  ### Build a proxy container image
+
+      PS D:\github\MSIExperiment\pythonOn1709> docker build -t proxycontainer .
+      PS D:\github\MSIExperiment\pythonOn1709> docker tag proxycontainer msitest/test:proxycontainer
       
-- cd proxy
+      Note: 1. proxycontainer image takes a dependency on msitest/test:pythonwindow1709
+            2. To make Instance Metadat Service acessible from the proxy container, add a new net route for 169.254.169.254 to the active netowrk interface( see setupproxynet.ps1 for details)
 
-      - docker build -t proxycontainer .
-     
+  ### Build a client container image
 
- 
-2. Build a client container image
-
-            
-There are a couple things that need to be setup in a client container
-            
-.Added 169.254.169.254 as a net ip address to the current network interface (see net.ps1)
-                  
-New-NetIPAddress -InterfaceIndex $ifIndex -IPAddress 169.254.169.254
-            
-.Added a port forwarding rule: from 169.254.169.254:80 to IMSProxyIpAddress:80 via Netsh tool (see setup.bat)
-                 
- Netsh interface portproxy add v4tov4 listenaddress=169.254.169.254 listenport=80 connectaddress=%IMSProxyIpAddress% connectport=80  protocol=tcp
-
+      PS D:\github\MSIExperiment\client> docker build -t clientcontainer .
+      PS D:\github\MSIExperiment\client> docker tag clientcontainer msitest/test:clientcontainer
       
-- cd client
+      Note: There are a couple things that need to be setup in a client container
+            1.Added 169.254.169.254 as a net ip address to the current network interface (see net.ps1)
+                  New-NetIPAddress -InterfaceIndex $ifIndex -IPAddress 169.254.169.254
+            2. Added a port forwarding rule: from 169.254.169.254:80 to IMSProxyIpAddress:80 via Netsh tool (see setup.bat)
+                  Netsh interface portproxy add v4tov4 listenaddress=169.254.169.254 listenport=80 connectaddress=%IMSProxyIpAddress% connectport=80  protocol=tcp
 
-      - docker build -t clientcontainer .
+## For the msitest account owner only: 
+   ### How to push container to the msitest/test repositories
 
+            D:\github\MSIExperiment> docker login
+            Login with your Docker ID to push and pull images from Docker Hub. If you don't have a Docker ID, head over to https://hub.docker.com to create one.
+            Username: msitest
+            Password:
+            Login Succeeded
 
+- Make necessary tagging for each built image
+            docker tag  pythonwindow1709 msitest/test:pythonwindow1709
+            docker tag proxycontainer msitest/test:proxycontainer
+            docker tag clientcontainer msitest/test:clientcontainer
 
-PS D:\github\MSIExperiment\proxy> docker build -t pythonwindow1709 .
-PS D:\github\MSIExperiment\proxy> docker tag  pythonwindow1709 msitest/test:pythonwindow1709
-PS D:\github\MSIExperiment\proxy> docker push msitest/test:pythonwindow1709
+            PS D:\github\MSIExperiment> docker images
+            REPOSITORY                    TAG                 IMAGE ID            CREATED             SIZE
+            clientcontainer               latest              0545cd78c9d6        2 hours ago         5.58GB
+            proxycontainer                latest              0545cd78c9d6        2 hours ago         5.58GB
+            msitest/test                  clientcontainer     0545cd78c9d6        2 hours ago         5.58GB
+            msitest/test                  proxycontainer      0545cd78c9d6        2 hours ago         5.58GB
+            pythonwindow1709              latest              61a085212caa        2 hours ago         5.74GB
+            msitest/test                  pythonwindow1709    61a085212caa        2 hours ago         5.74GB
+            microsoft/iis                 latest              85fb57957cf1        2 weeks ago         5.73GB
+            microsoft/windowsservercore   1709                be1324f21832        2 weeks ago         5.58GB
+            microsoft/nanoserver          1709                1502f7107ff0        2 weeks ago         249MB
 
-
-
-PS D:\github\MSIExperiment\pythonOn1709> docker build -t proxycontainer .
-PS D:\github\MSIExperiment\pythonOn1709> docker tag proxycontainer msitest/test:proxycontainer
-PS D:\github\MSIExperiment\pythonOn1709> docker push msitest/test:proxycontainer
-
-
-PS D:\github\MSIExperiment\client> docker build -t clientcontainer .
-PS D:\github\MSIExperiment\client> docker tag clientcontainer msitest/test:clientcontainer
-PS D:\github\MSIExperiment\client> docker push  msitest/test:clientcontainer
-
-
-push image to the docker hub
-
-PS D:\github\MSIExperiment> docker push  msitest/test:clientcontainer
-The push refers to repository [docker.io/msitest/test]
-fdf7224b8e17: Pushed
-8232361f739c: Skipped foreign layer
-4bfe49d7bc33: Skipped foreign layer
-clientcontainer: digest: sha256:d1516c158034387dcc4e74dac3eae89c952ce58adefcd40c9de34845393351fe size: 1152
-PS D:\github\MSIExperiment>
-
-
-
-D:\github\MSIExperiment> docker login
-Login with your Docker ID to push and pull images from Docker Hub. If you don't have a Docker ID, head over to https://hub.docker.com to create one.
-Username: msitest
-Password:
-Login Succeeded
-
+- Push to public Docker registry repositories
+      
+            docker push msitest/test:pythonwindow17097
+            docker push msitest/test:proxycontainer
+            docker push msitest/test:clientcontainer
+            
+- Images are ready for pull from anywhere
+      
+            docker pull msitest/test:pythonwindow17097
+            docker pull msitest/test:proxycontainer
+            docker pull msitest/test:clientcontainer

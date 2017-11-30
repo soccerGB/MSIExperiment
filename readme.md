@@ -11,44 +11,46 @@ This experiment was to find a way to access the Instance Metadata Service endpoi
 
    There are 5 images involved.
 
-      Windows test images:(you can use prebuilt below images or build from the source : instructions)
-            msitest/test:clientcontainer
-            msitest/test:proxycontainer
-            msitest/test:pythonwindow1709
-      
-      Windows RS images:
+      Windows RS3 (build 1709) images:
             microsoft/windowsservercore:1709
             microsoft/nanoserver:1709
 
+      Windows test images:
+            msitest/test:clientcontainer
+            msitest/test:proxycontainer
+            msitest/test:pythonwindow1709
+            
+For test images, you can use above prebuilt images or build from the source [test cotnainer images build instructions](https://github.com/soccerGB/MSIExperiment/blob/master/docs/HowToBuildTestContainer.md)
 
-## Building test images for running on the WindowsServerCore 1709 image
+## How to run this test 
 
-1. Build a python image on top of for WindowsServerCore 1709
-
-      - cd pythonOn1709
-
-      - docker build -t pythonwindow1709 .
-
-3. Build a proxy container image
-
-            To make Instance Metadat Service acessible from the proxy container, add a new net route for 169.254.169.254 to the active netowrk interface( see setupproxynet.ps1 for details)
+- Pull images
+      docker pull msitest/test:pythonwindow17097
+      docker pull msitest/test:proxycontainer
+      docker pull msitest/test:clientcontainer
       
-      - cd proxy
+- Launch proxy container
 
-      - docker build -t proxycontainer .
+      docker run -it --label MSIProxyContainer msitest/test:proxycontainer
+
+- Locate the ip address of the proxy container and set it to a environment variable, IMSProxyIpAddress
+
+      PS C:\MSIExperiment> .\LocateProxyAndSetEnv.ps1
+      Searching for the proxy container and set the IMSProxyIpAddress to its ip address if found
+      IMSProxyIpAddress is null
+      proxyCotnainerName is [festive_poitras]
+      proxyAddress is [172.24.43.111]
+      proxyaddress found is [172.24.43.111]
+      172.24.43.111
+      PS C:\MSIExperiment>
+
+      PS C:\MSIExperiment> set IMSProxyIpAddress=172.24.43.111
       
-2. Build a client container image
+- Launch client container
 
-            There are a couple things that need to be setup in a client container
-            .Added 169.254.169.254 as a net ip address to the current network interface (see net.ps1)
-                  New-NetIPAddress -InterfaceIndex $ifIndex -IPAddress 169.254.169.254
-            .Added a port forwarding rule: from 169.254.169.254:80 to IMSProxyIpAddress:80 via Netsh tool (see setup.bat)
-                  Netsh interface portproxy add v4tov4 listenaddress=169.254.169.254 listenport=80 connectaddress=%IMSProxyIpAddress% connectport=80  protocol=tcp
+   docker run -it -e IMSProxyIpAddress msitest/test:clientcontainer
 
-      - cd client
-
-      - docker build -t clientcontainer .
-
+## Example run 
 You should have the following images in the "docker images" output
    
          C:\DCOS\MSI>docker images
@@ -68,72 +70,77 @@ You should have the following images in the "docker images" output
 ## Launch the proxy container instance
    The proxy cotnainer is expected to get run first before launching any client containers which relies on the proxy for accessign Instance Metadata. A new IP route to the network interface for 169.254.169.254 in setupproxynet.ps1 for making the Instance Metadata Service work from the proxy cotnainer itself. Some debugging messages were added into the same ps1 script for debugging purpose
       
-      C:\DCOS\MSI> docker run -it proxycontainer
+        C:\msi\client>docker run -it --label MSIProxyContainer msitest/test:proxycontainer
 
-      C:\app>PowerShell -NoProfile -ExecutionPolicy Bypass -Command "& '.\setupproxynet.ps1'"
-      settig up a new route for the Instance Metadata Service
+         C:\app>PowerShell -NoProfile -ExecutionPolicy Bypass -Command "& '.\setupproxynet.ps1'"
+            settig up a new route for the Instance Metadata Service
 
-      ifIndex DestinationPrefix                              NextHop                                  RouteMetric ifMetric PolicyStore
-      ------- -----------------                              -------                                  ----------- -------- -----------
-      23      169.254.169.254/32                             172.24.32.1                                      256 500      ActiveStore
-      23      169.254.169.254/32                             172.24.32.1                                      256          Persiste...
-      ===========================================================================
-      Interface List
-       22...........................Software Loopback Interface 2
-       23...00 15 5d e0 c4 cd ......Hyper-V Virtual Ethernet Adapter #2
-      ===========================================================================
+            ifIndex DestinationPrefix                              NextHop                                  RouteMetric ifMetric PolicyStore
+            ------- -----------------                              -------                                  ----------- -------- -----------
+            23      169.254.169.254/32                             172.24.32.1                                      256 500      ActiveStore
+            23      169.254.169.254/32                             172.24.32.1                                      256          Persiste...
+            ===========================================================================
+            Interface List
+             22...........................Software Loopback Interface 2
+             23...00 15 5d e0 cd 4c ......Hyper-V Virtual Ethernet Adapter #2
+            ===========================================================================
 
-      IPv4 Route Table
-      ===========================================================================
-      Active Routes:
-      Network Destination        Netmask          Gateway       Interface  Metric
-                0.0.0.0          0.0.0.0      172.24.32.1     172.24.32.64    756
-              127.0.0.0        255.0.0.0         On-link         127.0.0.1    331
-              127.0.0.1  255.255.255.255         On-link         127.0.0.1    331
-        127.255.255.255  255.255.255.255         On-link         127.0.0.1    331
-        169.254.169.254  255.255.255.255      172.24.32.1     172.24.32.64    756
-            172.24.32.0    255.255.240.0         On-link      172.24.32.64    756
-           172.24.32.64  255.255.255.255         On-link      172.24.32.64    756
-          172.24.47.255  255.255.255.255         On-link      172.24.32.64    756
-              224.0.0.0        240.0.0.0         On-link         127.0.0.1    331
-              224.0.0.0        240.0.0.0         On-link      172.24.32.64    756
-        255.255.255.255  255.255.255.255         On-link         127.0.0.1    331
-        255.255.255.255  255.255.255.255         On-link      172.24.32.64    756
-      ===========================================================================
-      Persistent Routes:
-        Network Address          Netmask  Gateway Address  Metric
-                0.0.0.0          0.0.0.0      172.24.32.1  Default
-        169.254.169.254  255.255.255.255      172.24.32.1  Default
-      ===========================================================================
-      Testing access to the  Instance Metadata Service from the proxy container
-      Invoke-WebRequest -Uri http://169.254.169.254/metadata/instance?api-version=2017-04-02 -Method GET  -Headers {Metadata=True} -UseBasicParsing
+            IPv4 Route Table
+            ===========================================================================
+            Active Routes:
+            Network Destination        Netmask          Gateway       Interface  Metric
+                      0.0.0.0          0.0.0.0      172.24.32.1    172.24.41.216    756
+                    127.0.0.0        255.0.0.0         On-link         127.0.0.1    331
+                    127.0.0.1  255.255.255.255         On-link         127.0.0.1    331
+              127.255.255.255  255.255.255.255         On-link         127.0.0.1    331
+              169.254.169.254  255.255.255.255      172.24.32.1    172.24.41.216    756
+                  172.24.32.0    255.255.240.0         On-link     172.24.41.216    756
+                172.24.41.216  255.255.255.255         On-link     172.24.41.216    756
+                172.24.47.255  255.255.255.255         On-link     172.24.41.216    756
+                    224.0.0.0        240.0.0.0         On-link         127.0.0.1    331
+                    224.0.0.0        240.0.0.0         On-link     172.24.41.216    756
+              255.255.255.255  255.255.255.255         On-link         127.0.0.1    331
+              255.255.255.255  255.255.255.255         On-link     172.24.41.216    756
+            ===========================================================================
+            Persistent Routes:
+              Network Address          Netmask  Gateway Address  Metric
+                      0.0.0.0          0.0.0.0      172.24.32.1  Default
+              169.254.169.254  255.255.255.255      172.24.32.1  Default
+            ===========================================================================
+            Testing access to the  Instance Metadata Service from the proxy container
+            Invoke-WebRequest -Uri http://169.254.169.254/metadata/instance?api-version=2017-04-02 -Method GET  -Headers {Metadata=True} -UseBasicParsing
 
 
 
-      C:\app>python .\app.py
-       * Running on http://0.0.0.0:80/ (Press CTRL+C to quit)
+   C:\app>python .\app.py
+    * Running on http://0.0.0.0:80/ (Press CTRL+C to quit)
 
 
   *Note*: In above experiment run, the proxy container's ip address is `172.24.32.64`. it will be used by client containers for forwarding instnace metadata to.
 
+
+## Locate and setup the ip address of the proxy container instance to a environment variable
+
+- Once the proxy cotnainer is runnning successfully, use a environment vaiable (IMSProxyIpAddress) to pass the IP addess of the proxy container to client containers. 
+
+      PS C:\MSIExperiment> .\LocateProxyAndSetEnv.ps1
+      Searching for the proxy container and set the IMSProxyIpAddress to its ip address if found
+      IMSProxyIpAddress is null
+      proxyCotnainerName is [pedantic_galileo]
+      proxyAddress is [172.24.41.216]
+      proxyaddress found is [172.24.41.216]
+      172.24.41.216
+      PS C:\MSIExperiment> exit
+
+      C:\MSIExperiment>set IMSProxyIpAddress=172.24.41.216
+
 ## Launch a client container instance
-
-Once the proxy cotnainer is runnning successfully, use a environment vaiable (IMSProxyIpAddress) to pass the IP addess of the proxy container to client containers. 
-
-- C:\DCOS\MSI>set IMSProxyIpAddress=`172.24.32.64`
-
-         do a 'set' to double check the environment was set correctly 
-         C:\DCOS\MSI>set
-         ....
-         IMSProxyIpAddress=172.24.32.64
-         ....
-
-- C:\DCOS\MSI>docker run -it -e IMSProxyIpAddress clientcontainer
+- C:\MSIExperiment>docker run -it -e IMSProxyIpAddress msitest/test:clientcontainer
 
          ============ inside the container ===============
 
          C:\app>PowerShell -NoProfile -ExecutionPolicy Bypass -Command "& '.\net.ps1'"
-            adding 169.254.169.254 to network interface
+            Adding 169.254.169.254 to network interface
 
 
             IPAddress         : 169.254.169.254
@@ -172,19 +179,15 @@ Once the proxy cotnainer is runnning successfully, use a environment vaiable (IM
             Ethernet adapter vEthernet (Ethernet) 2:
 
                Connection-specific DNS Suffix  . : 3xojbo1mt10efniqkq31gfg3ja.xx.internal.cloudapp.net
-               Link-local IPv6 Address . . . . . : fe80::9c33:ef44:de14:62ab%28
-               IPv4 Address. . . . . . . . . . . : 172.24.45.178
+               Link-local IPv6 Address . . . . . : fe80::a975:3ac0:cbd7:3358%28
+               IPv4 Address. . . . . . . . . . . : 172.24.36.220
                Subnet Mask . . . . . . . . . . . : 255.255.240.0
                IPv4 Address. . . . . . . . . . . : 169.254.169.254
                Subnet Mask . . . . . . . . . . . : 255.255.255.255
                Default Gateway . . . . . . . . . : 172.24.32.1
+            IMSProxyIpAddress is 172.24.41.216
+            Setting up port fordwaring for 169.254.169.254:80 to
 
-
-
-            C:\app>echo 172.24.32.64
-            172.24.32.64
-            
-            C:\app>Netsh interface portproxy add v4tov4 listenaddress=169.254.169.254 listenport=80 connectaddress=172.24.32.64 connectport=80  protocol=tcp
 
 Accessing the Instance Matadata Service from inside a client container 
 
@@ -193,26 +196,31 @@ Accessing the Instance Matadata Service from inside a client container
 
             StatusCode        : 200
             StatusDescription : OK
-            Content           : {"compute":{"location":"westus2","name":"26652acs900-vmss_1","offer":"WindowsServerSemiAnnual","osType":"Windows","platformFaultDomain":"1","platformUpdateDomain":"1","publi
-                                sher":"MicrosoftWindowsServ...
+            Content           : {"compute":{"location":"westus2","name":"26652acs900-vmss_1","offer":"WindowsServerSemiAnnual","osType":"Windows","platformFaultDomain":"1","platformU
+                                pdateDomain":"1","publisher":"MicrosoftWindowsServ...
             RawContent        : HTTP/1.0 200 OK
                                 Content-Length: 564
                                 Content-Type: text/html; charset=utf-8
-                                Date: Mon, 27 Nov 2017 19:04:28 GMT
+                                Date: Thu, 30 Nov 2017 23:44:04 GMT
                                 Server: Werkzeug/0.12.2 Python/3.7.0a2
 
                                 {"compute":{"location":"westus2","name":"26...
             Forms             :
-            Headers           : {[Content-Length, 564], [Content-Type, text/html; charset=utf-8], [Date, Mon, 27 Nov 2017 19:04:28 GMT], [Server, Werkzeug/0.12.2 Python/3.7.0a2]}
+            Headers           : {[Content-Length, 564], [Content-Type, text/html; charset=utf-8], [Date, Thu, 30 Nov 2017 23:44:04 GMT], [Server, Werkzeug/0.12.2 Python/3.7.0a2]}
             Images            : {}
             InputFields       : {}
             Links             : {}
             ParsedHtml        :
             RawContentLength  : 564
 
+
+
+
             C:\app>cmd
-            Microsoft Windows [Version 10.0.16299.19]
+            Microsoft Windows [Version 10.0.16299.64]
             (c) 2017 Microsoft Corporation. All rights reserved.
 
             C:\app>
+
+
 
