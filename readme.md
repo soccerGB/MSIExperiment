@@ -1,7 +1,7 @@
 
 # Experiments on the redirecting Instance Metadata Service requests from Docker containers to a external facing proxy Docker container  
 
-This experiment was to find a way to access the Instance Metadata Service endpoint (http:// 169.254.169.254) from client containers through a dedicated proxy container. My experiment belows show, with appropriate port fordwarding and routing setup,  it's possible to achieve above scenario inside a Azure VM running a WindowsServerCore:1709 (`RS3`) build. 
+   This experiment was to find a way to access the Instance Metadata Service endpoint (http:// 169.254.169.254) from client containers through a dedicated proxy container. My experiment belows show, with appropriate port fordwarding and routing setup,  it's possible to achieve above scenario inside a Azure VM running a WindowsServerCore:1709 (`RS3`) build. 
 
 ![Block diagram for Proxying Instance Metadata Service request](https://github.com/soccerGB/MSIExperiment/blob/master/docs/InstanceMetadata.png "Proxying Instance Metadata Service request")
 
@@ -50,7 +50,7 @@ For test images, you can use above prebuilt images or build from the source [tes
 
    docker run -it -e IMSProxyIpAddress msitest/test:clientcontainer
 
-## Example run 
+## Logging for an example run
 You should have the following images in the "docker images" output
    
          C:\DCOS\MSI>docker images
@@ -67,7 +67,7 @@ You should have the following images in the "docker images" output
 
                microsoft/nanoserver          1709                33dcd52c91c3        5 weeks ago         236MB
    
-## Launch the proxy container instance
+- Launch the proxy container instance
    The proxy cotnainer is expected to get run first before launching any client containers which relies on the proxy for accessign Instance Metadata. A new IP route to the network interface for 169.254.169.254 in setupproxynet.ps1 for making the Instance Metadata Service work from the proxy cotnainer itself. Some debugging messages were added into the same ps1 script for debugging purpose
       
         C:\msi\client>docker run -it --label MSIProxyContainer msitest/test:proxycontainer
@@ -119,7 +119,7 @@ You should have the following images in the "docker images" output
   *Note*: In above experiment run, the proxy container's ip address is `172.24.32.64`. it will be used by client containers for forwarding instnace metadata to.
 
 
-## Locate and setup the ip address of the proxy container instance to a environment variable
+- Locate and setup the ip address of the proxy container instance to a environment variable
 
 - Once the proxy cotnainer is runnning successfully, use a environment vaiable (IMSProxyIpAddress) to pass the IP addess of the proxy container to client containers. 
 
@@ -134,8 +134,8 @@ You should have the following images in the "docker images" output
 
       C:\MSIExperiment>set IMSProxyIpAddress=172.24.41.216
 
-## Launch a client container instance
-- C:\MSIExperiment>docker run -it -e IMSProxyIpAddress msitest/test:clientcontainer
+- Launch a client container instance
+  C:\MSIExperiment>docker run -it -e IMSProxyIpAddress msitest/test:clientcontainer
 
          ============ inside the container ===============
 
