@@ -73,42 +73,42 @@ You should have the following images in the "docker images" output
         C:\msi\client>docker run -it --label MSIProxyContainer msitest/test:proxycontainer
 
          C:\app>PowerShell -NoProfile -ExecutionPolicy Bypass -Command "& '.\setupproxynet.ps1'"
-   settig up a new route for the Instance Metadata Service
+            settig up a new route for the Instance Metadata Service
 
-   ifIndex DestinationPrefix                              NextHop                                  RouteMetric ifMetric PolicyStore
-   ------- -----------------                              -------                                  ----------- -------- -----------
-   23      169.254.169.254/32                             172.24.32.1                                      256 500      ActiveStore
-   23      169.254.169.254/32                             172.24.32.1                                      256          Persiste...
-   ===========================================================================
-   Interface List
-    22...........................Software Loopback Interface 2
-    23...00 15 5d e0 cd 4c ......Hyper-V Virtual Ethernet Adapter #2
-   ===========================================================================
+            ifIndex DestinationPrefix                              NextHop                                  RouteMetric ifMetric PolicyStore
+            ------- -----------------                              -------                                  ----------- -------- -----------
+            23      169.254.169.254/32                             172.24.32.1                                      256 500      ActiveStore
+            23      169.254.169.254/32                             172.24.32.1                                      256          Persiste...
+            ===========================================================================
+            Interface List
+             22...........................Software Loopback Interface 2
+             23...00 15 5d e0 cd 4c ......Hyper-V Virtual Ethernet Adapter #2
+            ===========================================================================
 
-   IPv4 Route Table
-   ===========================================================================
-   Active Routes:
-   Network Destination        Netmask          Gateway       Interface  Metric
-             0.0.0.0          0.0.0.0      172.24.32.1    172.24.41.216    756
-           127.0.0.0        255.0.0.0         On-link         127.0.0.1    331
-           127.0.0.1  255.255.255.255         On-link         127.0.0.1    331
-     127.255.255.255  255.255.255.255         On-link         127.0.0.1    331
-     169.254.169.254  255.255.255.255      172.24.32.1    172.24.41.216    756
-         172.24.32.0    255.255.240.0         On-link     172.24.41.216    756
-       172.24.41.216  255.255.255.255         On-link     172.24.41.216    756
-       172.24.47.255  255.255.255.255         On-link     172.24.41.216    756
-           224.0.0.0        240.0.0.0         On-link         127.0.0.1    331
-           224.0.0.0        240.0.0.0         On-link     172.24.41.216    756
-     255.255.255.255  255.255.255.255         On-link         127.0.0.1    331
-     255.255.255.255  255.255.255.255         On-link     172.24.41.216    756
-   ===========================================================================
-   Persistent Routes:
-     Network Address          Netmask  Gateway Address  Metric
-             0.0.0.0          0.0.0.0      172.24.32.1  Default
-     169.254.169.254  255.255.255.255      172.24.32.1  Default
-   ===========================================================================
-   Testing access to the  Instance Metadata Service from the proxy container
-   Invoke-WebRequest -Uri http://169.254.169.254/metadata/instance?api-version=2017-04-02 -Method GET  -Headers {Metadata=True} -UseBasicParsing
+            IPv4 Route Table
+            ===========================================================================
+            Active Routes:
+            Network Destination        Netmask          Gateway       Interface  Metric
+                      0.0.0.0          0.0.0.0      172.24.32.1    172.24.41.216    756
+                    127.0.0.0        255.0.0.0         On-link         127.0.0.1    331
+                    127.0.0.1  255.255.255.255         On-link         127.0.0.1    331
+              127.255.255.255  255.255.255.255         On-link         127.0.0.1    331
+              169.254.169.254  255.255.255.255      172.24.32.1    172.24.41.216    756
+                  172.24.32.0    255.255.240.0         On-link     172.24.41.216    756
+                172.24.41.216  255.255.255.255         On-link     172.24.41.216    756
+                172.24.47.255  255.255.255.255         On-link     172.24.41.216    756
+                    224.0.0.0        240.0.0.0         On-link         127.0.0.1    331
+                    224.0.0.0        240.0.0.0         On-link     172.24.41.216    756
+              255.255.255.255  255.255.255.255         On-link         127.0.0.1    331
+              255.255.255.255  255.255.255.255         On-link     172.24.41.216    756
+            ===========================================================================
+            Persistent Routes:
+              Network Address          Netmask  Gateway Address  Metric
+                      0.0.0.0          0.0.0.0      172.24.32.1  Default
+              169.254.169.254  255.255.255.255      172.24.32.1  Default
+            ===========================================================================
+            Testing access to the  Instance Metadata Service from the proxy container
+            Invoke-WebRequest -Uri http://169.254.169.254/metadata/instance?api-version=2017-04-02 -Method GET  -Headers {Metadata=True} -UseBasicParsing
 
 
 
