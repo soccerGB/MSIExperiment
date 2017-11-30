@@ -22,33 +22,34 @@ This experiment was to find a way to access the Instance Metadata Service endpoi
             
 For test images, you can use above prebuilt images or build from the source [test cotnainer images build instructions](https://github.com/soccerGB/MSIExperiment/blob/master/docs/HowToBuildTestContainer.md)
 
-## Building test images for running on the WindowsServerCore 1709 image
+## How to run this test 
 
-1. Build a python image on top of for WindowsServerCore 1709
-
-      - cd pythonOn1709
-
-      - docker build -t pythonwindow1709 .
-
-3. Build a proxy container image
-
-            To make Instance Metadat Service acessible from the proxy container, add a new net route for 169.254.169.254 to the active netowrk interface( see setupproxynet.ps1 for details)
+### Pull images
+      docker pull msitest/test:pythonwindow17097
+      docker pull msitest/test:proxycontainer
+      docker pull msitest/test:clientcontainer
       
-      - cd proxy
+### Launch proxy container
 
-      - docker build -t proxycontainer .
+   docker run -it --label MSIProxyContainer msitest/test:proxycontainer
+
+### Locate the ip address of the proxy container and set it to a environment variable, IMSProxyIpAddress
+
+      PS C:\MSIExperiment> .\LocateProxyAndSetEnv.ps1
+      Searching for the proxy container and set the IMSProxyIpAddress to its ip address if found
+      IMSProxyIpAddress is null
+      proxyCotnainerName is [festive_poitras]
+      proxyAddress is [172.24.43.111]
+      proxyaddress found is [172.24.43.111]
+      172.24.43.111
+      PS C:\MSIExperiment>
+
+      PS C:\MSIExperiment> set IMSProxyIpAddress=172.24.43.111
       
-2. Build a client container image
+### Launch client container
 
-            There are a couple things that need to be setup in a client container
-            .Added 169.254.169.254 as a net ip address to the current network interface (see net.ps1)
-                  New-NetIPAddress -InterfaceIndex $ifIndex -IPAddress 169.254.169.254
-            .Added a port forwarding rule: from 169.254.169.254:80 to IMSProxyIpAddress:80 via Netsh tool (see setup.bat)
-                  Netsh interface portproxy add v4tov4 listenaddress=169.254.169.254 listenport=80 connectaddress=%IMSProxyIpAddress% connectport=80  protocol=tcp
+   docker run -it -e IMSProxyIpAddress msitest/test:clientcontainer
 
-      - cd client
-
-      - docker build -t clientcontainer .
 
 You should have the following images in the "docker images" output
    
