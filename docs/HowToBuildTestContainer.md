@@ -12,18 +12,27 @@
 
       PS D:\github\MSIExperiment\pythonOn1709> docker build -t pythonwindow1709 .
       PS D:\github\MSIExperiment\pythonOn1709> docker tag  pythonwindow1709 msitest/test:pythonwindow1709
+      
       Note: we need a custom python image that can run on WindowsServerCore 1709
       
   ### Build a proxy container image
 
       PS D:\github\MSIExperiment\pythonOn1709> docker build -t proxycontainer .
       PS D:\github\MSIExperiment\pythonOn1709> docker tag proxycontainer msitest/test:proxycontainer
-      Note: proxycontainer image takes a dependency on msitest/test:pythonwindow1709
+      
+      Note: 1. proxycontainer image takes a dependency on msitest/test:pythonwindow1709
+            2. To make Instance Metadat Service acessible from the proxy container, add a new net route for 169.254.169.254 to the active netowrk interface( see setupproxynet.ps1 for details)
 
   ### Build a client container image
 
       PS D:\github\MSIExperiment\client> docker build -t clientcontainer .
       PS D:\github\MSIExperiment\client> docker tag clientcontainer msitest/test:clientcontainer
+      
+      Note: There are a couple things that need to be setup in a client container
+            1.Added 169.254.169.254 as a net ip address to the current network interface (see net.ps1)
+                  New-NetIPAddress -InterfaceIndex $ifIndex -IPAddress 169.254.169.254
+            2. Added a port forwarding rule: from 169.254.169.254:80 to IMSProxyIpAddress:80 via Netsh tool (see setup.bat)
+                  Netsh interface portproxy add v4tov4 listenaddress=169.254.169.254 listenport=80 connectaddress=%IMSProxyIpAddress% connectport=80  protocol=tcp
 
 ## For the msitest account owner only: 
    ### How to push container to the msitest/test repositories
