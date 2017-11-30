@@ -12,7 +12,7 @@ ipconfig
 $x = "IMSProxyIpAddress"
 $IMSProxyIpAddress = (get-item env:$x).Value
 
-# search for a running proxy container, it not found, exit
+# search for a running proxy container, if not found, exit
 $ProxyContainerLabel="MSIProxyContainer"
 $proxyCotnainerName = docker ps --filter "label=$ProxyContainerLabel" --format '{{.Names}}'
 
