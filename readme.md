@@ -11,15 +11,18 @@ This experiment was to find a way to access the Instance Metadata Service endpoi
 
    There are 5 images involved.
 
-      Windows test images:(you can use prebuilt below images or build from the source : instructions)
-            msitest/test:clientcontainer
-            msitest/test:proxycontainer
-            msitest/test:pythonwindow1709
-      
-      Windows RS images:
+      Windows RS3 (build 1709) images:
             microsoft/windowsservercore:1709
             microsoft/nanoserver:1709
 
+      Windows test images:
+            msitest/test:clientcontainer
+            msitest/test:proxycontainer
+            msitest/test:pythonwindow1709
+            
+            For test images, you can use above prebuilt images or build from the source.
+            
+[test imagse build instructions](https://github.com/soccerGB/MSIExperiment/blob/master/docs/HowToBuildTestContainer.md)
 
 ## Building test images for running on the WindowsServerCore 1709 image
 
