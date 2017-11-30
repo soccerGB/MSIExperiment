@@ -12,18 +12,15 @@ ipconfig
 $x = "IMSProxyIpAddress"
 $IMSProxyIpAddress = (get-item env:$x).Value
 
-# search for a running proxy container, if not found, exit
-$ProxyContainerLabel="MSIProxyContainer"
-$proxyCotnainerName = docker ps --filter "label=$ProxyContainerLabel" --format '{{.Names}}'
+Write-Host "IMSProxyIpAddress is $IMSProxyIpAddress"
 
-if ($proxyCotnainerName) {
-	if ($IMSProxyIpAddress) {
-		Write-Host "Setting up port fordwaring for 169.254.169.254:80 to $IMSProxyIpAddress:80"
-		Netsh interface portproxy add v4tov4 listenaddress=169.254.169.254 listenport=80 connectaddress=$IMSProxyIpAddress connectport=80  protocol=tcp
-	} else {
-		Write-Host "No IP address found for the running proxy container"
-        }
+# search for a running proxy container, if not found, exit
+
+if ($IMSProxyIpAddress) {
+	Write-Host "Setting up port fordwaring for 169.254.169.254:80 to $IMSProxyIpAddress:80"
+	Netsh interface portproxy add v4tov4 listenaddress=169.254.169.254 listenport=80 connectaddress=$IMSProxyIpAddress connectport=80  protocol=tcp
+} else {
+	Write-Host "No IP address found -> no running proxy container found"
 }
-else {
-	Write-Host "No running proxy container found"
-}
+
+
