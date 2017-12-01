@@ -1,7 +1,7 @@
 
 # Experiments on the redirecting Instance Metadata Service requests from Docker containers to a external facing proxy Docker container  
 
-   This experiment was to find a way to access the Instance Metadata Service endpoint (http:// 169.254.169.254) from client containers through a dedicated proxy container. My experiment belows show, with appropriate port fordwarding and routing setup,  it's possible to achieve above scenario inside a Azure VM running a WindowsServerCore:1709 (`RS3`) build. 
+   This experiment was to find a way to access [Azure's Instance Metadata Service](https://docs.microsoft.com/en-us/azure/virtual-machines/windows/instance-metadata-service) endpoint (http:// 169.254.169.254) from client containers through a dedicated proxy container. My experiment belows show, with appropriate port fordwarding and routing setup,  it's possible to achieve above scenario inside a Azure VM running a WindowsServerCore:1709 (`RS3`) build. 
 
 ![Block diagram for Proxying Instance Metadata Service request](https://github.com/soccerGB/MSIExperiment/blob/master/docs/InstanceMetadata.png "Proxying Instance Metadata Service request")
 
@@ -23,6 +23,8 @@
 For test images, you can use above prebuilt images or build from the source [test cotnainer images build instructions](https://github.com/soccerGB/MSIExperiment/blob/master/docs/HowToBuildTestContainer.md)
 
 ## How to run this test 
+
+Inside an VM that has access to Azure's Instance Metadata Service:
 
 - Pull images
       docker pull msitest/test:pythonwindow17097
