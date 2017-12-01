@@ -10,20 +10,24 @@
             "type": "DOCKER", 
             "volumes": [], 
             "docker": { 
-                "image": "msitest/test:proxycontainer", 
-                "privileged": false, 
-                "parameters": [ 
-                { 
-                "key": "network", 
-                "value": "nat" 
-                },
-                      {
-                        "key": "label",
-                        "value": "MSIProxyContainer"
-                      }
-                ], 
-                "forcePullImage": false 
-            } 
+                        "image": "msitest/test:proxycontainer", 
+                        "privileged": false, 
+                        "parameters": [ 
+                                          { 
+                                          "key": "network", 
+                                          "value": "nat" 
+                                          },
+                                          {
+                                          "key": "label",
+                                          "value": "MSIProxyContainer"
+                                          },
+                                          { 
+                                          "key":"publish", 
+                                          "value":"80:80" 
+                                          }
+                        ],
+                        "forcePullImage": false
+            }
         } 
     } 
     
