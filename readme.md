@@ -34,6 +34,8 @@ Inside an VM that has access to Azure's Instance Metadata Service:
 - Launch proxy container
 
       docker run -it --label MSIProxyContainer msitest/test:proxycontainer
+      
+      ps. Run with MSIProxyContainer label on the proxycontainer for helping locate proxy container in a slave node
 
 - Locate the ip address of the proxy container and set it to a environment variable, IMSProxyIpAddress
 
@@ -51,6 +53,8 @@ Inside an VM that has access to Azure's Instance Metadata Service:
 - Launch client container
 
    docker run -it -e IMSProxyIpAddress msitest/test:clientcontainer
+   
+       ps. Pass an environment variable to clientcontainer instances for port forwarding purpose
 
 ## Logging for an example run
 You should have the following images in the "docker images" output
