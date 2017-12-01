@@ -3,7 +3,7 @@
         "id": "1", 
         "cmd": null, 
         "cpus": 1, 
-        "mem": 128, 
+        "mem": 512, 
         "disk": 0, 
         "instances": 1, 
         "container": { 
