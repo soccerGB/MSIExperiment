@@ -54,7 +54,7 @@ Inside an VM that has access to Azure's Instance Metadata Service:
 
    docker run -it -e IMSProxyIpAddress msitest/test:clientcontainer
    
-       ps. Pass an environment variable to clientcontainer instances for port forwarding purpose
+       ps. Pass the IMSProxyIpAddress environment variable to clientcontainer instances for port forwarding purpose
 
 ## Logging for an example run
 You should have the following images in the "docker images" output
