@@ -7,6 +7,7 @@ Write-host "wait for the network setting to be ready for use..."
 Start-Sleep -s 4
 ipconfig
 
+
 #reading IMSProxyIpAddress
 
 $x = "IMSProxyIpAddress"

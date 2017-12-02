@@ -33,10 +33,12 @@ if (! $existingProxyAddress) {
 	$proxyaddress = locateProxyIpAddress
 	Write-Host "proxyaddress found is [$proxyaddress]"
 	[Environment]::SetEnvironmentVariable($IpAddressEnvName, $proxyaddress, $VariableScope)
+	Write-Host "set $IpAddressEnvName=$proxyaddress"
 }
 else {
 	Write-Host "$IpAddressEnvName was set to [$proxyaddress]"
 }
 [Environment]::GetEnvironmentVariable($IpAddressEnvName, $VariableScope)
+
 
 
