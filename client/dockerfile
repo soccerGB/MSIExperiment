@@ -11,9 +11,10 @@ ADD . /app
 
 #Execute a ps script to add address to the interface for setting up the 
 #Instance Metadata Service endpoint re-routing
-CMD .\setup.bat
+#CMD .\setup.bat
 
 
+CMD powershell .\net.ps1
 
 
 

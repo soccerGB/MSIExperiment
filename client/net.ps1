@@ -24,4 +24,15 @@ if ($IMSProxyIpAddress) {
 	Write-Host "No IP address found -> no running proxy container found"
 }
 
+Import-Module Microsoft.PowerShell.Utility
+
+$val = 1
+
+while($val -ne 0)
+{
+	Write-Host "Lets call 169.254.169.254 for fun"
+	Write-Host "Receiving result from 169.254.169.254:"
+       	Invoke-WebRequest -Uri "http://169.254.169.254" -Method GET -UseBasicParsing | Write-Host
+	Start-Sleep -s 5
+}
 

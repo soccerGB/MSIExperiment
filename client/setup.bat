@@ -6,5 +6,15 @@ PowerShell -NoProfile -ExecutionPolicy Bypass -Command "& Import-Module Microsof
 echo "Testing the access to http://169.254.169.254"
 PowerShell -NoProfile -ExecutionPolicy Bypass -Command "& Invoke-WebRequest -Uri "http://169.254.169.254" -Method GET -UseBasicParsing"
 
+
+
+
 "You can start making Instance Metadata Service request via powershell: Invoke-WebRequest -Uri "http://169.254.169.254" -Method GET -UseBasicParsing"
-cmd
+
+:loop
+
+echo "hello"
+timeout 30
+
+goto loop
+
