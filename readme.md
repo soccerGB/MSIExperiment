@@ -23,7 +23,7 @@
 
       4. msitest/test:proxycontainer
 
-                     The proxycontainer accesses the Instance Metadat Service on behalf of client containers
+                     In reponse to metadate quests from client continers. the proxycontainer accesses the Instance Metadat Service on behalf of client containers
 
       5. msitest/test:pythonwindow1709
             
@@ -44,7 +44,9 @@ Inside an VM that has access to Azure's Instance Metadata Service:
       
       ps. Run with MSIProxyContainer label on the proxycontainer for helping locate proxy container in a slave node
 
-- Locate the ip address of the proxy container and set it to a environment variable, IMSProxyIpAddress
+- In the agent node, locate the ip address of the proxy container and set it to a environment variable, IMSProxyIpAddress
+     
+     (For prototyping purpose, I remote-desktop-ed into the agnent node, and run a powershell to do set the proxyaddress as an environment. this step is hacky, I still need to find a graceful way to pass this address to the client container)
 
       PS C:\MSIExperiment> .\LocateProxyAndSetEnv.ps1
       Searching for the proxy container and set the IMSProxyIpAddress to its ip address if found
