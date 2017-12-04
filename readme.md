@@ -11,14 +11,21 @@
 
    There are 5 images involved.
 
-      Windows RS3 (build 1709) images:
+      1. Windows RS3 (build 1709) images:
             microsoft/windowsservercore:1709
             microsoft/nanoserver:1709
 
-      Windows test images:
-            msitest/test:clientcontainer
-            msitest/test:proxycontainer
-            msitest/test:pythonwindow1709
+      2. Windows test images:
+            
+      3. msitest/test:clientcontainer
+
+                    All 169.254.169.254:80 requests got forwarded to the proxycontainer(see net.ps1)
+
+      4. msitest/test:proxycontainer
+
+                     The proxycontainer accesses the Instance Metadat Service on behalf of client containers
+
+      5. msitest/test:pythonwindow1709
             
 For test images, you can use above prebuilt images or build from the source [test cotnainer images build instructions](https://github.com/soccerGB/MSIExperiment/blob/master/docs/HowToBuildTestContainer.md)
 
