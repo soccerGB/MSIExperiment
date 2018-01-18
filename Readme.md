@@ -1,7 +1,10 @@
-# Experiments on the redirecting Instance Metadata Service requests from Docker containers to a external facing proxy Docker container  
+# Experiments on the redirecting Azure Instance Metadata Service requests from Docker containers to an external facing proxy Docker container  
 
-   This experiment was to find a way to access [Azure's Instance Metadata Service](https://docs.microsoft.com/en-us/azure/virtual-machines/windows/instance-metadata-service) endpoint (http:// 169.254.169.254) from client containers through a dedicated proxy container. My experiment belows show, with appropriate port fordwarding and routing setup,  it's possible to achieve above scenario inside a Azure VM running a WindowsServerCore:1709 (`RS3`) build. 
-
-![Block diagram for Proxying Instance Metadata Service request](https://github.com/soccerGB/MSIExperiment/blob/master/docs/InstanceMetadata.png "Proxying Instance Metadata Service request")
-
-(Note: in this setup, all containers are in the same subset)
+   This experiment was to find a way to access [Azure's Instance Metadata Service](https://docs.microsoft.com/en-us/azure/virtual-machines/windows/instance-metadata-service) endpoint (http:// 169.254.169.254) from client containers through a dedicated proxy container. 
+   
+   
+   There are two possible approaches:
+   
+   - Via Port fordwaring, only support NAT (bridge) network mode 
+   - Via Proxy policy feature, new to Windows RS4 but limited to L2Bridge netowork mode
+   
