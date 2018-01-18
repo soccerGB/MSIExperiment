@@ -11,14 +11,21 @@
 
    There are 5 images involved.
 
-      Windows RS3 (build 1709) images:
+      1. Windows RS3 (build 1709) images:
             microsoft/windowsservercore:1709
             microsoft/nanoserver:1709
 
-      Windows test images:
-            msitest/test:clientcontainer
-            msitest/test:proxycontainer
-            msitest/test:pythonwindow1709
+      2. Windows test images:
+            
+      -  msitest/test:clientcontainer
+
+                    All 169.254.169.254:80 requests got forwarded to the proxycontainer(see net.ps1)
+
+      - msitest/test:proxycontainer
+
+                     In reponse to metadate quests from client continers. the proxycontainer accesses the Instance Metadat Service on behalf of client containers
+
+      - msitest/test:pythonwindow1709
             
 For test images, you can use above prebuilt images or build from the source [test cotnainer images build instructions](https://github.com/soccerGB/MSIExperiment/blob/master/docs/HowToBuildTestContainer.md)
 
@@ -37,7 +44,9 @@ Inside an VM that has access to Azure's Instance Metadata Service:
       
       ps. Run with MSIProxyContainer label on the proxycontainer for helping locate proxy container in a slave node
 
-- Locate the ip address of the proxy container and set it to a environment variable, IMSProxyIpAddress
+- In the agent node, locate the ip address of the proxy container and set it to a environment variable, IMSProxyIpAddress
+     
+     (For prototyping purpose, I remote-desktop-ed into the agnent node, and run a powershell to do set the proxyaddress as an environment. this step is hacky, I still need to find a graceful way to pass this address to the client container)
 
       PS C:\MSIExperiment> .\LocateProxyAndSetEnv.ps1
       Searching for the proxy container and set the IMSProxyIpAddress to its ip address if found
