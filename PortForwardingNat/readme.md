@@ -39,8 +39,6 @@ Here is the operation sequence:
       - Some setup operations  (step c above) outside of container payload
       - NAT is not as performing as Transparent or L2Bridge 
 
-
-
 ## Test container images
 
    There are 5 images involved.
@@ -69,7 +67,7 @@ Inside an VM that has access to Azure's Instance Metadata Service:
 
 - Pull images
 
-               docker pull msitest/test:pythonwindow17097
+               docker pull msitest/test:pythonwindow1709
                docker pull msitest/test:proxycontainer
                docker pull msitest/test:clientcontainer
       
