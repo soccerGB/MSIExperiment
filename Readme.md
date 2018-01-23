@@ -6,7 +6,7 @@
    There are two possible approaches:
    
    1. [Port fordwaring](https://github.com/soccerGB/MSIExperiment/tree/master/PortForwardingNat) 
-      - available on Windows 1709 
+      - available on WindowsServer:1709
       - support NAT (bridge) network mode 
          
    2. [Proxy policy](https://github.com/soccerGB/MSIExperiment/tree/master/ProxyPolicyL2Bridge) feature
