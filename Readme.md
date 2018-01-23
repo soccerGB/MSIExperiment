@@ -5,11 +5,11 @@
    
    There are two possible approaches:
    
-   1. Via [Port fordwaring](https://github.com/soccerGB/MSIExperiment/tree/master/PortForwardingNat) 
+   1. [Port fordwaring](https://github.com/soccerGB/MSIExperiment/tree/master/PortForwardingNat) 
       - available on Windows 1709 
       - support NAT (bridge) network mode 
          
-   2. Via [Proxy policy](https://github.com/soccerGB/MSIExperiment/tree/master/ProxyPolicyL2Bridge) feature
+   2. [Proxy policy](https://github.com/soccerGB/MSIExperiment/tree/master/ProxyPolicyL2Bridge) feature
       - a new feature only available on Windows RS4 or later
       - currently limited to L2Bridge netowork mode
       
