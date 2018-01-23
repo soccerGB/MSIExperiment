@@ -34,9 +34,10 @@ For test images, you can use above prebuilt images or build from the source [tes
 Inside an VM that has access to Azure's Instance Metadata Service:
 
 - Pull images
-         docker pull msitest/test:pythonwindow17097
-         docker pull msitest/test:proxycontainer
-         docker pull msitest/test:clientcontainer
+
+               docker pull msitest/test:pythonwindow17097
+               docker pull msitest/test:proxycontainer
+               docker pull msitest/test:clientcontainer
       
 - Launch proxy container
 
