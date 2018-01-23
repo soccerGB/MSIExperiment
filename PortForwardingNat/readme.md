@@ -3,7 +3,7 @@
 
    This experiment was to find a way to access [Azure's Instance Metadata Service](https://docs.microsoft.com/en-us/azure/virtual-machines/windows/instance-metadata-service) endpoint (http:// 169.254.169.254) from client containers through a dedicated proxy container. My experiment belows show, with appropriate port fordwarding and routing setup,  it's possible to achieve above scenario inside a Azure VM running a WindowsServerCore:1709 (`RS3`) build. 
 
-![Block diagram for Proxying Instance Metadata Service request](https://github.com/soccerGB/MSIExperiment/blob/master/docs/InstanceMetadata.png "Proxying Instance Metadata Service request")
+![Block diagram for Proxying Instance Metadata Service request](https://github.com/soccerGB/MSIExperiment/blob/master/PortForwardingNat/docs/InstanceMetadata.png "Proxying Instance Metadata Service request")
 
 (Note: in this setup, all containers are in the same subset)
 
