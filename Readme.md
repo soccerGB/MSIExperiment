@@ -8,6 +8,6 @@
    1. [Port fordwaring](https://github.com/soccerGB/MSIExperiment/tree/master/PortForwardingNat) 
 
      
-   2. [Proxy policy](https://github.com/soccerGB/MSIExperiment/tree/master/ProxyPolicyL2Bridge) feature
+   2. [Proxy policy](https://github.com/soccerGB/MSIExperiment/tree/master/ProxyPolicyL2Bridge)
     
    
