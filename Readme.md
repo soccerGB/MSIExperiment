@@ -5,7 +5,7 @@
    
    There are two possible approaches:
    
-   - Via [Port fordwaring](https://github.com/soccerGB/MSIExperiment/tree/master/PortForwardingNat), only support NAT (bridge) network mode 
+   1. Via [Port fordwaring](https://github.com/soccerGB/MSIExperiment/tree/master/PortForwardingNat), only support NAT (bridge) network mode 
    
-   - Via [Proxy policy](https://github.com/soccerGB/MSIExperiment/tree/master/ProxyPolicyL2Bridge) feature, a new feature only available on Windows RS4 or later but currently limited to L2Bridge netowork mode
+   2. Via [Proxy policy](https://github.com/soccerGB/MSIExperiment/tree/master/ProxyPolicyL2Bridge) feature, a new feature only available on Windows RS4 or later but currently limited to L2Bridge netowork mode
    
