@@ -5,7 +5,41 @@
 
 ![Block diagram for Proxying Instance Metadata Service request](https://github.com/soccerGB/MSIExperiment/blob/master/PortForwardingNat/docs/InstanceMetadata.png "Proxying Instance Metadata Service request")
 
-(Note: in this setup, all containers are in the same subset)
+
+## How it works
+
+Here is the operation sequence:
+
+   1.	Build the proxycontainer image with adding the following new route into its routing table 
+      as part of the container startup sequence
+
+      New-NetRoute –DestinationPrefix "169.254.169.254/32" –InterfaceIndex $ifIndex –NextHop $gatewayIP
+
+   2.	Launch the proxycontainer
+
+   3.	Outside the proxycontainer, find the ip address of the proxycontainer  and assign it to a global 
+      environment variable “IMSProxyIpAddress”
+
+   4.	Build a client container that sets up port forwarding from 169.254.169.254 to the proxycontainer 
+      IpAddress  (IMSProxyIpAddress)
+
+         Netsh interface portproxy add v4tov4 listenaddress=169.254.169.254 listenport=80 
+                        connectaddress=$IMSProxyIpAddress connectport=80  protocol=tcp
+
+   5.	Launch a clientcontainer with IMSProxyIpAddress passed in via environment variable option (-e). 
+
+         docker run -it -e IMSProxyIpAddress msitest/test:clientcontainer
+
+   - Pros:
+      - Supported by WindowsServer:1709 and later
+      - Support NAT (bridge) network mode, which is a mode that Adobe prefers at this moment.
+      - Fits well into DC/OS Mesos’s Docker Containerizer model 
+   - Cons:
+      - This approach requires additional logics added for into the client container code
+      - Some setup operations  (step c above) outside of container payload
+      - NAT is not as performing as Transparent or L2Bridge 
+
+
 
 ## Test container images
 
