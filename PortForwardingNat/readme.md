@@ -8,6 +8,9 @@
 
 ## How it works
 
+![Detailed interaction diagram]
+https://github.com/soccerGB/MSIExperiment/blob/master/PortForwardingNat/docs/DetailedMSIPortforwardingComponents.png
+
 Here is the operation sequence:
 
    1.	Build the proxycontainer image with adding the following new route into its routing table 
