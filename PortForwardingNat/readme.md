@@ -8,7 +8,7 @@
 
 ## How it works
 
-[Detailed interaction diagram](https://github.com/soccerGB/MSIExperiment/blob/master/PortForwardingNat/docs/DetailedMSIPortforwardingComponents.png)
+![Detailed interaction diagramt](https://github.com/soccerGB/MSIExperiment/blob/master/PortForwardingNat/docs/DetailedMSIPortforwardingComponents.png "Proxying Instance Metadata Service request")
 
 Here is the operation sequence:
 
