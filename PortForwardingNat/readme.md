@@ -32,7 +32,7 @@ Here is the operation sequence:
 
    - Pros:
       - Supported by WindowsServer:1709 and later
-      - Support NAT (bridge) network mode, which is a mode that Adobe prefers at this moment.
+      - Support NAT (bridge) network mode
       - Fits well into DC/OS Mesos’s Docker Containerizer model 
    - Cons:
       - This approach requires additional logics added for into the client container code
