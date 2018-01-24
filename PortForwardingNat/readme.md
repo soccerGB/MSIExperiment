@@ -6,8 +6,7 @@
 ![Block diagram for Proxying Instance Metadata Service request](https://github.com/soccerGB/MSIExperiment/blob/master/PortForwardingNat/docs/InstanceMetadata.png "Proxying Instance Metadata Service request")
 
 
-Note: This ProxyContainer plays similiar role like [iam-docker](https://github.com/swipely/iam-docker). This experiment focuses on what 
-on the Windows specific setup needed in an Windows VM under Azure environment.
+Note: This ProxyContainer plays similiar role like [iam-docker](https://github.com/swipely/iam-docker) used in an EC2 instance. This experiment only focuses on the Windows specific setup needed in an Windows VM under Azure environment for the MSI proxying to work, that is, the addional setup discussed here needed to add on top of a component with similiar functinoality like iam-docker for the whole end-to-end scenario to work in production.
 
 ## How it works
 
