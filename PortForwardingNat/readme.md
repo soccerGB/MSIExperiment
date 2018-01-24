@@ -17,20 +17,25 @@ Here is the operation sequence:
 
       New-NetRoute –DestinationPrefix "169.254.169.254/32" –InterfaceIndex $ifIndex –NextHop $gatewayIP
 
-   	Launch the proxycontainer
+      Launch the proxycontainer
 
-   3.	In a gloab task, outside the proxycontainer, find the ip address of the proxycontainer and assign it to a global 
+   2.	In a gloab task, outside the proxycontainer, find the ip address of the proxycontainer and assign it to a global 
       environment variable “IMSProxyIpAddress”
 
-   4.	Build a client container that sets up port forwarding from 169.254.169.254 to the proxycontainer 
+   3.	Build a client container that sets up port forwarding from 169.254.169.254 to the proxycontainer 
       IpAddress  (IMSProxyIpAddress)
 
          Netsh interface portproxy add v4tov4 listenaddress=169.254.169.254 listenport=80 
                         connectaddress=$IMSProxyIpAddress connectport=80  protocol=tcp
 
-   5.	Launch a clientcontainer with IMSProxyIpAddress passed in via environment variable option (-e). 
+   	Launch a clientcontainer with IMSProxyIpAddress passed in via environment variable option (-e). 
 
          docker run -it -e IMSProxyIpAddress msitest/test:clientcontainer
+         
+   4.	MSI requests were triggered from inside a clientcontainer 
+   
+   5. MSI requests got forwarded to the ProxyContainer, which in turn send them through the MSI VM Extension
+      for getting the actual MSI metadata before returning the result back to the requesting clientcontainer
 
    - Pros:
       - Supported by WindowsServer:1709 and later
