@@ -5,14 +5,14 @@
 # How it works
 Basically, this approach handles all the network setup outside of the Docker control.
 1.	Setup a L2Bridge hnsNetwork 
-  - Create a hnsNetowork 
-  - Create a gateway hnsEndpoint off above L2bridge network and bind it into the host networking compartment (1) before enabling its ip forwarding
+    - Create a hnsNetowork 
+    - Create a gateway hnsEndpoint off above L2bridge network and bind it into the host networking compartment (1) before enabling its ip forwarding
 2.	Launch the proxycontainer and create a hnsEndpoint before attaching it to the container instance’s corresponding compartment
 3.	Locate the ip address of the proxycontainer  (proxycontainer _ip)
 4.	Launch a clientcontainer and create a hnsEndpoint before attaching it to the container instance’s corresponding compartment
 5.	Setup a proxy policy on clientcontainer’s hsnEndpoint
-i.	Locate a clientcontainer’s hsnEndpoint id
-ii.	Create a proxy policy
+  - Locate a clientcontainer’s hsnEndpoint id
+  - Create a proxy policy
 New-HnsProxyPolicy -Destination "proxycontainer _ip" -OutboundNat $true -DestinationPrefix 169.254.169.254 -DestinationPort 80  -Endpoints hsnEndpointId
 
 - Pros:
