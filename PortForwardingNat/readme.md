@@ -37,7 +37,7 @@ Here is the operation sequence:
    - Cons:
       - This approach requires additional logics added for into the client container code
       - Some setup operations  (step c above) outside of container payload
-      - NAT is not as performing as Transparent or L2Bridge 
+      - NAT is not as performing as Transparent or L2Bridge networking modes
 
 
 ## How to run this test 
