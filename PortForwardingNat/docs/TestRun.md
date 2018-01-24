@@ -15,7 +15,8 @@
 
       - msitest/test:proxycontainer
 
-                     In reponse to metadate quests from client continers. the proxycontainer accesses the Instance Metadat Service on behalf of client containers
+                     In reponse to metadate quests from client continers. the proxycontainer accesses 
+                     the Instance Metadat Service on behalf of client containers
 
       - msitest/test:pythonwindow1709
             
