@@ -17,9 +17,9 @@ Here is the operation sequence:
 
       New-NetRoute –DestinationPrefix "169.254.169.254/32" –InterfaceIndex $ifIndex –NextHop $gatewayIP
 
-   2.	Launch the proxycontainer
+   	Launch the proxycontainer
 
-   3.	Outside the proxycontainer, find the ip address of the proxycontainer  and assign it to a global 
+   3.	In a gloab task, outside the proxycontainer, find the ip address of the proxycontainer and assign it to a global 
       environment variable “IMSProxyIpAddress”
 
    4.	Build a client container that sets up port forwarding from 169.254.169.254 to the proxycontainer 
