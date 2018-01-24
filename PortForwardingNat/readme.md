@@ -39,27 +39,6 @@ Here is the operation sequence:
       - Some setup operations  (step c above) outside of container payload
       - NAT is not as performing as Transparent or L2Bridge 
 
-## Test container images
-
-   There are 5 images involved.
-
-      1. Windows RS3 (build 1709) images:
-            microsoft/windowsservercore:1709
-            microsoft/nanoserver:1709
-
-      2. Windows test images:
-            
-      -  msitest/test:clientcontainer
-
-                    All 169.254.169.254:80 requests got forwarded to the proxycontainer(see net.ps1)
-
-      - msitest/test:proxycontainer
-
-                     In reponse to metadate quests from client continers. the proxycontainer accesses the Instance Metadat Service on behalf of client containers
-
-      - msitest/test:pythonwindow1709
-            
-For test images, you can use above prebuilt images or build from the source [test cotnainer images build instructions](https://github.com/soccerGB/MSIExperiment/blob/master/docs/HowToBuildTestContainer.md)
 
 ## How to run this test 
 
