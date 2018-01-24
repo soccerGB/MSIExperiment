@@ -8,8 +8,7 @@
 
 ## How it works
 
-![Detailed interaction diagram]
-https://github.com/soccerGB/MSIExperiment/blob/master/PortForwardingNat/docs/DetailedMSIPortforwardingComponents.png
+[Detailed interaction diagram](https://github.com/soccerGB/MSIExperiment/blob/master/PortForwardingNat/docs/DetailedMSIPortforwardingComponents.png)
 
 Here is the operation sequence:
 
