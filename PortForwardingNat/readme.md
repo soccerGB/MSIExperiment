@@ -6,6 +6,9 @@
 ![Block diagram for Proxying Instance Metadata Service request](https://github.com/soccerGB/MSIExperiment/blob/master/PortForwardingNat/docs/InstanceMetadata.png "Proxying Instance Metadata Service request")
 
 
+Note: This ProxyContainer plays similiar role like [iam-docker](https://github.com/swipely/iam-docker). This experiment focuses on what 
+on the Windows specific setup needed in an Windows VM under Azure environment.
+
 ## How it works
 
 ![Detailed interaction diagramt](https://github.com/soccerGB/MSIExperiment/blob/master/PortForwardingNat/docs/DetailedMSIPortforwardingComponents.png "Proxying Instance Metadata Service request")
