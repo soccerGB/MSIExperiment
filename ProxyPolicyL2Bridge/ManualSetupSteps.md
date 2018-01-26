@@ -1,6 +1,10 @@
 # Manual steps for setting up the ProxyPolxy on L2bridge in an Azure VM
+
+0. Import hns powershell module, which could be found [here](https://github.com/soccerGB/MSIExperiment/blob/master/ProxyPolicyL2Bridge/scripts/hns.psm1)
  
-1.  Create the L2Bridge Network
+    impo .\hns.psm1
+
+1.  Create a HnsNetwork with L2Bridge type
  
     $network = New-HnsNetwork -Name winl2bridge -Type L2Bridge -AddressPrefix 10.0.1.0/24 -Gateway 10.0.1.1
 
