@@ -1,4 +1,4 @@
-# Manual steps for setting up the ProxyPolxy on L2bridge in an Azure VM
+# Manual steps for setting up the Proxy Policy in an Azure VM
 
 
 ## Setup L2bridge network and create a custom gateway hnsEndpoint 
