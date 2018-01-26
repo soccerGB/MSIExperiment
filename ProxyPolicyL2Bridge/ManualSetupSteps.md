@@ -62,6 +62,9 @@
      PS C:\github\MSIExperiment\ProxyPolicyL2Bridge\proxy> Attach-HNSHostEndpoint -EndpointID 36980714-a82d-4031-952e-b3714e8e984f -Comp
      artmentID 4
 
+
+
+
 ## Launch a client container and attach a newly created hnsendpoint to its container instance's network compartment
 
 3. Create your container through docker:
