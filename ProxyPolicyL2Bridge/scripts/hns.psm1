@@ -319,6 +319,7 @@ function New-HnsEndpoint
         [parameter(Mandatory = $false)] [string] $DNSServerList,
         [parameter(Mandatory = $false)] [string] $MacAddress,
         [parameter(Mandatory = $false)] [switch] $RemoteEndpoint,
+        [parameter(Mandatory = $false)] [string] $Gateway,
         [parameter(Mandatory = $false)] [switch] $EnableOutboundNat,
         [HashTable][parameter(Mandatory=$false)] $InboundNatPolicy, #  @ {"InternalPort" = "80"; "ExternalPort" = "8080"}
         [HashTable][parameter(Mandatory=$false)] $PAPolicy #  @ {"PA" = "1.2.3.4"; }
@@ -352,6 +353,12 @@ function New-HnsEndpoint
             if ($IPAddress) {
                 $endpoint += @{
                     IPAddress      = $IPAddress;
+                }
+            }
+
+            if ($Gateway) {
+                $endpoint += @{
+                    GatewayAddress = $Gateway;
                 }
             }
 
