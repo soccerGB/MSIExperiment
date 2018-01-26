@@ -1,20 +1,20 @@
-To create the network and prepare the host:
+# Manual steps for setting up the ProxyPolxy on L2bridge in an Azure VM
  
-#   Create the L2Bridge Network
+1.  Create the L2Bridge Network
  
     $network = New-HnsNetwork -Name winl2bridge -Type L2Bridge -AddressPrefix 10.0.1.0/24 -Gateway 10.0.1.1
 
-# Create a default gateway on the host for the container to use (.2 of the subnet as .1 is reserved)
+2. Create a default gateway on the host for the container to use (.2 of the subnet as .1 is reserved)
  
     $hnsEndpoint = New-HnsEndpoint -NetworkId $network.ID -Name cbr0 -IPAddress 10.0.1.2 -Gateway "0.0.0.0" -Verbose
     Attach-HnsHostEndpoint -EndpointID $hnsEndpoint.Id -CompartmentID 1
     netsh int ipv4 set int "vEthernet (cbr0)" for=en
 
-# Create your container through docker:
+3. Create your container through docker:
  
        docker run -it --rm --name proxyclient1 --network none proxyrs4 cmd
  
-# To connect the container to the network:
+4. To connect the container to the network:
  
     - Obtain container id + network compartment id
  
