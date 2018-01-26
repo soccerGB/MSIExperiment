@@ -110,12 +110,12 @@
       $containerId = docker ps -aqf "name=proxyclient1"
       $compartmentId = docker exec $containerId powershell.exe "Get-NetCompartment | Select -ExpandProperty CompartmentId"
 
-    ====================
-    5. Create a HNS network endpoint for the container and attach the endpoint to the compartment
+      ====================
+      5. Create a HNS network endpoint for the container and attach the endpoint to the compartment
 
-        $endpoint = new-hnsendpoint -NetworkId $network.ID -EnableOutboundNat -Gateway "10.0.1.2" -DNSServerList "168.63.129.16" -Verbose
-        Attach-HNSHostEndpoint -EndpointID $endpoint.ID -CompartmentID $compartmentId
-    =======================
+          $endpoint = new-hnsendpoint -NetworkId $network.ID -EnableOutboundNat -Gateway "10.0.1.2" -DNSServerList "168.63.129.16" -Verbose
+          Attach-HNSHostEndpoint -EndpointID $endpoint.ID -CompartmentID $compartmentId
+      =======================
 
 ## Setup proxy policy 
 
