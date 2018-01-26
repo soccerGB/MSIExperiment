@@ -1,6 +1,6 @@
 
 
-# Proxy policy solution (prototyping in progress)
+# Proxy policy solution
 
 # How it works
 Basically, this approach handles all the network setup outside of the Docker control.
