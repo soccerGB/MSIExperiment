@@ -6,9 +6,9 @@ To create the network and prepare the host:
 
 # Create a default gateway on the host for the container to use (.2 of the subnet as .1 is reserved)
  
-  $hnsEndpoint = New-HnsEndpoint -NetworkId $network.ID -Name cbr0 -IPAddress 10.0.1.2 -Gateway "0.0.0.0" -Verbose
-  Attach-HnsHostEndpoint -EndpointID $hnsEndpoint.Id -CompartmentID 1
-  netsh int ipv4 set int "vEthernet (cbr0)" for=en
+    $hnsEndpoint = New-HnsEndpoint -NetworkId $network.ID -Name cbr0 -IPAddress 10.0.1.2 -Gateway "0.0.0.0" -Verbose
+    Attach-HnsHostEndpoint -EndpointID $hnsEndpoint.Id -CompartmentID 1
+    netsh int ipv4 set int "vEthernet (cbr0)" for=en
 
 # Create your container through docker:
  
