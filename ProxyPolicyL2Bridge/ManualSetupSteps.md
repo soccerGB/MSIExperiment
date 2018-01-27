@@ -69,40 +69,40 @@
 
 3. Create your container through docker:
  
-     PS C:\Users\azureuser> docker run -it --network none client cmd
-     Microsoft Windows [Version 10.0.17076.1000]
-     (c) 2017 Microsoft Corporation. All rights reserved.
+       PS C:\Users\azureuser> docker run -it --network none client cmd
+       Microsoft Windows [Version 10.0.17076.1000]
+       (c) 2017 Microsoft Corporation. All rights reserved.
 
-     C:\app>
-     C:\app>ipconfig /allcompartments
-     Windows IP Configuration
-     ==============================================================================
-     Network Information for Compartment 5 (ACTIVE)
-     ==============================================================================
-     C:\app>
+       C:\app>
+       C:\app>ipconfig /allcompartments
+       Windows IP Configuration
+       ==============================================================================
+       Network Information for Compartment 5 (ACTIVE)
+       ==============================================================================
+       C:\app>
 
-     PS C:\github\MSIExperiment\ProxyPolicyL2Bridge\proxy>  $endpoint2 = new-hnsendpoint -NetworkId 9d2043fc-21e4-4a6f-8149-10429cc534d3
-     -EnableOutboundNat -Gateway "10.0.1.2" -DNSServerList "168.63.129.16" -Verbose
-     
-     PS C:\github\MSIExperiment\ProxyPolicyL2Bridge\proxy> $endpoint2
-     ActivityId                : 7afbc9bf-9a81-4372-9155-a11a089e2934
-     CreateProcessingStartTime : 131614058534044378
-     DNSServerList             : 168.63.129.16
-     GatewayAddress            : 10.0.1.2
-     ID                        : 1526575d-ef24-442f-8334-98149ebcb07d
-     IPAddress                 : 10.0.1.248
-     MacAddress                : 00-15-5D-8F-86-FB
-     Name                      : Ethernet
-     Policies                  : {@{Type=OutBoundNAT}, @{Type=L2Driver}}
-     PrefixLength              : 24
-     Resources                 : @{AllocationOrder=0; ID=7afbc9bf-9a81-4372-9155-a11a089e2934; PortOperationTime=0; State=1;
-                                 SwitchOperationTime=0; VfpOperationTime=0; parentId=6ff143bd-6b0a-4357-987a-e36f6aa706f6}
-     SharedContainers          : {}
-     State                     : 1
-     Type                      : L2Bridge
-     Version                   : 21474836481
-     VirtualNetwork            : 9d2043fc-21e4-4a6f-8149-10429cc534d3
-     VirtualNetworkName        : winl2bridge 
+       PS C:\github\MSIExperiment\ProxyPolicyL2Bridge\proxy>  $endpoint2 = new-hnsendpoint -NetworkId 9d2043fc-21e4-4a6f-8149-10429cc534d3
+       -EnableOutboundNat -Gateway "10.0.1.2" -DNSServerList "168.63.129.16" -Verbose
+
+       PS C:\github\MSIExperiment\ProxyPolicyL2Bridge\proxy> $endpoint2
+       ActivityId                : 7afbc9bf-9a81-4372-9155-a11a089e2934
+       CreateProcessingStartTime : 131614058534044378
+       DNSServerList             : 168.63.129.16
+       GatewayAddress            : 10.0.1.2
+       ID                        : 1526575d-ef24-442f-8334-98149ebcb07d
+       IPAddress                 : 10.0.1.248
+       MacAddress                : 00-15-5D-8F-86-FB
+       Name                      : Ethernet
+       Policies                  : {@{Type=OutBoundNAT}, @{Type=L2Driver}}
+       PrefixLength              : 24
+       Resources                 : @{AllocationOrder=0; ID=7afbc9bf-9a81-4372-9155-a11a089e2934; PortOperationTime=0; State=1;
+                                   SwitchOperationTime=0; VfpOperationTime=0; parentId=6ff143bd-6b0a-4357-987a-e36f6aa706f6}
+       SharedContainers          : {}
+       State                     : 1
+       Type                      : L2Bridge
+       Version                   : 21474836481
+       VirtualNetwork            : 9d2043fc-21e4-4a6f-8149-10429cc534d3
+       VirtualNetworkName        : winl2bridge 
 
     PS C:\> Attach-HNSHostEndpoint -EndpointID 1526575d-ef24-442f-8334-98149ebcb07d -CompartmentID 5
 
