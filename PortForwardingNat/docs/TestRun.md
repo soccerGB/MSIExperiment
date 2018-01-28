@@ -10,13 +10,16 @@
 
 
 - proxy: 
-         This is the ProxyContainer image
-         You can build this image from [here](https://github.com/soccerGB/MSIExperiment/tree/master/PortForwardingNat/proxy)
+         
+     This is the ProxyContainer image
+     
+     You can build this image from [here](https://github.com/soccerGB/MSIExperiment/tree/master/PortForwardingNat/proxy)
                
-- pythonrs3: 
-         This image is needed for testing purpose only, for helping creaste a simple server 
-         inside the proxycontainer.
-         You can build this image from [here](https://github.com/soccerGB/MSIExperiment/tree/master/PortForwardingNat/pythonOn1709)
+- pythonrs3:
+
+     This image is needed for testing purpose only, for helping creaste a simple server inside the proxycontainer.
+     
+     You can build this image from [here](https://github.com/soccerGB/MSIExperiment/tree/master/PortForwardingNat/pythonOn1709)
                
                
             
