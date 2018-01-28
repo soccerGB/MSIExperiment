@@ -66,5 +66,5 @@ Here is the operation sequence:
 
 ## How to run this test 
 
-   [Here is a test run of the current prototype](https://github.com/soccerGB/MSIExperiment/blob/master/PortForwardingNat/docs/TestRun.md)
+   [A look at this test run log here will get you better idea on how it actually works](https://github.com/soccerGB/MSIExperiment/blob/master/PortForwardingNat/docs/TestRun.md)
 
