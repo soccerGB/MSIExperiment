@@ -20,9 +20,13 @@ Here is the operation sequence:
 
    1. Schedule a Container Monitor Task
    
-         This is a long running task, it jobs is to monitor the life cycle of each container with specific label ("MSIProxyContainer")
-         or "MSIClientContainer"), keep tracking their IP Addresses and confgiure each client container for MSI port forwarding
-         via "docker exec", which eliminates the need to modify original client container images themselves.
+         - This is a long running task, it jobs is to monitor the life cycle of each container with specific 
+            labels ("MSIProxyContainer" or "MSIClientContainer")
+         - When the ProxyContainer (container with MSIProxyContaienr label, was created, it records its ip address.
+         - For each newly created MSI client container, it will setup its portforwarding configuration remotely 
+           via "docker exec" command with proxy container ip address stored in above steps
+         - This task should also handle the required reconfiguration scenarios in cases that the ProxyContainer died and restarted 
+         
    
    2.	Build the proxycontainer image with the following new route added into its routing table 
       as part of the container startup sequence
