@@ -80,22 +80,25 @@ Note:
          C:\app>echo "Launch a webserver for listing to client container request"
          "Launch a webserver for listing to client container request"
 
+         // a MSI test access from inside the proxy container to make sure it has access to the MSI
+         
          C:\app>curl -H Metadata:true "http://169.254.169.254/metadata/instance?api-version=2017-04-02"
-         {"compute":{"location":"westus2",
-         "name":"wp35723900-vmss_1","offer":"WindowsServerSemiAnnual","osType":"Windows",
-         "platformFaultDomain":"1","platformUpdateDomain":"1",
-         "publisher":"MicrosoftWindowsServer",
-         "sku":"Datacenter-Core-1709-with-Containers-smalldisk"
-         ,"version":"1709.0.20171219","vmId":"a7c7a8a7-7cdb-4c49-a3a5-d67dc6aa2050",
-         "vmSize":"Standard_D2s_v3"},
-         "network":{"interface":[{"ipv4":{"ipAddress":[{"privateIpAddress":"10.0.0.5","publicIpAddress":""}],
-         "subnet":[{"address":"10.0.0.0","prefix":"16"}]},
-         "ipv6":{"ipAddress":[]},"macAddress":"000D3AF9AECA"}]}}
+                  {"compute":{"location":"westus2",
+                              "name":"wp35723900-vmss_1",
+                              "offer":"WindowsServerSemiAnnual",
+                              "osType":"Windows",
+                              "platformFaultDomain":"1",
+                              "platformUpdateDomain":"1",
+                              "publisher":"MicrosoftWindowsServer",
+                              "sku":"Datacenter-Core-1709-with-Containers-smalldisk",
+                              "version":"1709.0.20171219","vmId":"a7c7a8a7-7cdb-4c49-a3a5-d67dc6aa2050",
+                              "vmSize":"Standard_D2s_v3"},
+                   "network":{"interface":[{"ipv4":{"ipAddress":[{"privateIpAddress":"10.0.0.5","publicIpAddress":""}],
+                   "subnet":[{"address":"10.0.0.0","prefix":"16"}]},
+                   "ipv6":{"ipAddress":[]},"macAddress":"000D3AF9AECA"}]}}
+                   
          C:\app>ipconfig
-
          Windows IP Configuration
-
-
          Ethernet adapter vEthernet (Ethernet):
 
           Connection-specific DNS Suffix  . : kqatyr3wm3ielb4nh2ebyxeyvh.xx.internal.cloudapp.net
