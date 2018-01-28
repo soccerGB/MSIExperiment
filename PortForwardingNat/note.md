@@ -1,8 +1,7 @@
         
         1. Launch a proxy container instance
         
-        
-              C:\github\MSIExperiment\pf2\pythonOn1709>docker run -it proxy cmd
+                C:\github\MSIExperiment\pf2\proxy>docker run -it --label MSIProxyContainer proxy
                           
                Windows IP Configuration
 
