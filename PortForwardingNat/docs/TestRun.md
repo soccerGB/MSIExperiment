@@ -232,9 +232,14 @@ Note:
 
                 StatusCode        : 200
                 StatusDescription : OK
-                Content           : {"compute":{"location":"westus2","name":"wp35723900-vmss_1","offer":"WindowsServerSemiAnnual","osType":"Win
-                                    dows","platformFaultDomain":"1","platformUpdateDomain":"1",
-                                     "publisher":"MicrosoftWindowsServe...
+                Content           : {"compute":
+                                         {"location":"westus2",
+                                          "name":"wp35723900-vmss_1",
+                                           "offer":"WindowsServerSemiAnnual",
+                                           "osType":"Windows",
+                                           "platformFaultDomain":"1",
+                                           "platformUpdateDomain":"1",
+                                           "publisher":"MicrosoftWindowsServe...
                 RawContent        : HTTP/1.0 200 OK
                                     Content-Length: 564
                                     Content-Type: text/html; charset=utf-8
