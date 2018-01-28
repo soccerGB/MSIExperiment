@@ -102,20 +102,6 @@ Note:
           Subnet Mask . . . . . . . . . . . : 255.255.240.0
           Default Gateway . . . . . . . . . : 172.21.192.1
 
-         C:\app>echo " Run the following commands into each client
-         " Run the following commands into each client
-
-         C:\app>echo " $ifIndex = get-netadapter | select -expand ifIndex "
-         " $ifIndex = get-netadapter | select -expand ifIndex "
-
-         C:\app>echo " New-NetIPAddress -InterfaceIndex $ifIndex -IPAddress 169.254.169.254
-         " New-NetIPAddress -InterfaceIndex $ifIndex -IPAddress 169.254.169.254
-
-         C:\app>echo " Netsh interface portproxy add v4tov4 listenaddress=169.254.169.254 
-         listenport=80 connectaddress=$IMSProxyIpAddress connectport=80  protocol=tcp"
-         " Netsh interface portproxy add v4tov4 listenaddress=169.254.169.254 listenport=80 
-         connectaddress=$IMSProxyIpAddress connectport=80  protocol=tcp"
-
          C:\app>python .\app.py
          * Running on http://0.0.0.0:80/ (Press CTRL+C to quit)
         
