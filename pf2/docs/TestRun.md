@@ -98,13 +98,22 @@ Inside an VM that has access to Azure's Instance Metadata Service:
                   169.254.169.254  255.255.255.255     172.21.192.1  Default
                 ===========================================================================
                 Testing access to the  Instance Metadata Service from the proxy container
-                Invoke-WebRequest -Uri http://169.254.169.254/metadata/instance?api-version=2017-04-02 -Method GET  -Headers System.Collections.Hashtable -UseBasicParsing
+                Invoke-WebRequest -Uri http://169.254.169.254/metadata/instance?api-version=2017-04-02 
+                                  -Method GET  -Headers System.Collections.Hashtable -UseBasicParsing
 
                 C:\app>echo "Launch a webserver for listing to client container request"
                 "Launch a webserver for listing to client container request"
 
                 C:\app>curl -H Metadata:true "http://169.254.169.254/metadata/instance?api-version=2017-04-02"
-                {"compute":{"location":"westus2","name":"wp35723900-vmss_1","offer":"WindowsServerSemiAnnual","osType":"Windows","platformFaultDomain":"1","platformUpdateDomain":"1","publisher":"MicrosoftWindowsServer","sku":"Datacenter-Core-1709-with-Containers-smalldisk","version":"1709.0.20171219","vmId":"a7c7a8a7-7cdb-4c49-a3a5-d67dc6aa2050","vmSize":"Standard_D2s_v3"},"network":{"interface":[{"ipv4":{"ipAddress":[{"privateIpAddress":"10.0.0.5","publicIpAddress":""}],"subnet":[{"address":"10.0.0.0","prefix":"16"}]},"ipv6":{"ipAddress":[]},"macAddress":"000D3AF9AECA"}]}}
+                {"compute":{"location":"westus2",
+                "name":"wp35723900-vmss_1","offer":"WindowsServerSemiAnnual","osType":"Windows",
+                "platformFaultDomain":"1","platformUpdateDomain":"1",
+                "publisher":"MicrosoftWindowsServer",
+                "sku":"Datacenter-Core-1709-with-Containers-smalldisk"
+                ,"version":"1709.0.20171219","vmId":"a7c7a8a7-7cdb-4c49-a3a5-d67dc6aa2050",
+                "vmSize":"Standard_D2s_v3"},
+                "network":{"interface":[{"ipv4":{"ipAddress":[{"privateIpAddress":"10.0.0.5","publicIpAddress":""}],
+                "subnet":[{"address":"10.0.0.0","prefix":"16"}]},"ipv6":{"ipAddress":[]},"macAddress":"000D3AF9AECA"}]}}
                 C:\app>ipconfig
 
                 Windows IP Configuration
@@ -127,8 +136,10 @@ Inside an VM that has access to Azure's Instance Metadata Service:
                 C:\app>echo " New-NetIPAddress -InterfaceIndex $ifIndex -IPAddress 169.254.169.254
                 " New-NetIPAddress -InterfaceIndex $ifIndex -IPAddress 169.254.169.254
 
-                C:\app>echo " Netsh interface portproxy add v4tov4 listenaddress=169.254.169.254 listenport=80 connectaddress=$IMSProxyIpAddress connectport=80  protocol=tcp"
-                " Netsh interface portproxy add v4tov4 listenaddress=169.254.169.254 listenport=80 connectaddress=$IMSProxyIpAddress connectport=80  protocol=tcp"
+                C:\app>echo " Netsh interface portproxy add v4tov4 listenaddress=169.254.169.254 
+                listenport=80 connectaddress=$IMSProxyIpAddress connectport=80  protocol=tcp"
+                " Netsh interface portproxy add v4tov4 listenaddress=169.254.169.254 listenport=80 
+                connectaddress=$IMSProxyIpAddress connectport=80  protocol=tcp"
 
                 C:\app>python .\app.py
                  * Running on http://0.0.0.0:80/ (Press CTRL+C to quit)
@@ -232,7 +243,8 @@ Inside an VM that has access to Azure's Instance Metadata Service:
 
         
         
-  5. From inside a client container, any request for http://169.254.169.254 will be forwarded to the proxycontainer for getting MSI metadata before returning back to the client
+  5. From inside a client container, any request for http://169.254.169.254 will be forwarded to the proxycontainer 
+     for getting MSI metadata before returning back to the client
   
       - From inside a client container:
      
