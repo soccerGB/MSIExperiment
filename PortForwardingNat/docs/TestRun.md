@@ -25,44 +25,13 @@
             
 For test images, you can use above prebuilt images or build from the source [test cotnainer images build instructions](https://github.com/soccerGB/MSIExperiment/blob/master/docs/HowToBuildTestContainer.md)
 
-# How to run this test
+# Test run
 
-Inside an VM that has access to Azure's Instance Metadata Service:
+Note: This test was run inside a Windows agent node of an DC/OS cluster hosted on Azure
+      There is no "Container Monitor Task" in this test run. It was replaced by running two Powershell scripts manually
+      (LocateProxyAndSetEnv.ps1 and LocateClientAndSetupPortforward.ps1)
 
-- Pull images
 
-               docker pull msitest/test:pythonwindow1709
-               docker pull msitest/test:proxycontainer
-               docker pull msitest/test:clientcontainer
-      
-- Launch proxy container
-
-      docker run -it --label MSIProxyContainer msitest/test:proxycontainer
-      
-      ps. Run with MSIProxyContainer label on the proxycontainer for helping locate proxy container in a slave node
-
-- In the agent node, locate the ip address of the proxy container and set it to a environment variable, IMSProxyIpAddress
-     
-     (For prototyping purpose, I remote-desktop-ed into the agnent node, and run a powershell to do set the proxyaddress as an environment. this step is hacky, I still need to find a graceful way to pass this address to the client container)
-
-      PS C:\MSIExperiment> .\LocateProxyAndSetEnv.ps1
-      Searching for the proxy container and set the IMSProxyIpAddress to its ip address if found
-      IMSProxyIpAddress is null
-      proxyCotnainerName is [festive_poitras]
-      proxyAddress is [172.24.43.111]
-      proxyaddress found is [172.24.43.111]
-      172.24.43.111
-      PS C:\MSIExperiment>
-
-      PS C:\MSIExperiment> set IMSProxyIpAddress=172.24.43.111
-      
-- Launch client container
-
-   docker run -it -e IMSProxyIpAddress msitest/test:clientcontainer
-   
-       ps. Pass the IMSProxyIpAddress environment variable to clientcontainer instances for port forwarding purpose
-
-## Logging for an example run
         1. Launch a proxy container instance with "MSIProxyContainer" as label
     
                 C:\github\MSIExperiment\pf2>docker run -it --label MSIProxyContainer proxy
