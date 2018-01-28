@@ -9,13 +9,14 @@
          microsoft/nanoserver          1709                c4f1aa3885f1        3 weeks ago         303MB
 
 
-         proxy: 
-               This is the ProxyContainer image
-               You can build this image from [here](https://github.com/soccerGB/MSIExperiment/tree/master/PortForwardingNat/proxy)
+- proxy: 
+         This is the ProxyContainer image
+         You can build this image from [here](https://github.com/soccerGB/MSIExperiment/tree/master/PortForwardingNat/proxy)
                
-         pythonrs3: This image is needed for testing purpose only, for helping creaste a simple server 
-                    inside the proxycontainer. 
-                    You can build this image from [here](https://github.com/soccerGB/MSIExperiment/tree/master/PortForwardingNat/pythonOn1709)
+- pythonrs3: 
+         This image is needed for testing purpose only, for helping creaste a simple server 
+         inside the proxycontainer.
+         You can build this image from [here](https://github.com/soccerGB/MSIExperiment/tree/master/PortForwardingNat/pythonOn1709)
                
                
             
