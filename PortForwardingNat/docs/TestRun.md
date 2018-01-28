@@ -33,7 +33,7 @@ Note:
       ([LocateProxyAndSetEnv.ps1](https://github.com/soccerGB/MSIExperiment/blob/master/PortForwardingNat/scripts/LocateProxyAndSetEnv.ps1) and [LocateClientAndSetupPortforward.ps1](https://github.com/soccerGB/MSIExperiment/blob/master/PortForwardingNat/scripts/LocateClientAndSetupPortforward.ps1))
 
 
-## Launch a proxy container instance with "MSIProxyContainer" as label
+## Launch a proxy container instance with "MSIProxyContainer" as its label
     
          C:\github\MSIExperiment\pf2>docker run -it --label MSIProxyContainer proxy
          C:\app>echo "Start running setupproxynet.ps1"
@@ -119,7 +119,7 @@ Note:
          C:\app>python .\app.py
          * Running on http://0.0.0.0:80/ (Press CTRL+C to quit)
         
-## Locate the ProxyContainer's IP address and setup environment variable:
+## Locate the ProxyContainer's IP address
         
        PS C:\github\MSIExperiment\pf2> .\LocateProxyAndSetEnv.ps1
        Searching for the proxy container and set the IMSProxyIpAddress to its ip address if found
@@ -131,12 +131,11 @@ Note:
        172.21.198.75
        PS C:\github\MSIExperiment\pf2>
 
-## Launch a client container with "ClientContainer" as label
+## Launch a client container with "ClientContainer" as its label
         
        C:\github\MSIExperiment\pf2>docker run -it --label ClientContainer microsoft/windowsservercore:1709
 
-     
-## Locate the ClientContainer's IP address and setup port forwarding:
+## Locate the ClientContainer's IP address and setup port forwarding configuration
         
        PS C:\github\MSIExperiment\pf2> .\LocateClientAndSetupPortforward.ps1
        Client cotnainer name is [quirky_swirles]
@@ -215,14 +214,12 @@ Note:
        Invoke-WebRequest -Uri "http://169.254.169.254" -Method GET -Headers $headers -UseBasicParsing
        PS C:\github\MSIExperiment\pf2>
 
-
-        
-        
-## From inside a client container, any request for http://169.254.169.254 will be forwarded to the proxycontainer 
-     for getting MSI metadata before returning back to the client
-  
+ 
 ### From inside a client container:
-     
+    
+              Any requests target for http://169.254.169.254 will be forwarded to the proxycontainer, which will return  
+              the MSI metadata back the requesting container once it's recieved from the MSI service
+              
                 C:\>powershell
                 Windows PowerShell
                 Copyright (C) Microsoft Corporation. All rights reserved.
@@ -230,7 +227,6 @@ Note:
                 PS C:\> $headers=@{}
                 PS C:\> $headers["Metadata"] = "True"
                 PS C:\> Invoke-WebRequest -Uri "http://169.254.169.254" -Method GET -Headers $headers -UseBasicParsing
-
 
                 StatusCode        : 200
                 StatusDescription : OK
@@ -253,10 +249,15 @@ Note:
                 Links             : {}
                 ParsedHtml        :
                 RawContentLength  : 564
+                
+                
 ### From inside the proxy container:
 
-                 C:\app>python .\app.py
-                 * Running on http://0.0.0.0:80/ (Press CTRL+C to quit)
+               From the logging spewed out from the simple webserver, it shows its gettings MSI requests forwarded to it from 
+               172.21.201.154, which is the ip address assigned to the client container in this test run
+               
+                C:\app>python .\app.py
+                * Running on http://0.0.0.0:80/ (Press CTRL+C to quit)
                 client request connecting...
                 retrun from 169.254.169.254 endpoint ...
                 172.21.201.154 - - [28/Jan/2018 08:32:14] "GET / HTTP/1.1" 200 -
