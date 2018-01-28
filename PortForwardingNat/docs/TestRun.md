@@ -26,6 +26,7 @@ Note:
    - There is no "Container Monitor Task" in this test run. It was replaced by running two Powershell scripts manually
       ([LocateProxyAndSetEnv.ps1](https://github.com/soccerGB/MSIExperiment/blob/master/PortForwardingNat/scripts/LocateProxyAndSetEnv.ps1) and [LocateClientAndSetupPortforward.ps1](https://github.com/soccerGB/MSIExperiment/blob/master/PortForwardingNat/scripts/LocateClientAndSetupPortforward.ps1)) 
       at right moments
+   - For debugging purpose, the log from below test run has networking config information output 
       
 
 
