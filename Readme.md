@@ -16,39 +16,45 @@ Note:
 
 Here is the operation sequence:
 
-   1.	Build the proxycontainer image with adding the following new route into its routing table 
+   1. Schedule a Container Monitor Task
+      This is a long running task, it jobs is to monitor the life cycle of each container with specific label ("MSIProxyContainer")
+      or "MSIClientContainer"), keep tracking their IP Addresses and confgiure each client container for MSI port forwarding
+      via "docker exec", which eliminates the need to modify original client container images themselves.
+   
+   2.	Build the proxycontainer image with the following new route added into its routing table 
       as part of the container startup sequence
 
       New-NetRoute –DestinationPrefix "169.254.169.254/32" –InterfaceIndex $ifIndex –NextHop $gatewayIP
 
-      Launch the proxycontainer
+      Launch the proxycontainer with MSIProxyContainer as its label
+      docker run -it --label MSIProxyContainer proxyImageName 
 
-   2.	In a gloab task, outside the proxycontainer, find the ip address of the proxycontainer and assign it to a global 
-      environment variable “IMSProxyIpAddress”
+   3.	Launch a clientcontainer instances with MSIClientContainer as its label
 
-   3.	Build a client container that sets up port forwarding from 169.254.169.254 to the proxycontainer 
-      IpAddress  (IMSProxyIpAddress)
-
-         Netsh interface portproxy add v4tov4 listenaddress=169.254.169.254 listenport=80 
-                        connectaddress=$IMSProxyIpAddress connectport=80  protocol=tcp
-
-   	Launch a clientcontainer with IMSProxyIpAddress passed in via environment variable option (-e). 
-
-         docker run -it -e IMSProxyIpAddress msitest/test:clientcontainer
+         docker run -it --label MSIClientContainer clientImageName
          
    4.	MSI requests were triggered from inside a clientcontainer 
    
    5. MSI requests got forwarded to the ProxyContainer, which in turn send them through the MSI VM Extension
       for getting the actual MSI metadata before returning the result back to the requesting clientcontainer
 
+
+   Note: Both the client containers and the proxycontainer are in the same subnet.
+   Design considerations:
+      
    - Pros:
+      - This approach requires No additional logics added for into the client container image code      
+      - Both the client containers and the proxycontainer are in the same subnet (NAT).
       - Supported by WindowsServer:1709 and later
-      - Support NAT (bridge) network mode
       - Fits well into DC/OS Mesos’s Docker Containerizer model 
+      
    - Cons:
-      - This approach requires additional logics added for into the client container code
-      - Some setup operations  (step c above) outside of container payload
-      - NAT is not as performing as Transparent or L2Bridge networking modes
+      - Required configuration operations outside of containers:
+        the additon of the "Container Monitor Task", which requires some work
+        This was added to workaround the limitation that the existing Windows networking routing feature does include 
+        the iptable routing feature (rerouting traffics to a specific net interface) on NAT mode 
+      - In the future, once we move to Mesos' Univeral Container Runtime, we might use CNI plug and use L2Bridge mode instead
+      - NAT might not be as performing as Transparent or L2Bridge networking modes
 
 
 ## How to run this test 
