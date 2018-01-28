@@ -32,6 +32,7 @@ Note:
 ## Launch a proxy container instance with "MSIProxyContainer" as its label
     
          C:\github\MSIExperiment\pf2>docker run -it --label MSIProxyContainer proxy
+         
          C:\app>echo "Start running setupproxynet.ps1"
          "Start running setupproxynet.ps1"
 
@@ -121,6 +122,7 @@ Note:
 ## Locate the ProxyContainer's IP address
         
        PS C:\github\MSIExperiment\pf2> .\LocateProxyAndSetEnv.ps1
+       
        Searching for the proxy container and set the IMSProxyIpAddress to its ip address if found
        IMSProxyIpAddress is null
        proxyCotnainerName is [clever_heisenberg]
@@ -137,6 +139,7 @@ Note:
 ## Locate the ClientContainer's IP address and setup port forwarding configuration
         
        PS C:\github\MSIExperiment\pf2> .\LocateClientAndSetupPortforward.ps1
+       
        Client cotnainer name is [quirky_swirles]
        IPAddress is [172.21.201.154]
        Client cotnainer name is [quirky_swirles]
