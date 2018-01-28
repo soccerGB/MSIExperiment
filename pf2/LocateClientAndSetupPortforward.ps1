@@ -43,10 +43,18 @@ write-output "Setup port forwarding"
 $portForwardingCommand = "docker exec $ContainerName Netsh interface portproxy add v4tov4 listenaddress=169.254.169.254 listenport=80 connectaddress=$existingProxyAddress connectport=80  protocol=tcp"
 Invoke-Expression $portForwardingCommand
 
-write-output "Try out first MSI access from inside the client container"
-$getMSICommand = "docker exec $ContainerName curl -H Metadata:true `"http://169.254.169.254`""
-Invoke-Expression $getMSICommand
+#write-output "Try out first MSI access from inside the client container"
+#$testFirstMSICommand = "docker exec $ContainerName powershell `" `$headers=`@{}; `$headers[`"Metadata`"] = `"True`";  
+#		   Invoke-WebRequest -Uri `"http://169.254.169.254`" -Method GET -Headers `$headers -UseBasicParsing`""
+#Invoke-Expression $testFirstMSICommand
+
 
 write-output "Done!"
+
+
+write-output "Inside the client contianer ($ContainerName), you can exercise the following command to get MSI data"
+write-output "`$headers=`@{}"
+write-output "`$headers[`"Metadata`"] = `"True`""
+write-output "Invoke-WebRequest -Uri `"http://169.254.169.254`" -Method GET -Headers `$headers -UseBasicParsing"
 
 
