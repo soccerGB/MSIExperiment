@@ -20,10 +20,6 @@
      This image is needed for testing purpose only, for helping creaste a simple server inside the proxycontainer.
      
      You can build this image from [here](https://github.com/soccerGB/MSIExperiment/tree/master/PortForwardingNat/pythonOn1709)
-               
-               
-            
-For test images, you can use above prebuilt images or build from the source [test cotnainer images build instructions](https://github.com/soccerGB/MSIExperiment/blob/master/docs/HowToBuildTestContainer.md)
 
 # Test run
 
