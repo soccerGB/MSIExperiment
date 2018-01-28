@@ -11,9 +11,7 @@
 
 - proxy: 
          
-     This is the ProxyContainer image
-     
-     You can build this image from [here](https://github.com/soccerGB/MSIExperiment/blob/master/PortForwardingNat/proxy/dockerfile)
+     This is the ProxyContainer image. You can build this image from [here](https://github.com/soccerGB/MSIExperiment/blob/master/PortForwardingNat/proxy/dockerfile)
                
 - pythonrs3:
 
