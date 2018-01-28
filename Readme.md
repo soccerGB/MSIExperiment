@@ -1,12 +1,14 @@
 
-# Port forwarding  
+# Experiments on proxying MSI requests proxying in a Windows agent node on a DC/OS cluster deployed on Azure 
 
-   This experiment was to find a way to access [Azure's Instance Metadata Service](https://docs.microsoft.com/en-us/azure/virtual-machines/windows/instance-metadata-service) endpoint (http:// 169.254.169.254) from client containers through a dedicated proxy container. My experiment belows show, with appropriate port fordwarding and routing setup,  it's possible to achieve above scenario inside a Azure VM running a WindowsServerCore build. 
+   This experiment was to find a way to access [Azure's Instance Metadata Service](https://docs.microsoft.com/en-us/azure/virtual-machines/windows/instance-metadata-service) endpoint (http:// 169.254.169.254) from client containers through a dedicated proxy container. My experiment below show this can be done with appropriate port fordwarding and routing setup on a DC/OS Windows agent node running WindowsServerCore:1709 build. 
 
 ![Block diagram for Proxying Instance Metadata Service request](https://github.com/soccerGB/MSIExperiment/blob/master/PortForwardingNat/docs/InstanceMetadata.png "Proxying Instance Metadata Service request")
 
 
-Note: This ProxyContainer plays similiar role like [iam-docker](https://github.com/swipely/iam-docker) used in an EC2 instance. This experiment only focuses on the Windows specific setup needed in an Windows VM under Azure environment for the MSI proxying to work, that is, the addional setup discussed here needed to add on top of a component with similiar functinoality like iam-docker for the whole end-to-end scenario to work in production.
+Note: 
+- This ProxyContainer plays similiar role like [iam-docker](https://github.com/swipely/iam-docker) used in an EC2 instance except both client containers and the proxycontainer are in the same subnet. 
+- This experiment only focuses on the Windows specific setup needed in an Windows VM under Azure environment for the MSI proxying to work, that is, the additional setup discussed here needed to add on top of a component with similiar functinoality like iam-docker for the whole end-to-end scenario to work in production.
 
 ## How it works
 
@@ -51,5 +53,5 @@ Here is the operation sequence:
 
 ## How to run this test 
 
-   [Here is a test run of the current prototype](https://github.com/soccerGB/MSIExperiment/blob/master/pf2/docs/TestRun.md)
+   [Here is a test run of the current prototype](https://github.com/soccerGB/MSIExperiment/blob/master/PortForwardingNat/docs/TestRun.md)
 
