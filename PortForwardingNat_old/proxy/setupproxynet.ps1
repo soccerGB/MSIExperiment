@@ -1,4 +1,4 @@
-﻿Import-Module NetAdapter
+Import-Module NetAdapter
 Import-Module Microsoft.PowerShell.Utility
 
 # Collect networking information for adding a new route to the proxycontainer's route table
@@ -11,8 +11,5 @@ New-NetRoute –DestinationPrefix "169.254.169.254/32" –InterfaceIndex $ifInde
 route print -4
 
 # testing the access to the MSI
-
-$headers = @{}                                                                                        
-$headers["Metadata"] = "`"True`""
 Write-Host "Testing access to the  Instance Metadata Service" from the proxy container"
-Invoke-WebRequest -Uri "http://169.254.169.254/metadata/instance?api-version=2017-04-02" -Method GET  -Headers $headers -UseBasicParsing" | Write-Host
+Invoke-WebRequest -Uri "http://169.254.169.254/metadata/instance?api-version=2017-04-02" -Method GET  -Headers {"Metadata"="True"} -UseBasicParsing" | Write-Host

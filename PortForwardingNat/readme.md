@@ -51,5 +51,5 @@ Here is the operation sequence:
 
 ## How to run this test 
 
-   [Here is a test run of the current prototype](https://github.com/soccerGB/MSIExperiment/blob/master/PortForwardingNat/docs/TestRun.md)
+   [Here is a test run of the current prototype](https://github.com/soccerGB/MSIExperiment/blob/master/pf2/docs/TestRun.md)
 
