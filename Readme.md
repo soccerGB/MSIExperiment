@@ -14,6 +14,8 @@ Note:
 
 ![Detailed interaction diagramt](https://github.com/soccerGB/MSIExperiment/blob/master/PortForwardingNat/docs/DetailedMSIPortforwardingComponents.png "Proxying Instance Metadata Service request")
 
+ps.Only the color components need ne coding
+
 Here is the operation sequence:
 
    1. Schedule a Container Monitor Task
