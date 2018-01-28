@@ -1,17 +1,23 @@
 
 # Test container images involved
 
-   There are 3 images involved.
+         C:\Users\azureuser>docker images
+         REPOSITORY                    TAG                 IMAGE ID            CREATED             SIZE
+         proxy                         latest              e01d9c4eece6        16 hours ago        6.29GB
+         pythonrs3                     latest              562a18440715        18 hours ago        6.25GB
+         microsoft/windowsservercore   1709                0a41f8d5bbff        3 weeks ago         6.09GB
+         microsoft/nanoserver          1709                c4f1aa3885f1        3 weeks ago         303MB
 
-      1. Windows RS3 (build 1709) images:
-            microsoft/windowsservercore:1709
 
-      2. Windows test images:
-      - msitest/test:proxycontainer
-               In reponse to metadate quests from client continers. the proxycontainer accesses 
-               the Instance Metadat Service on behalf of client containers
-      - msitest/test:pythonwindow1709
-               This image is needed for testing purpose only: to help run a simple server inside the proxycontainer 
+         proxy: 
+               This is the ProxyContainer image
+               You can build this image from [here](https://github.com/soccerGB/MSIExperiment/tree/master/PortForwardingNat/proxy)
+               
+         pythonrs3: This image is needed for testing purpose only, for helping creaste a simple server 
+                    inside the proxycontainer. 
+                    You can build this image from [here](https://github.com/soccerGB/MSIExperiment/tree/master/PortForwardingNat/pythonOn1709)
+               
+               
             
 For test images, you can use above prebuilt images or build from the source [test cotnainer images build instructions](https://github.com/soccerGB/MSIExperiment/blob/master/docs/HowToBuildTestContainer.md)
 
@@ -54,8 +60,9 @@ Inside an VM that has access to Azure's Instance Metadata Service:
 
 ## Logging for an example run
         1. Launch a proxy container instance with "MSIProxyContainer" as label
-        
-                 C:\app>echo "Start running setupproxynet.ps1"
+    
+                C:\github\MSIExperiment\pf2>docker run -it --label MSIProxyContainer proxy
+                C:\app>echo "Start running setupproxynet.ps1"
                 "Start running setupproxynet.ps1"
 
                 C:\app>PowerShell -NoProfile -ExecutionPolicy Bypass -Command "& '.\setupproxynet.ps1'"
