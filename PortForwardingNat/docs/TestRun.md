@@ -28,13 +28,12 @@ For test images, you can use above prebuilt images or build from the source [tes
 # Test run
 
 Note: 
-   
-   1. This test was run inside a Windows agent node of an DC/OS cluster hosted on Azure
-   2. There is no "Container Monitor Task" in this test run. It was replaced by running two Powershell scripts manually
+   - This test was run inside a Windows agent node of an DC/OS cluster hosted on Azure
+   - There is no "Container Monitor Task" in this test run. It was replaced by running two Powershell scripts manually
       ([LocateProxyAndSetEnv.ps1](https://github.com/soccerGB/MSIExperiment/blob/master/PortForwardingNat/scripts/LocateProxyAndSetEnv.ps1) and [LocateClientAndSetupPortforward.ps1](https://github.com/soccerGB/MSIExperiment/blob/master/PortForwardingNat/scripts/LocateClientAndSetupPortforward.ps1))
 
 
-        1. Launch a proxy container instance with "MSIProxyContainer" as label
+## Launch a proxy container instance with "MSIProxyContainer" as label
     
          C:\github\MSIExperiment\pf2>docker run -it --label MSIProxyContainer proxy
          C:\app>echo "Start running setupproxynet.ps1"
@@ -120,109 +119,109 @@ Note:
          C:\app>python .\app.py
          * Running on http://0.0.0.0:80/ (Press CTRL+C to quit)
         
-        2.Locate the ProxyContainer's IP address and setup environment variable:
+## Locate the ProxyContainer's IP address and setup environment variable:
         
-                PS C:\github\MSIExperiment\pf2> .\LocateProxyAndSetEnv.ps1
-                Searching for the proxy container and set the IMSProxyIpAddress to its ip address if found
-                IMSProxyIpAddress is null
-                proxyCotnainerName is [clever_heisenberg]
-                proxyAddress is [172.21.198.75]
-                proxyaddress found is [172.21.198.75]
-                set IMSProxyIpAddress=172.21.198.75
-                172.21.198.75
-                PS C:\github\MSIExperiment\pf2>
+       PS C:\github\MSIExperiment\pf2> .\LocateProxyAndSetEnv.ps1
+       Searching for the proxy container and set the IMSProxyIpAddress to its ip address if found
+       IMSProxyIpAddress is null
+       proxyCotnainerName is [clever_heisenberg]
+       proxyAddress is [172.21.198.75]
+       proxyaddress found is [172.21.198.75]
+       set IMSProxyIpAddress=172.21.198.75
+       172.21.198.75
+       PS C:\github\MSIExperiment\pf2>
 
-        3.  Launch a client container with "ClientContainer" as label
+## Launch a client container with "ClientContainer" as label
         
-                C:\github\MSIExperiment\pf2>docker run -it --label ClientContainer microsoft/windowsservercore:1709
+       C:\github\MSIExperiment\pf2>docker run -it --label ClientContainer microsoft/windowsservercore:1709
 
      
-        4.  Locate the ClientContainer's IP address and setup port forwarding:
+## Locate the ClientContainer's IP address and setup port forwarding:
         
-                PS C:\github\MSIExperiment\pf2> .\LocateClientAndSetupPortforward.ps1
-                Client cotnainer name is [quirky_swirles]
-                IPAddress is [172.21.201.154]
-                Client cotnainer name is [quirky_swirles]
-                IMSProxyIpAddress = [172.21.198.75]
-                Adding 169.254.169.254 ip address to the container net interface
-                interfaceIndex  = 29
+       PS C:\github\MSIExperiment\pf2> .\LocateClientAndSetupPortforward.ps1
+       Client cotnainer name is [quirky_swirles]
+       IPAddress is [172.21.201.154]
+       Client cotnainer name is [quirky_swirles]
+       IMSProxyIpAddress = [172.21.198.75]
+       Adding 169.254.169.254 ip address to the container net interface
+       interfaceIndex  = 29
 
 
-                IPAddress         : 169.254.169.254
-                InterfaceIndex    : 29
-                InterfaceAlias    : vEthernet (Ethernet) 2
-                AddressFamily     : IPv4
-                Type              : Unicast
-                PrefixLength      : 32
-                PrefixOrigin      : Manual
-                SuffixOrigin      : Manual
-                AddressState      : Tentative
-                ValidLifetime     : Infinite ([TimeSpan]::MaxValue)
-                PreferredLifetime : Infinite ([TimeSpan]::MaxValue)
-                SkipAsSource      : False
-                PolicyStore       : ActiveStore
+       IPAddress         : 169.254.169.254
+       InterfaceIndex    : 29
+       InterfaceAlias    : vEthernet (Ethernet) 2
+       AddressFamily     : IPv4
+       Type              : Unicast
+       PrefixLength      : 32
+       PrefixOrigin      : Manual
+       SuffixOrigin      : Manual
+       AddressState      : Tentative
+       ValidLifetime     : Infinite ([TimeSpan]::MaxValue)
+       PreferredLifetime : Infinite ([TimeSpan]::MaxValue)
+       SkipAsSource      : False
+       PolicyStore       : ActiveStore
 
-                IPAddress         : 169.254.169.254
-                InterfaceIndex    : 29
-                InterfaceAlias    : vEthernet (Ethernet) 2
-                AddressFamily     : IPv4
-                Type              : Unicast
-                PrefixLength      : 32
-                PrefixOrigin      : Manual
-                SuffixOrigin      : Manual
-                AddressState      : Invalid
-                ValidLifetime     : Infinite ([TimeSpan]::MaxValue)
-                PreferredLifetime : Infinite ([TimeSpan]::MaxValue)
-                SkipAsSource      : False
-                PolicyStore       : PersistentStore
+       IPAddress         : 169.254.169.254
+       InterfaceIndex    : 29
+       InterfaceAlias    : vEthernet (Ethernet) 2
+       AddressFamily     : IPv4
+       Type              : Unicast
+       PrefixLength      : 32
+       PrefixOrigin      : Manual
+       SuffixOrigin      : Manual
+       AddressState      : Invalid
+       ValidLifetime     : Infinite ([TimeSpan]::MaxValue)
+       PreferredLifetime : Infinite ([TimeSpan]::MaxValue)
+       SkipAsSource      : False
+       PolicyStore       : PersistentStore
 
 
 
-                ===========================================================================
-                Interface List
-                 28...........................Software Loopback Interface 3
-                 29...00 15 5d d6 62 1b ......Hyper-V Virtual Ethernet Adapter #4
-                ===========================================================================
+       ===========================================================================
+       Interface List
+        28...........................Software Loopback Interface 3
+        29...00 15 5d d6 62 1b ......Hyper-V Virtual Ethernet Adapter #4
+       ===========================================================================
 
-                IPv4 Route Table
-                ===========================================================================
-                Active Routes:
-                Network Destination        Netmask          Gateway       Interface  Metric
-                          0.0.0.0          0.0.0.0     172.21.192.1   172.21.201.154    756
-                        127.0.0.0        255.0.0.0         On-link         127.0.0.1    331
-                        127.0.0.1  255.255.255.255         On-link         127.0.0.1    331
-                  127.255.255.255  255.255.255.255         On-link         127.0.0.1    331
-                     172.21.192.0    255.255.240.0         On-link    172.21.201.154    756
-                   172.21.201.154  255.255.255.255         On-link    172.21.201.154    756
-                   172.21.207.255  255.255.255.255         On-link    172.21.201.154    756
-                        224.0.0.0        240.0.0.0         On-link         127.0.0.1    331
-                        224.0.0.0        240.0.0.0         On-link    172.21.201.154    756
-                  255.255.255.255  255.255.255.255         On-link         127.0.0.1    331
-                  255.255.255.255  255.255.255.255         On-link    172.21.201.154    756
-                ===========================================================================
-                Persistent Routes:
-                  Network Address          Netmask  Gateway Address  Metric
-                          0.0.0.0          0.0.0.0     172.21.192.1  Default
-                  169.254.169.254  255.255.255.255     172.21.192.1  Default
-                          0.0.0.0          0.0.0.0     172.21.192.1  Default
-                ===========================================================================
-                wait for the network setting to be ready for use...
-                Setup port forwarding
+       IPv4 Route Table
+       ===========================================================================
+       Active Routes:
+       Network Destination        Netmask          Gateway       Interface  Metric
+                 0.0.0.0          0.0.0.0     172.21.192.1   172.21.201.154    756
+               127.0.0.0        255.0.0.0         On-link         127.0.0.1    331
+               127.0.0.1  255.255.255.255         On-link         127.0.0.1    331
+         127.255.255.255  255.255.255.255         On-link         127.0.0.1    331
+            172.21.192.0    255.255.240.0         On-link    172.21.201.154    756
+          172.21.201.154  255.255.255.255         On-link    172.21.201.154    756
+          172.21.207.255  255.255.255.255         On-link    172.21.201.154    756
+               224.0.0.0        240.0.0.0         On-link         127.0.0.1    331
+               224.0.0.0        240.0.0.0         On-link    172.21.201.154    756
+         255.255.255.255  255.255.255.255         On-link         127.0.0.1    331
+         255.255.255.255  255.255.255.255         On-link    172.21.201.154    756
+       ===========================================================================
+       Persistent Routes:
+         Network Address          Netmask  Gateway Address  Metric
+                 0.0.0.0          0.0.0.0     172.21.192.1  Default
+         169.254.169.254  255.255.255.255     172.21.192.1  Default
+                 0.0.0.0          0.0.0.0     172.21.192.1  Default
+       ===========================================================================
+       wait for the network setting to be ready for use...
+       Setup port forwarding
 
-                Done!
-                Inside the client contianer (quirky_swirles), you can exercise the following command to get MSI data
-                $headers=@{}
-                $headers["Metadata"] = "True"
-                Invoke-WebRequest -Uri "http://169.254.169.254" -Method GET -Headers $headers -UseBasicParsing
-                PS C:\github\MSIExperiment\pf2>
+       Done!
+       Inside the client contianer (quirky_swirles), you can exercise the following command to get MSI data
+       $headers=@{}
+       $headers["Metadata"] = "True"
+       Invoke-WebRequest -Uri "http://169.254.169.254" -Method GET -Headers $headers -UseBasicParsing
+       PS C:\github\MSIExperiment\pf2>
 
 
         
         
-  5. From inside a client container, any request for http://169.254.169.254 will be forwarded to the proxycontainer 
+## From inside a client container, any request for http://169.254.169.254 will be forwarded to the proxycontainer 
      for getting MSI metadata before returning back to the client
   
-      - From inside a client container:
+### From inside a client container:
      
                 C:\>powershell
                 Windows PowerShell
@@ -254,8 +253,7 @@ Note:
                 Links             : {}
                 ParsedHtml        :
                 RawContentLength  : 564
-
-      - From inside the proxy container:
+### From inside the proxy container:
 
                  C:\app>python .\app.py
                  * Running on http://0.0.0.0:80/ (Press CTRL+C to quit)
