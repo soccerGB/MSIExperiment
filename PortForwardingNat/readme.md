@@ -49,7 +49,7 @@ Here is the operation sequence:
       - NAT is not as performing as Transparent or L2Bridge networking modes
 
 
-## How to run this test 
+## Test run
 
    [Here is a test run of the current prototype](https://github.com/soccerGB/MSIExperiment/blob/master/PortForwardingNat/docs/TestRun.md)
 
