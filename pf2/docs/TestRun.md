@@ -8,16 +8,9 @@
             microsoft/nanoserver:1709
 
       2. Windows test images:
-            
-      -  msitest/test:clientcontainer
-
-                    All 169.254.169.254:80 requests got forwarded to the proxycontainer(see net.ps1)
-
       - msitest/test:proxycontainer
-
-                     In reponse to metadate quests from client continers. the proxycontainer accesses 
-                     the Instance Metadat Service on behalf of client containers
-
+                  In reponse to metadate quests from client continers. the proxycontainer accesses 
+                  the Instance Metadat Service on behalf of client containers
       - msitest/test:pythonwindow1709
             
 For test images, you can use above prebuilt images or build from the source [test cotnainer images build instructions](https://github.com/soccerGB/MSIExperiment/blob/master/docs/HowToBuildTestContainer.md)
