@@ -41,24 +41,25 @@ Here is the operation sequence:
          docker run -it --label MSIClientContainer clientImageName
          
    4.	MSI requests were triggered from inside a clientcontainer 
+      The return metadata will be sent back the requesting client container once returned from the MSI service (in step 5)
    
    5. MSI requests got forwarded to the ProxyContainer, which in turn send them through the MSI VM Extension
       for getting the actual MSI metadata before returning the result back to the requesting clientcontainer
 
-
    Design considerations:
       
    - Pros:
-      - This approach requires No additional logics added for into the client container image code      
+      - Fits well into DC/OS Mesos’s Docker Containerizer model     
+      - This approach requires no additional logics added for into the client container image code      
       - Both the client containers and the proxycontainer are in the same subnet (NAT).
       - Supported by WindowsServer:1709 and later
-      - Fits well into DC/OS Mesos’s Docker Containerizer model 
       
    - Cons:
       - Required configuration operations outside of containers:
         the additon of the "Container Monitor Task", which requires some work
-        This was added to workaround the limitation that the existing Windows networking routing feature does include 
-        the iptable routing feature (rerouting traffics to a specific net interface) on NAT mode 
+        This was added to workaround the limitation that the existing Windows networking routing feature does NOT include 
+        the Linux iptable routing feature (rerouting all traffics with specifc dest IP from a NAT to a specific net interface)
+        in the context of the NAT networking mode 
       - In the future, once we move to Mesos' Univeral Container Runtime, we might use CNI plug and use L2Bridge mode instead
       - NAT might not be as performing as Transparent or L2Bridge networking modes
 
