@@ -39,7 +39,6 @@ Here is the operation sequence:
       for getting the actual MSI metadata before returning the result back to the requesting clientcontainer
 
 
-   Note: Both the client containers and the proxycontainer are in the same subnet.
    Design considerations:
       
    - Pros:
