@@ -21,9 +21,11 @@
                 "network":{"interface":[{"ipv4":{"ipAddress":[{"privateIpAddress":"10.0.0.5","publicIpAddress":""}],
                 "subnet":[{"address":"10.0.0.0","prefix":"16"}]},"ipv6":{"ipAddress":[]},"macAddress":"000D3AF9AECA"}]}}
         
+        2.  Launch a client container with "ClientContainer" as label
         
+                C:\github\MSIExperiment\pf2>docker run -it --label ClientContainer microsoft/windowsservercore:1709
         
-        1. Add 169.254.169.254 as a new IP addess to the interface via docker exec
+        3. Add 169.254.169.254 as a new IP addess to the interface via docker exec
         
               PS C:\github\MSIExperiment\pf2\client> docker exec ecc564884e7b powershell  "get-netadapter | select -expand ifIndex"
               29
