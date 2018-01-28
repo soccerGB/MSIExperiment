@@ -30,7 +30,9 @@ For test images, you can use above prebuilt images or build from the source [tes
 Note: 
    - This test was run inside a Windows agent node of an DC/OS cluster hosted on Azure
    - There is no "Container Monitor Task" in this test run. It was replaced by running two Powershell scripts manually
-      ([LocateProxyAndSetEnv.ps1](https://github.com/soccerGB/MSIExperiment/blob/master/PortForwardingNat/scripts/LocateProxyAndSetEnv.ps1) and [LocateClientAndSetupPortforward.ps1](https://github.com/soccerGB/MSIExperiment/blob/master/PortForwardingNat/scripts/LocateClientAndSetupPortforward.ps1))
+      ([LocateProxyAndSetEnv.ps1](https://github.com/soccerGB/MSIExperiment/blob/master/PortForwardingNat/scripts/LocateProxyAndSetEnv.ps1) and [LocateClientAndSetupPortforward.ps1](https://github.com/soccerGB/MSIExperiment/blob/master/PortForwardingNat/scripts/LocateClientAndSetupPortforward.ps1)) 
+      at right moments
+      
 
 
 ## Launch a proxy container instance with "MSIProxyContainer" as its label
@@ -253,11 +255,11 @@ Note:
                 
 ### From inside the proxy container:
 
-               From the logging spewed out from the simple webserver, it shows its gettings MSI requests forwarded to it from 
-               172.21.201.154, which is the ip address assigned to the client container in this test run
-               
-                C:\app>python .\app.py
-                * Running on http://0.0.0.0:80/ (Press CTRL+C to quit)
-                client request connecting...
-                retrun from 169.254.169.254 endpoint ...
-                172.21.201.154 - - [28/Jan/2018 08:32:14] "GET / HTTP/1.1" 200 -
+      From the logging spewed out from the simple webserver, it shows its gettings MSI requests 
+      forwarded to it from 172.21.201.154, which is the ip address assigned to the client container in this test run
+
+       C:\app>python .\app.py
+       * Running on http://0.0.0.0:80/ (Press CTRL+C to quit)
+       client request connecting...
+       retrun from 169.254.169.254 endpoint ...
+       172.21.201.154 - - [28/Jan/2018 08:32:14] "GET / HTTP/1.1" 200 -
