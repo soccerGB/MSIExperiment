@@ -93,13 +93,7 @@
 
 2. Setup port fordwarding from 169.254.169.254:80 -> ProxyContain IP address:80
 
-          PS C:\github\MSIExperiment\pf2\client> docker exec ecc564884e7b "Netsh interface portproxy add v4tov4 listenaddress=169.254.169.254 listenport=80 connectad
-          dress=172.21.193.97 connectport=80  protocol=tcp"
-          container ecc564884e7beb3dc954de564c7aa10e046ca4504ea38d5e6a1ffbe1eda5844f encountered an error during CreateProcess: failure in a Windows system call: The system cannot find the file specified. (0x2) extra info: {"ApplicationName":"","CommandLine":"\"Netsh interface portproxy add v4tov4 listenaddress=169.254.169.254 listenport=80 connectaddress=172.21.193.97 connectport=80  protocol=tcp\"","User":"","WorkingDirectory":"C:\\","Environment":{},"EmulateConsole":false,"CreateStdInPipe":true,"CreateStdOutPipe":true,"CreateStdErrPipe":true,"ConsoleSize":[0,0]}
-          PS C:\github\MSIExperiment\pf2\client> docker exec ecc564884e7b Netsh interface portproxy add v4tov4 listenaddress=169.254.169.254 listenport=80 connectadd
-          ress=172.21.193.97 connectport=80  protocol=tcp
-
-        PS C:\github\MSIExperiment\pf2\client>
+                  PS C:\github\MSIExperiment\pf2\client> docker exec ecc564884e7b Netsh interface portproxy add v4tov4 listenaddress=169.254.169.254 listenport=80 connectaddress=172.21.193.97 connectport=80  protocol=tcp
         
   3. From inside a client container, any request for http://169.254.169.254 will be forwarded to the proxycontainer for getting MSI metadata 
      before returning back to the client
