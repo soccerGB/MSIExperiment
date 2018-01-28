@@ -29,9 +29,8 @@ For test images, you can use above prebuilt images or build from the source [tes
 
 Note: 
    
-   This test was run inside a Windows agent node of an DC/OS cluster hosted on Azure
-         
-   There is no "Container Monitor Task" in this test run. It was replaced by running two Powershell scripts manually
+   1. This test was run inside a Windows agent node of an DC/OS cluster hosted on Azure
+   2. There is no "Container Monitor Task" in this test run. It was replaced by running two Powershell scripts manually
       ([LocateProxyAndSetEnv.ps1](https://github.com/soccerGB/MSIExperiment/blob/master/PortForwardingNat/scripts/LocateProxyAndSetEnv.ps1) and [LocateClientAndSetupPortforward.ps1](https://github.com/soccerGB/MSIExperiment/blob/master/PortForwardingNat/scripts/LocateClientAndSetupPortforward.ps1))
 
 
