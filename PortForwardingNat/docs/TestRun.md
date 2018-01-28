@@ -206,44 +206,44 @@ Note:
  
 ### From inside a client container:
     
-              Any requests target for http://169.254.169.254 will be forwarded to the proxycontainer, which will return  
-              the MSI metadata back the requesting container once it's recieved from the MSI service
-              
-                C:\>powershell
-                Windows PowerShell
-                Copyright (C) Microsoft Corporation. All rights reserved.
+     Any requests target for http://169.254.169.254 will be forwarded to the proxycontainer, which will return  
+     the MSI metadata back the requesting container once it's recieved from the MSI service
 
-                PS C:\> $headers=@{}
-                PS C:\> $headers["Metadata"] = "True"
-                PS C:\> Invoke-WebRequest -Uri "http://169.254.169.254" -Method GET -Headers $headers -UseBasicParsing
+       C:\>powershell
+       Windows PowerShell
+       Copyright (C) Microsoft Corporation. All rights reserved.
 
-                StatusCode        : 200
-                StatusDescription : OK
-                Content           : {"compute":
-                                         {"location":"westus2",
-                                          "name":"wp35723900-vmss_1",
-                                           "offer":"WindowsServerSemiAnnual",
-                                           "osType":"Windows",
-                                           "platformFaultDomain":"1",
-                                           "platformUpdateDomain":"1",
-                                           "publisher":"MicrosoftWindowsServe...
-                RawContent        : HTTP/1.0 200 OK
-                                    Content-Length: 564
-                                    Content-Type: text/html; charset=utf-8
-                                    Date: Sun, 28 Jan 2018 08:32:14 GMT
-                                    Server: Werkzeug/0.14.1 Python/3.7.0a2
+       PS C:\> $headers=@{}
+       PS C:\> $headers["Metadata"] = "True"
+       PS C:\> Invoke-WebRequest -Uri "http://169.254.169.254" -Method GET -Headers $headers -UseBasicParsing
 
-                                    {"compute":{"location":"westus2","name":"wp...
-                Forms             :
-                Headers           : {[Content-Length, 564], [Content-Type, text/html; charset=utf-8], 
-                                   [Date, Sun, 28 Jan 2018 08:32:14 GMT],
-                                    [Server, Werkzeug/0.14.1 Python/3.7.0a2]}
-                Images            : {}
-                InputFields       : {}
-                Links             : {}
-                ParsedHtml        :
-                RawContentLength  : 564
-                
+       StatusCode        : 200
+       StatusDescription : OK
+       Content           : {"compute":
+                                {"location":"westus2",
+                                 "name":"wp35723900-vmss_1",
+                                  "offer":"WindowsServerSemiAnnual",
+                                  "osType":"Windows",
+                                  "platformFaultDomain":"1",
+                                  "platformUpdateDomain":"1",
+                                  "publisher":"MicrosoftWindowsServe...
+       RawContent        : HTTP/1.0 200 OK
+                           Content-Length: 564
+                           Content-Type: text/html; charset=utf-8
+                           Date: Sun, 28 Jan 2018 08:32:14 GMT
+                           Server: Werkzeug/0.14.1 Python/3.7.0a2
+
+                           {"compute":{"location":"westus2","name":"wp...
+       Forms             :
+       Headers           : {[Content-Length, 564], [Content-Type, text/html; charset=utf-8], 
+                          [Date, Sun, 28 Jan 2018 08:32:14 GMT],
+                           [Server, Werkzeug/0.14.1 Python/3.7.0a2]}
+       Images            : {}
+       InputFields       : {}
+       Links             : {}
+       ParsedHtml        :
+       RawContentLength  : 564
+
                 
 ### From inside the proxy container:
 
