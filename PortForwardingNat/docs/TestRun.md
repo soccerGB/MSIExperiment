@@ -1,5 +1,5 @@
 
-# Test container images involved
+# Test required container images
 
          C:\Users\azureuser>docker images
          REPOSITORY                    TAG                 IMAGE ID            CREATED             SIZE
@@ -37,89 +37,89 @@ Note:
 
         1. Launch a proxy container instance with "MSIProxyContainer" as label
     
-                C:\github\MSIExperiment\pf2>docker run -it --label MSIProxyContainer proxy
-                C:\app>echo "Start running setupproxynet.ps1"
-                "Start running setupproxynet.ps1"
+         C:\github\MSIExperiment\pf2>docker run -it --label MSIProxyContainer proxy
+         C:\app>echo "Start running setupproxynet.ps1"
+         "Start running setupproxynet.ps1"
 
-                C:\app>PowerShell -NoProfile -ExecutionPolicy Bypass -Command "& '.\setupproxynet.ps1'"
-                gatewayIP = 172.21.192.1
-                MSFT_NetRoute (InstanceID = ";@C8???8;@C8???9??55??55;A?8?;8;C?8;55;...)
-                MSFT_NetRoute (InstanceID = ";@C8???8;@C8???9??55??55;A?8?;8;C?8;55:...)
-                ===========================================================================
-                Interface List
-                 23...........................Software Loopback Interface 2
-                 24...00 15 5d d6 66 3d ......Hyper-V Virtual Ethernet Adapter #3
-                ===========================================================================
+         C:\app>PowerShell -NoProfile -ExecutionPolicy Bypass -Command "& '.\setupproxynet.ps1'"
+         gatewayIP = 172.21.192.1
+         MSFT_NetRoute (InstanceID = ";@C8???8;@C8???9??55??55;A?8?;8;C?8;55;...)
+         MSFT_NetRoute (InstanceID = ";@C8???8;@C8???9??55??55;A?8?;8;C?8;55:...)
+         ===========================================================================
+         Interface List
+         23...........................Software Loopback Interface 2
+         24...00 15 5d d6 66 3d ......Hyper-V Virtual Ethernet Adapter #3
+         ===========================================================================
 
-                IPv4 Route Table
-                ===========================================================================
-                Active Routes:
-                Network Destination        Netmask          Gateway       Interface  Metric
-                          0.0.0.0          0.0.0.0     172.21.192.1    172.21.198.75    756
-                        127.0.0.0        255.0.0.0         On-link         127.0.0.1    331
-                        127.0.0.1  255.255.255.255         On-link         127.0.0.1    331
-                  127.255.255.255  255.255.255.255         On-link         127.0.0.1    331
-                  169.254.169.254  255.255.255.255     172.21.192.1    172.21.198.75    756
-                     172.21.192.0    255.255.240.0         On-link     172.21.198.75    756
-                    172.21.198.75  255.255.255.255         On-link     172.21.198.75    756
-                   172.21.207.255  255.255.255.255         On-link     172.21.198.75    756
-                        224.0.0.0        240.0.0.0         On-link         127.0.0.1    331
-                        224.0.0.0        240.0.0.0         On-link     172.21.198.75    756
-                  255.255.255.255  255.255.255.255         On-link         127.0.0.1    331
-                  255.255.255.255  255.255.255.255         On-link     172.21.198.75    756
-                ===========================================================================
-                Persistent Routes:
-                  Network Address          Netmask  Gateway Address  Metric
-                          0.0.0.0          0.0.0.0     172.21.192.1  Default
-                  169.254.169.254  255.255.255.255     172.21.192.1  Default
-                ===========================================================================
-                Testing access to the  Instance Metadata Service from the proxy container
-                Invoke-WebRequest -Uri http://169.254.169.254/metadata/instance?api-version=2017-04-02 
-                                  -Method GET  -Headers System.Collections.Hashtable -UseBasicParsing
+         IPv4 Route Table
+         ===========================================================================
+         Active Routes:
+         Network Destination        Netmask          Gateway       Interface  Metric
+                 0.0.0.0          0.0.0.0     172.21.192.1    172.21.198.75    756
+               127.0.0.0        255.0.0.0         On-link         127.0.0.1    331
+               127.0.0.1  255.255.255.255         On-link         127.0.0.1    331
+         127.255.255.255  255.255.255.255         On-link         127.0.0.1    331
+         169.254.169.254  255.255.255.255     172.21.192.1    172.21.198.75    756
+            172.21.192.0    255.255.240.0         On-link     172.21.198.75    756
+           172.21.198.75  255.255.255.255         On-link     172.21.198.75    756
+          172.21.207.255  255.255.255.255         On-link     172.21.198.75    756
+               224.0.0.0        240.0.0.0         On-link         127.0.0.1    331
+               224.0.0.0        240.0.0.0         On-link     172.21.198.75    756
+         255.255.255.255  255.255.255.255         On-link         127.0.0.1    331
+         255.255.255.255  255.255.255.255         On-link     172.21.198.75    756
+         ===========================================================================
+         Persistent Routes:
+         Network Address          Netmask  Gateway Address  Metric
+                 0.0.0.0          0.0.0.0     172.21.192.1  Default
+         169.254.169.254  255.255.255.255     172.21.192.1  Default
+         ===========================================================================
+         Testing access to the  Instance Metadata Service from the proxy container
+         Invoke-WebRequest -Uri http://169.254.169.254/metadata/instance?api-version=2017-04-02 
+                         -Method GET  -Headers System.Collections.Hashtable -UseBasicParsing
 
-                C:\app>echo "Launch a webserver for listing to client container request"
-                "Launch a webserver for listing to client container request"
+         C:\app>echo "Launch a webserver for listing to client container request"
+         "Launch a webserver for listing to client container request"
 
-                C:\app>curl -H Metadata:true "http://169.254.169.254/metadata/instance?api-version=2017-04-02"
-                {"compute":{"location":"westus2",
-                "name":"wp35723900-vmss_1","offer":"WindowsServerSemiAnnual","osType":"Windows",
-                "platformFaultDomain":"1","platformUpdateDomain":"1",
-                "publisher":"MicrosoftWindowsServer",
-                "sku":"Datacenter-Core-1709-with-Containers-smalldisk"
-                ,"version":"1709.0.20171219","vmId":"a7c7a8a7-7cdb-4c49-a3a5-d67dc6aa2050",
-                "vmSize":"Standard_D2s_v3"},
-                "network":{"interface":[{"ipv4":{"ipAddress":[{"privateIpAddress":"10.0.0.5","publicIpAddress":""}],
-                "subnet":[{"address":"10.0.0.0","prefix":"16"}]},
-                "ipv6":{"ipAddress":[]},"macAddress":"000D3AF9AECA"}]}}
-                C:\app>ipconfig
+         C:\app>curl -H Metadata:true "http://169.254.169.254/metadata/instance?api-version=2017-04-02"
+         {"compute":{"location":"westus2",
+         "name":"wp35723900-vmss_1","offer":"WindowsServerSemiAnnual","osType":"Windows",
+         "platformFaultDomain":"1","platformUpdateDomain":"1",
+         "publisher":"MicrosoftWindowsServer",
+         "sku":"Datacenter-Core-1709-with-Containers-smalldisk"
+         ,"version":"1709.0.20171219","vmId":"a7c7a8a7-7cdb-4c49-a3a5-d67dc6aa2050",
+         "vmSize":"Standard_D2s_v3"},
+         "network":{"interface":[{"ipv4":{"ipAddress":[{"privateIpAddress":"10.0.0.5","publicIpAddress":""}],
+         "subnet":[{"address":"10.0.0.0","prefix":"16"}]},
+         "ipv6":{"ipAddress":[]},"macAddress":"000D3AF9AECA"}]}}
+         C:\app>ipconfig
 
-                Windows IP Configuration
+         Windows IP Configuration
 
 
-                Ethernet adapter vEthernet (Ethernet):
+         Ethernet adapter vEthernet (Ethernet):
 
-                   Connection-specific DNS Suffix  . : kqatyr3wm3ielb4nh2ebyxeyvh.xx.internal.cloudapp.net
-                   Link-local IPv6 Address . . . . . : fe80::9039:bc41:18bc:2e18%24
-                   IPv4 Address. . . . . . . . . . . : 172.21.198.75
-                   Subnet Mask . . . . . . . . . . . : 255.255.240.0
-                   Default Gateway . . . . . . . . . : 172.21.192.1
+          Connection-specific DNS Suffix  . : kqatyr3wm3ielb4nh2ebyxeyvh.xx.internal.cloudapp.net
+          Link-local IPv6 Address . . . . . : fe80::9039:bc41:18bc:2e18%24
+          IPv4 Address. . . . . . . . . . . : 172.21.198.75
+          Subnet Mask . . . . . . . . . . . : 255.255.240.0
+          Default Gateway . . . . . . . . . : 172.21.192.1
 
-                C:\app>echo " Run the following commands into each client
-                " Run the following commands into each client
+         C:\app>echo " Run the following commands into each client
+         " Run the following commands into each client
 
-                C:\app>echo " $ifIndex = get-netadapter | select -expand ifIndex "
-                " $ifIndex = get-netadapter | select -expand ifIndex "
+         C:\app>echo " $ifIndex = get-netadapter | select -expand ifIndex "
+         " $ifIndex = get-netadapter | select -expand ifIndex "
 
-                C:\app>echo " New-NetIPAddress -InterfaceIndex $ifIndex -IPAddress 169.254.169.254
-                " New-NetIPAddress -InterfaceIndex $ifIndex -IPAddress 169.254.169.254
+         C:\app>echo " New-NetIPAddress -InterfaceIndex $ifIndex -IPAddress 169.254.169.254
+         " New-NetIPAddress -InterfaceIndex $ifIndex -IPAddress 169.254.169.254
 
-                C:\app>echo " Netsh interface portproxy add v4tov4 listenaddress=169.254.169.254 
-                listenport=80 connectaddress=$IMSProxyIpAddress connectport=80  protocol=tcp"
-                " Netsh interface portproxy add v4tov4 listenaddress=169.254.169.254 listenport=80 
-                connectaddress=$IMSProxyIpAddress connectport=80  protocol=tcp"
+         C:\app>echo " Netsh interface portproxy add v4tov4 listenaddress=169.254.169.254 
+         listenport=80 connectaddress=$IMSProxyIpAddress connectport=80  protocol=tcp"
+         " Netsh interface portproxy add v4tov4 listenaddress=169.254.169.254 listenport=80 
+         connectaddress=$IMSProxyIpAddress connectport=80  protocol=tcp"
 
-                C:\app>python .\app.py
-                 * Running on http://0.0.0.0:80/ (Press CTRL+C to quit)
+         C:\app>python .\app.py
+         * Running on http://0.0.0.0:80/ (Press CTRL+C to quit)
         
         2.Locate the ProxyContainer's IP address and setup environment variable:
         
