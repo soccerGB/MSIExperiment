@@ -1,6 +1,9 @@
+param (
+    [string]$ContainerLabel
+)
 
-$ContainerLabel="ClientContainer"
-#$ContainerName="empty"
+write-output "Locating the IP address for the contaienr with --lable=$ContainerLabel"
+
 function locateClientIpAddress {
 	$Address=$null
 	$ContainerName = docker ps --filter "label=$ContainerLabel" --format '{{.Names}}'
