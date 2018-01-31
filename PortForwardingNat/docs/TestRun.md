@@ -120,13 +120,15 @@ Note:
        172.21.198.75
        PS C:\github\MSIExperiment\pf2>
 
-## 3. Launch a client container with "ClientContainer" as its label
+## 3. Launch a client container with "ClientContainer[X]" as its label
         
        C:\github\MSIExperiment\pf2>docker run -it --label ClientContainer microsoft/windowsservercore:1709
 
+      ps. You can run repeat step 3 and step 4 for many clients as needed
+      
 ## 4. Locate the ClientContainer's IP address and setup port forwarding configuration
         
-       PS C:\github\MSIExperiment\pf2> .\LocateClientAndSetupPortforward.ps1
+       PS C:\github\MSIExperiment\pf2> .\LocateClientAndSetupPortforward.ps1  -ContainerLabel ClientContainer
        
        Client cotnainer name is [quirky_swirles]
        IPAddress is [172.21.201.154]
@@ -163,15 +165,11 @@ Note:
        PreferredLifetime : Infinite ([TimeSpan]::MaxValue)
        SkipAsSource      : False
        PolicyStore       : PersistentStore
-
-
-
        ===========================================================================
        Interface List
         28...........................Software Loopback Interface 3
         29...00 15 5d d6 62 1b ......Hyper-V Virtual Ethernet Adapter #4
        ===========================================================================
-
        IPv4 Route Table
        ===========================================================================
        Active Routes:
@@ -203,7 +201,6 @@ Note:
        $headers["Metadata"] = "True"
        Invoke-WebRequest -Uri "http://169.254.169.254" -Method GET -Headers $headers -UseBasicParsing
        PS C:\github\MSIExperiment\pf2>
-
  
 ### From inside a client container:
     
