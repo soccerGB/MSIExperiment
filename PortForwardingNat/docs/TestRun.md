@@ -30,7 +30,7 @@ Note:
       
 
 
-## Launch a proxy container instance with "MSIProxyContainer" as its label
+## 1. Launch a proxy container instance with "MSIProxyContainer" as its label
     
          C:\github\MSIExperiment\pf2>docker run -it --label MSIProxyContainer proxy
          
@@ -107,7 +107,7 @@ Note:
          C:\app>python .\app.py
          * Running on http://0.0.0.0:80/ (Press CTRL+C to quit)
         
-## Locate the ProxyContainer's IP address
+## 2. Locate the ProxyContainer's IP address
         
        PS C:\github\MSIExperiment\pf2> .\LocateProxyAndSetEnv.ps1
        
@@ -120,11 +120,11 @@ Note:
        172.21.198.75
        PS C:\github\MSIExperiment\pf2>
 
-## Launch a client container with "ClientContainer" as its label
+## 3. Launch a client container with "ClientContainer" as its label
         
        C:\github\MSIExperiment\pf2>docker run -it --label ClientContainer microsoft/windowsservercore:1709
 
-## Locate the ClientContainer's IP address and setup port forwarding configuration
+## 4. Locate the ClientContainer's IP address and setup port forwarding configuration
         
        PS C:\github\MSIExperiment\pf2> .\LocateClientAndSetupPortforward.ps1
        
