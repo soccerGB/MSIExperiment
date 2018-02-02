@@ -44,7 +44,7 @@ Start-Sleep -s 4
 write-output "Setup port forwarding"
 
 $portForwardingCommand = "docker exec $ContainerName Netsh interface portproxy add v4tov4 listenaddress=169.254.169.254 listenport=80 connectaddress=$existingProxyAddress connectport=80  protocol=tcp"
-Invoke-Expression $portForwardingCommand
+#Invoke-Expression $portForwardingCommand
 
 #write-output "Try out first MSI access from inside the client container"
 #$testFirstMSICommand = "docker exec $ContainerName powershell `" `$headers=`@{}; `$headers[`"Metadata`"] = `"True`";  
