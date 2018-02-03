@@ -6,7 +6,6 @@ import (
   "net/http"
   "net/http/httputil"
   "net/url"
-  //"regexp"
 )
 
 var (
@@ -34,8 +33,8 @@ func New(target string) *Prox {
 
 func (p *Prox) handle(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("handle() called\n")
-	fmt.Println("Set header\n")
   	w.Header().Set("X-GoProxy", "GoProxy")
+
 	// call to magic method from ReverseProxy object
 	p.proxy.ServeHTTP(w, r)
 }
@@ -48,7 +47,7 @@ func init() {
 
 func main() {
 
-	fmt.Println("Hello world!")
+	fmt.Println("Utiltiy container is running!")
 
 	// flags
 	flag.Parse()

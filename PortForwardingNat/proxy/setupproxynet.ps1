@@ -1,4 +1,8 @@
-﻿Import-Module NetAdapter
+﻿
+# The only one thing that this script does is to add a new route for 169.254.169.254/32
+# inside the proxycontainer to make it possible to access MSI service
+
+Import-Module NetAdapter
 Import-Module Microsoft.PowerShell.Utility
 
 # Collect networking information for adding a new route to the proxycontainer's route table
@@ -8,35 +12,13 @@ Write-Host "gatewayIP = $gatewayIP"
 New-NetRoute –DestinationPrefix "169.254.169.254/32" –InterfaceIndex $ifIndex –NextHop $gatewayIP | Write-Host
 
 
-#New-NetIPAddress -InterfaceIndex $ifIndex -IPAddress 169.254.169.254
+# Any scripts below this line for testing and debugging only 
 
-<#
-Write-host "wait for the network setting to be ready for use..."
-Start-Sleep -s 4
-
-
-$ProxyContainerLabel="ProxyContainer"
-$proxyCotnainerName = docker ps --filter "label=$ProxyContainerLabel" --format '{{.Names}}'
-Write-Host "proxyCotnainerName is [$proxyCotnainerName]"
-$proxyAddress = docker inspect --format='{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $proxyCotnainerName
-
-Write-Host "proxyAddress = $proxyAddress"
-
-
-$containIP = Get-NetIPAddress -InterfaceIndex $ifIndex -AddressFamily IpV4
-$IPAddress = $containIP.IPAddress
-Write-Host "IPAddress  = $IPAddress"
-
-write-output "Setup port forwarding"
-$portForwardingCommand = "Netsh interface portproxy add v4tov4 listenaddress=169.254.169.254 listenport=80 connectaddress=$IPAddress connectport=80  protocol=tcp"
-Invoke-Expression $portForwardingCommand
-#>
-
-# for debugging, print out the routing table contents
+# Print out the routing table contents
+# The following block is for the MSI access testing 
 route print -4
 
-# testing the access to the MSI
-
+# The following block is for the MSI access testing 
 $headers = @{}                                                                                        
 $headers["Metadata"] = "`"True`""
 Write-Host "Testing access to the  Instance Metadata Service" from the proxy container"
