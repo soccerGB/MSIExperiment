@@ -15,11 +15,15 @@ header = {'Metadata':'True'}
 
 @app.route("/")
 def hello():
-    print("HTTP request: from client ...")
-    print(request.headers.get('X-Forwarded-For'))
-    print(header)
+    print("HTTP request: from client:" + request.headers.get('X-Forwarded-For'))
+    
+#    header2=request.headers 
+#    print(header2)
+#    print("url:")
+#    print(request.url)
+
     r=requests.get(url=mdUrl, headers=header)
-    print("returned from 169.254.169.254 endpoint ...")
+    print("returned from 169.254.169.254 endpoint ...") 
     return r.text
   
 if __name__ == "__main__":

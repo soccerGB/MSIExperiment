@@ -49,8 +49,15 @@ Invoke-Expression $addIpAddressCommand
 $printRouteCommand = "docker exec $proxyContainerName route print -4"
 Invoke-Expression $printRouteCommand 
 
-Write-host "wait for the network setting to be ready for use..."
-Start-Sleep -s 4
+#Write-host "wait for the network setting to be ready for use..."
+Start-Sleep -s 3
+
+# Launch the MSI proxy service inside the proxy container
+$targetIpPort=$msiServiceContainerIpAddress + ":80"
+$launchProxyServiceCommand = "docker exec $proxyContainerName c:\app\proxy -proxyip $targetIpPort"
+write-output $launchProxyServiceCommand 
+Invoke-Expression $launchProxyServiceCommand
+
 
 write-output "Done!"
 
