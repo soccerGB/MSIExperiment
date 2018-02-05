@@ -71,7 +71,7 @@ Here is the operation sequence:
         the Linux iptable routing feature (rerouting all traffics with specifc dest IP from a NAT to a specific net interface)
         in the context of the NAT networking mode 
 
-## How to run this test 
+## An example test run 
 
    [A look at this test run log here will get you better idea on how it actually works](https://github.com/soccerGB/MSIRequestProxy/blob/master/docs/TestRun.md)
 
