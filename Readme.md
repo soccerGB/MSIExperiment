@@ -34,21 +34,21 @@ Here is the operation sequence:
          
    3. Schedule a gloabl task to setup the MSI request forwarding 
    
-         - This is a long running task, it jobs is to locate the MSIServiceClient container's ip addess before using it to set
-           up the MSI request forwarding configuration. This configuration is done remotely via "docker exec" command into the 
-           ProxyContainer container instance 
+            This is a long running task, it jobs is to locate the MSIServiceClient container's ip addess before using it to set
+            up the MSI request forwarding configuration. This configuration is done remotely via "docker exec" command into the 
+            ProxyContainer container instance 
          
   4.	Launch app containers
   
          Example:
          docker run -d microsoft/windowsservercore:1709 cmd     
      
-  5.	MSI requests were triggered from inside an app ontainer 
-      The return metadata will be sent back the requesting client container once returned from the MSI service (in step 5)
-   
-  6. MSI requests got forwarded to the ProxyContainer, which in turn send them through the MSI VM Extension
-      for getting the actual MSI metadata before returning the result back to the requesting clientcontainer
-
+  5.	MSI requests were sent from inside an app ontainer 
+         
+  6.  MSI requests got forwarded to the Proxy Container, which in turn sends them to the MSIServiceClient container for making 
+      requests to through the MSI VM Extension to get the actual MSI metadata before returning the result back to the requesting
+      clientcontainer
+      
    Design considerations:
       
    - Pros:
@@ -56,14 +56,12 @@ Here is the operation sequence:
       - This approach requires no additional logics added for into the app container image code      
       - Both the Proxy container and the MSIServiceClient are in the same subnet as all app containers requesting MSI 
         metadata
-      - Supported by WindowsServer:1709 and later
+      - Does not depend particular version of Windows
       
    - Cons:
       - Required configuration operations outside of containers:
-        the additon of the "Global task" for configuring the MSI request forwarding, this was needed to workaround the 
-        limitation, in the context of the NAT networking mode, that the existing Windows networking routing feature
-        does NOT include the Linux iptable routing feature (rerouting all traffics with specifc dest IP from a NAT to
-        a specific net interface)
+        the additon of the "Global task" for configuring the MSI request forwarding, which is needed to workaround the 
+        existing Windows routing limitation - it does not support the Linux iptable routing feature used in [docker-iam] project(https://github.com/swipely/iam-docker) : (rerouting all traffics with specifc dest IP from a NAT to a specific net interface)
       
 ## An example test run 
 
