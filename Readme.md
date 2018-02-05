@@ -34,7 +34,9 @@ Here is the operation sequence:
       
    2.	Build and launch the Proxycontainer with MSIProxyContainer as its label
 
-         docker run -it --label MSIProxyContainer clientImageName
+         proxy\docker build -t proxy .
+
+         docker run -it --label MSIProxyContainer proxy
          
    3. Schedule a gloabl task to setup the MSI request forwarding 
    
