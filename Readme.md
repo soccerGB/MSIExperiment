@@ -20,34 +20,19 @@ ps.Color blocks are new components
 Here is the operation sequence:
 
    
-   0.	Build and launch MSIServiceClient container image.
+   1.	Launch MSIServiceClient container image.
    
-      C:\github\MSIRequestProxy\pythonOn1709> docker build -t pythonon1709 .
-      C:\github\MSIRequestProxy\msiserviceclient>docker build -t msiserviceclient .
-      C:\github\MSIRequestProxy\proxy>docker build -t msiserviceclient .
-
-      C:\github\MSIRequestProxy\pythonOn1709>docker images
-      REPOSITORY                    TAG                 IMAGE ID            CREATED             SIZE
-      proxy                         latest              d5db1ac1de23        5 minutes ago       6.57GB
-      msiserviceclient              latest              d98b7f1a5331        12 minutes ago      6.29GB
-      pythonon1709                  latest              bcf47de890e3        14 minutes ago      6.25GB
-      golang                        latest              1002c7d901fc        12 days ago         6.53GB
-      microsoft/windowsservercore   1709                0a41f8d5bbff        4 weeks ago         6.09GB
-      microsoft/nanoserver          1709                c4f1aa3885f1        4 weeks ago         303MB
-      
-         - The msiserviceclient container image depends on pythononwindows for setting up a simple http server.
-
-         - Inside the msiserviceclient container image, the following new route added into its routing table 
-           as part of the container startup sequence. This is needed for enabling accessing MSI from
-           inside the MSIServiceClient container
-
-            New-NetRoute –DestinationPrefix "169.254.169.254/32" –InterfaceIndex $ifIndex –NextHop $gatewayIP
-
       Launch the proxycontainer with MSIServiceClient as its label
       
             docker run -it --label  MSIServiceClient msiserviceclient
+            
+      Note:  Inside the msiserviceclient container image, the following new route added into its routing table 
+                as part of the container startup sequence. This is needed for enabling accessing MSI from
+                inside the MSIServiceClient container
+
+            New-NetRoute –DestinationPrefix "169.254.169.254/32" –InterfaceIndex $ifIndex –NextHop $gatewayIP
              
-   2.	Build and launch the Proxycontainer with MSIProxyContainer as its label
+   2.	Launch the Proxycontainer with MSIProxyContainer as its label
 
          proxy\docker build -t proxy .
 
