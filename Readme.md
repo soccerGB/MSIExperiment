@@ -20,10 +20,20 @@ ps.Color blocks are new components
 Here is the operation sequence:
 
    
-   1.	Build and launch MSIServiceClient container image.
+   0.	Build and launch MSIServiceClient container image.
    
-      C:\github\MSIRequestProxy\pythononwindows> docker build -t pythononwindows . 
-      C:\github\MSIRequestProxy\msiserviceclient> docker build -t msiserviceclient .
+      C:\github\MSIRequestProxy\pythonOn1709> docker build -t pythonon1709 .
+      C:\github\MSIRequestProxy\msiserviceclient>docker build -t msiserviceclient .
+      C:\github\MSIRequestProxy\proxy>docker build -t msiserviceclient .
+
+      C:\github\MSIRequestProxy\pythonOn1709>docker images
+      REPOSITORY                    TAG                 IMAGE ID            CREATED             SIZE
+      proxy                         latest              d5db1ac1de23        5 minutes ago       6.57GB
+      msiserviceclient              latest              d98b7f1a5331        12 minutes ago      6.29GB
+      pythonon1709                  latest              bcf47de890e3        14 minutes ago      6.25GB
+      golang                        latest              1002c7d901fc        12 days ago         6.53GB
+      microsoft/windowsservercore   1709                0a41f8d5bbff        4 weeks ago         6.09GB
+      microsoft/nanoserver          1709                c4f1aa3885f1        4 weeks ago         303MB
       
          - The msiserviceclient container image depends on pythononwindows for setting up a simple http server.
 
