@@ -8,8 +8,7 @@
 
 Note: 
 - The ProxyContainer handles all the MSI requests on behalf app containers 
-- The MSIServiceClient container plays a similiar role like [iam-docker](https://github.com/swipely/iam-docker) used in an EC2 instance except both client containers and the proxycontainer are in the same subnet. 
-- This experiment only focuses on the Windows specific setup needed in an Windows VM under Azure environment for the MSI proxying to work, that is, the additional setup discussed here needed to be added add on top of a component with similiar functinoality like iam-docker for the whole end-to-end scenario to work in production.
+- The MSIServiceClient container plays a similiar role like [iam-docker](https://github.com/swipely/iam-docker) used in an EC2 instance except both client containers and the proxycontainer are in the same subnet, except it's a simplified version , it only focuses on the Windows specific setup needed in an Windows VM under Azure environment for the MSI proxying to work, that is, the additional setup discussed here needed to be added add on top of a component with similiar functinoality like iam-docker for the whole end-to-end scenario to work in production.
 
 ## How it works
 
