@@ -19,23 +19,19 @@ ps.Color blocks are new components
 Here is the operation sequence:
 
    
-   1.	Launch MSIServiceClient container image.
+   1.	Launch an MSIServiceClient container instance with MSIServiceClient as its label
    
-      Launch the proxycontainer with MSIServiceClient as its label
-      
             docker run -it --label  MSIServiceClient msiserviceclient
             
       Note:  Inside the msiserviceclient container image, the following new route added into its routing table 
-                as part of the container startup sequence. This is needed for enabling accessing MSI from
-                inside the MSIServiceClient container
+             as part of the container startup sequence. This is needed for enabling accessing MSI from
+             inside the MSIServiceClient container
 
-            New-NetRoute –DestinationPrefix "169.254.169.254/32" –InterfaceIndex $ifIndex –NextHop $gatewayIP
+             New-NetRoute –DestinationPrefix "169.254.169.254/32" –InterfaceIndex $ifIndex –NextHop $gatewayIP
              
-   2.	Launch the Proxycontainer with MSIProxyContainer as its label
+   2.	Launch the Proxy container instance with MSIProxyContainer as its label
 
-         proxy\docker build -t proxy .
-
-         docker run -it --label MSIProxyContainer proxy
+            docker run -it --label MSIProxyContainer proxy
          
    3. Schedule a gloabl task to setup the MSI request forwarding 
    
