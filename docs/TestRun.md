@@ -174,6 +174,10 @@ Note:
             MSIServiceContainer: name([elated_stonebraker]) ipaddress([172.23.16.46])
             docker exec wizardly_goldberg c:\app\proxy -proxyip 172.23.16.46:80
             ....
+            
+            
+Note . In this test run, manually running SetupMSIProxy.ps1 was used to replace 
+         "Schedule a gloabl task to setup the MSI request forwarding" step in the Readme.md
 
 ## 4. Run any number of app containers
 
