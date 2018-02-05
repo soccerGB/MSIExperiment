@@ -15,11 +15,25 @@ Note:
 
 ![Detailed interaction diagramt](https://github.com/soccerGB/MSIRequestProxy/blob/master/docs/DetailedMSIPortforwardingComponents.png "Proxying Instance Metadata Service request")
 
-ps.Only the color components need ne coding
+ps.Color blocks are new components
 
 Here is the operation sequence:
 
-   1. Schedule a Container Monitor Task
+   
+   1.	Build and run the MSIServiceClient container image with the following new route added into its routing table 
+      as part of the container startup sequence
+
+      New-NetRoute –DestinationPrefix "169.254.169.254/32" –InterfaceIndex $ifIndex –NextHop $gatewayIP
+
+      Launch the proxycontainer with MSIServiceClient  as its label
+      docker run -it --label  MSIServiceClient MSIServiceClientImageName 
+      
+      
+   2.	Build and launch the Proxycontainer with MSIProxyContainer as its label
+
+         docker run -it --label MSIProxyContainer clientImageName
+         
+   3. Schedule a Container Monitor Task
    
          - This is a long running task, it jobs is to monitor the life cycle of each container with specific 
             labels ("MSIProxyContainer" or "MSIClientContainer")
@@ -29,22 +43,15 @@ Here is the operation sequence:
          - This task should also handle the required reconfiguration scenarios in cases that the ProxyContainer died and restarted 
          
    
-   2.	Build the proxycontainer image with the following new route added into its routing table 
-      as part of the container startup sequence
-
-      New-NetRoute –DestinationPrefix "169.254.169.254/32" –InterfaceIndex $ifIndex –NextHop $gatewayIP
-
-      Launch the proxycontainer with MSIProxyContainer as its label
-      docker run -it --label MSIProxyContainer proxyImageName 
-
-   3.	Launch a clientcontainer instances with MSIClientContainer as its label
-
-         docker run -it --label MSIClientContainer clientImageName
-         
-   4.	MSI requests were triggered from inside a clientcontainer 
+  4.	Launch app containers
+  
+         Example:
+         docker run -d microsoft/windowsservercore:1709 cmd     
+     
+  5.	MSI requests were triggered from inside an app ontainer 
       The return metadata will be sent back the requesting client container once returned from the MSI service (in step 5)
    
-   5. MSI requests got forwarded to the ProxyContainer, which in turn send them through the MSI VM Extension
+  6. MSI requests got forwarded to the ProxyContainer, which in turn send them through the MSI VM Extension
       for getting the actual MSI metadata before returning the result back to the requesting clientcontainer
 
    Design considerations:
