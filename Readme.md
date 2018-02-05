@@ -55,7 +55,8 @@ Here is the operation sequence:
    - Pros:
       - Fits well into DC/OS Mesos’s Docker Containerizer model     
       - This approach requires no additional logics added for into the client container image code      
-      - Both the client containers and the proxycontainer are in the same subnet (NAT).
+      - Both the ProxyContainer and the MSIServiceContaienr are in the same subnet as all app containers requesting MSI 
+        metadata
       - Supported by WindowsServer:1709 and later
       
    - Cons:
@@ -64,9 +65,6 @@ Here is the operation sequence:
         This was added to workaround the limitation that the existing Windows networking routing feature does NOT include 
         the Linux iptable routing feature (rerouting all traffics with specifc dest IP from a NAT to a specific net interface)
         in the context of the NAT networking mode 
-      - In the future, once we move to Mesos' Univeral Container Runtime, we might use CNI plug and use L2Bridge mode instead
-      - NAT might not be as performing as Transparent or L2Bridge networking modes
-
 
 ## How to run this test 
 
