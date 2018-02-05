@@ -1,7 +1,7 @@
 
 # Experiments on proxying MSI requests proxying in a Windows agent node on a DC/OS cluster deployed on Azure 
 
-   This experiment was to find a way to access [Azure's Instance Metadata Service](https://docs.microsoft.com/en-us/azure/virtual-machines/windows/instance-metadata-service) endpoint (http:// 169.254.169.254) from client containers through a dedicated proxy container. The experiment below show this can be done with appropriate request forwading and routing setup on a DC/OS Windows agent node running WindowsServerCore:1709 build. 
+   This experiment was to find a way to access [Azure's Instance Metadata Service](https://docs.microsoft.com/en-us/azure/virtual-machines/windows/instance-metadata-service) endpoint (http:// 169.254.169.254) from app containers through a dedicated proxy container. The experiment below shows this can be done with appropriate request forwading and routing setup on a DC/OS Windows agent node running WindowsServerCore:1709 build. 
 
 ![Block diagram for Proxying Instance Metadata Service request](https://github.com/soccerGB/MSIRequestProxy/blob/master/docs/InstanceMetadata.png "Proxying Instance Metadata Service request")
 
