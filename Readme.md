@@ -34,9 +34,9 @@ Here is the operation sequence:
          
    3. Schedule a gloabl task to setup the MSI request forwarding 
    
-            This is a long running task, it jobs is to locate the MSIServiceClient container's ip addess before using it 
-            to set up the MSI request forwarding configuration. This configuration is done remotely via "docker exec" 
-            command into the ProxyContainer container instance 
+            This is a long running task, it jobs is to locate the MSIServiceClient container's ip addess before 
+            using it to set up the MSI request forwarding configuration. This configuration is done remotely via 
+            "docker exec" command into the ProxyContainer container instance 
          
   4.	Launch app containers
   
