@@ -1,6 +1,6 @@
 
 $MSIProxyContainerLabel = "MSIProxyContainer"
-$MSIServiceContainerLabel = "MSIServiceContainer"
+$MSIServiceContainerLabel = "MSIServiceClientContainer"
 
 function LocateContainerIpAddressByLabel{
     Param(
@@ -34,6 +34,7 @@ Write-Host "MSIServiceContainer: name([$msiServiceContainerName]) ipaddress([$ms
 #$existingProxyAddress =[Environment]::GetEnvironmentVariable($IpAddressEnvName, $VariableScope)
 #write-output "IMSProxyIpAddress = [$existingProxyAddress]"
 
+<#
 # This is the key operation of this script: addig 169.254.169.254 IP address to
 # the proxycontainer, which would cause all the MSI metadata requests (via 169.254.169.254)
 # all go to the proxycontainer
@@ -51,6 +52,7 @@ Invoke-Expression $printRouteCommand
 
 #Write-host "wait for the network setting to be ready for use..."
 Start-Sleep -s 3
+#>
 
 # Launch the MSI proxy service inside the proxy container
 $targetIpPort=$msiServiceContainerIpAddress + ":80"
