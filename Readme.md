@@ -59,18 +59,18 @@ Here is the operation sequence:
       
    - Pros:
       - Fits well into DC/OS Mesos’s Docker Containerizer model     
-      - This approach requires no additional logics added for into the client container image code      
-      - Both the ProxyContainer and the MSIServiceContaienr are in the same subnet as all app containers requesting MSI 
+      - This approach requires no additional logics added for into the app container image code      
+      - Both the Proxy container and the MSIServiceClient are in the same subnet as all app containers requesting MSI 
         metadata
       - Supported by WindowsServer:1709 and later
       
    - Cons:
       - Required configuration operations outside of containers:
-        the additon of the "Container Monitor Task", which requires some work
-        This was added to workaround the limitation that the existing Windows networking routing feature does NOT include 
-        the Linux iptable routing feature (rerouting all traffics with specifc dest IP from a NAT to a specific net interface)
-        in the context of the NAT networking mode 
-
+        the additon of the "Global task" for configuring the MSI request forwarding, this was needed to workaround the 
+        limitation, in the context of the NAT networking mode, that the existing Windows networking routing feature
+        does NOT include the Linux iptable routing feature (rerouting all traffics with specifc dest IP from a NAT to
+        a specific net interface)
+      
 ## An example test run 
 
    [A look at this test run log here will get you better idea on how it actually works](https://github.com/soccerGB/MSIRequestProxy/blob/master/docs/TestRun.md)
