@@ -26,7 +26,7 @@
            as part of the container startup sequence. This is needed for enabling accessing MSI from
            inside the MSIServiceClient container
 
-   - msiserviceclient [Dockerfile](https://github.com/soccerGB/MSIRequestProxy/blob/master/proxy/dockerfile)  
+   - msiserviceclient [Dockerfile](https://github.com/soccerGB/MSIRequestProxy/blob/master/msiserviceclient/dockerfile)  
 
                    All the actual MSI access is done through this container.
 
