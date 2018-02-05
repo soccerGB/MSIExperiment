@@ -1,44 +1,42 @@
 
 # Container images
 
-      1.	Test container images involved:
+# Test container images involved:
       
-               C:\github\MSIRequestProxy\pythonOn1709>docker images
-               REPOSITORY                    TAG                 IMAGE ID            CREATED             SIZE
-               proxy                         latest              d5db1ac1de23        5 minutes ago       6.57GB
-               msiserviceclient              latest              d98b7f1a5331        12 minutes ago      6.29GB
-               pythonon1709                  latest              bcf47de890e3        14 minutes ago      6.25GB
-               golang                        latest              1002c7d901fc        12 days ago         6.53GB
-               microsoft/windowsservercore   1709                0a41f8d5bbff        4 weeks ago         6.09GB
-               microsoft/nanoserver          1709                c4f1aa3885f1        4 weeks ago         303MB
+         C:\github\MSIRequestProxy\pythonOn1709>docker images
+         REPOSITORY                    TAG                 IMAGE ID            CREATED             SIZE
+         proxy                         latest              d5db1ac1de23        5 minutes ago       6.57GB
+         msiserviceclient              latest              d98b7f1a5331        12 minutes ago      6.29GB
+         pythonon1709                  latest              bcf47de890e3        14 minutes ago      6.25GB
+         golang                        latest              1002c7d901fc        12 days ago         6.53GB
+         microsoft/windowsservercore   1709                0a41f8d5bbff        4 weeks ago         6.09GB
+         microsoft/nanoserver          1709                c4f1aa3885f1        4 weeks ago         303MB
                
-      2.	How to build test container images:
+# How to build test container images:
    
-               C:\github\MSIRequestProxy\pythonOn1709> docker build -t pythonon1709 .
-               C:\github\MSIRequestProxy\msiserviceclient>docker build -t msiserviceclient .
-               C:\github\MSIRequestProxy\proxy>docker build -t msiserviceclient .
-
-
-      
-         - The msiserviceclient container image depends on pythononwindows for setting up a simple http server.
-
-         - Inside the msiserviceclient container image, the following new route added into its routing table 
-           as part of the container startup sequence. This is needed for enabling accessing MSI from
-           inside the MSIServiceClient container
-
    - msiserviceclient [Dockerfile](https://github.com/soccerGB/MSIRequestProxy/blob/master/msiserviceclient/dockerfile)  
 
-                   All the actual MSI access is done through this container.
+            C:\github\MSIRequestProxy\msiserviceclient>docker build -t msiserviceclient .
 
-   - proxy: [Dockerfile](https://github.com/soccerGB/MSIRequestProxy/blob/master/proxy/dockerfile)   
+            All the actual MSI access is done through this container.
+            The msiserviceclient container image depends on pythononwindows for setting up a simple http server.
+            Inside the msiserviceclient container image, the following new route added into its routing table 
+            as part of the container startup sequence. This is needed for enabling accessing MSI from inside the
+            MSIServiceClient container             
 
-                  The proxy container proxies the MSI requests from all other app containers inside the same subnet.
-                  It forwards all the MSI request to the msiserviceclient for the actual MSi operation [Dockerfile]() 
+   - proxy: [Dockerfile](https://github.com/soccerGB/MSIRequestProxy/blob/master/proxy/dockerfile)  
+   
+            C:\github\MSIRequestProxy\proxy>docker build -t msiserviceclient .
+         
+            The proxy container proxies the MSI requests from all other app containers inside the same subnet.
+            It forwards all the MSI request to the msiserviceclient for the actual MSi operation [Dockerfile]() 
 
    - pythonrs3:[Dockerfile](https://github.com/soccerGB/MSIRequestProxy/blob/master/pythonOn1709/dockerfile) 
+   
+            C:\github\MSIRequestProxy\pythonOn1709> docker build -t pythonon1709 .
 
-                  This image is needed for testing purpose only, for helping creaste a simple server 
-                  inside the msiserviceclient.[Dockerfile]() 
+            This image is needed for testing purpose only, for helping creaste a simple server 
+            inside the msiserviceclient.[Dockerfile]() 
 
 
 # Test run
