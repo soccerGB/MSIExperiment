@@ -33,16 +33,12 @@ Here is the operation sequence:
 
          docker run -it --label MSIProxyContainer clientImageName
          
-   3. Schedule a Container Monitor Task
+   3. Schedule a gloabl task to setup the MSI request forwarding 
    
-         - This is a long running task, it jobs is to monitor the life cycle of each container with specific 
-            labels ("MSIProxyContainer" or "MSIClientContainer")
-         - When the ProxyContainer (container with MSIProxyContaienr label, was created, it records its ip address.
-         - For each newly created MSI client container, it will setup its portforwarding configuration remotely 
-           via "docker exec" command with proxy container ip address stored in above steps
-         - This task should also handle the required reconfiguration scenarios in cases that the ProxyContainer died and restarted 
+         - This is a long running task, it jobs is to locate the MSIServiceClient container's ip addess before using it to set
+           up the MSI request forwarding configuration. This configuration is done remotely via "docker exec" command into the 
+           ProxyContainer container instance 
          
-   
   4.	Launch app containers
   
          Example:
