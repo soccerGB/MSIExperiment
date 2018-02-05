@@ -30,7 +30,7 @@ Here is the operation sequence:
          New-NetRoute –DestinationPrefix "169.254.169.254/32" –InterfaceIndex $ifIndex –NextHop $gatewayIP
 
       Launch the proxycontainer with MSIServiceClient as its label
-      docker run -it --label  MSIServiceClient MSIServiceClientImageName 
+         docker run -it --label  MSIServiceClient MSIServiceClientImageName 
       
    2.	Build and launch the Proxycontainer with MSIProxyContainer as its label
 
