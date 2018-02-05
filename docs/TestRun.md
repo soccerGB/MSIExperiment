@@ -1,5 +1,5 @@
 
-# Test required container images
+# Container images
 
       1.	Test container images involved:
       
