@@ -1,23 +1,45 @@
 
 # Test required container images
 
-         C:\Users\azureuser>docker images
-         REPOSITORY                    TAG                 IMAGE ID            CREATED             SIZE
-         proxy                         latest              e01d9c4eece6        16 hours ago        6.29GB
-         pythonrs3                     latest              562a18440715        18 hours ago        6.25GB
-         microsoft/windowsservercore   1709                0a41f8d5bbff        3 weeks ago         6.09GB
-         microsoft/nanoserver          1709                c4f1aa3885f1        3 weeks ago         303MB
-
-
-- proxy: 
-         
-     This is the ProxyContainer image. You can build this image from [here](https://github.com/soccerGB/MSIExperiment/blob/master/PortForwardingNat/proxy/dockerfile)
+      1.	Test container images involved:
+      
+               C:\github\MSIRequestProxy\pythonOn1709>docker images
+               REPOSITORY                    TAG                 IMAGE ID            CREATED             SIZE
+               proxy                         latest              d5db1ac1de23        5 minutes ago       6.57GB
+               msiserviceclient              latest              d98b7f1a5331        12 minutes ago      6.29GB
+               pythonon1709                  latest              bcf47de890e3        14 minutes ago      6.25GB
+               golang                        latest              1002c7d901fc        12 days ago         6.53GB
+               microsoft/windowsservercore   1709                0a41f8d5bbff        4 weeks ago         6.09GB
+               microsoft/nanoserver          1709                c4f1aa3885f1        4 weeks ago         303MB
                
-- pythonrs3:
+      2.	How to build test container images:
+   
+               C:\github\MSIRequestProxy\pythonOn1709> docker build -t pythonon1709 .
+               C:\github\MSIRequestProxy\msiserviceclient>docker build -t msiserviceclient .
+               C:\github\MSIRequestProxy\proxy>docker build -t msiserviceclient .
 
-     This image is needed for testing purpose only, for helping creaste a simple server inside the proxycontainer.
-     
-     You can build this image from [here](https://github.com/soccerGB/MSIExperiment/tree/master/PortForwardingNat/pythonOn1709/dockerfile)
+
+      
+         - The msiserviceclient container image depends on pythononwindows for setting up a simple http server.
+
+         - Inside the msiserviceclient container image, the following new route added into its routing table 
+           as part of the container startup sequence. This is needed for enabling accessing MSI from
+           inside the MSIServiceClient container
+
+   - msiserviceclient: 
+
+                   All the actual MSI access is done through this container.[Dockerfile]() 
+
+   - proxy:   
+
+                  The proxy container proxies the MSI requests from all other app containers inside the same subnet.
+                  It forwards all the MSI request to the msiserviceclient for the actual MSi operation [Dockerfile]() 
+
+   - pythonrs3:
+
+                  This image is needed for testing purpose only, for helping creaste a simple server 
+                  inside the msiserviceclient.[Dockerfile]() 
+
 
 # Test run
 
