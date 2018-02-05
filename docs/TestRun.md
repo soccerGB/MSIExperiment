@@ -35,7 +35,7 @@
                   The proxy container proxies the MSI requests from all other app containers inside the same subnet.
                   It forwards all the MSI request to the msiserviceclient for the actual MSi operation [Dockerfile]() 
 
-   - pythonrs3:[Dockerfile](https://github.com/soccerGB/MSIRequestProxy/blob/master/proxy/dockerfile) 
+   - pythonrs3:[Dockerfile](https://github.com/soccerGB/MSIRequestProxy/blob/master/pythonOn1709/dockerfile) 
 
                   This image is needed for testing purpose only, for helping creaste a simple server 
                   inside the msiserviceclient.[Dockerfile]() 
