@@ -1,14 +1,15 @@
 
 # Experiments on proxying MSI requests proxying in a Windows agent node on a DC/OS cluster deployed on Azure 
 
-   This experiment was to find a way to access [Azure's Instance Metadata Service](https://docs.microsoft.com/en-us/azure/virtual-machines/windows/instance-metadata-service) endpoint (http:// 169.254.169.254) from client containers through a dedicated proxy container. My experiment below show this can be done with appropriate port fordwarding and routing setup on a DC/OS Windows agent node running WindowsServerCore:1709 build. 
+   This experiment was to find a way to access [Azure's Instance Metadata Service](https://docs.microsoft.com/en-us/azure/virtual-machines/windows/instance-metadata-service) endpoint (http:// 169.254.169.254) from client containers through a dedicated proxy container. The experiment below show this can be done with appropriate request forwading and routing setup on a DC/OS Windows agent node running WindowsServerCore:1709 build. 
 
 ![Block diagram for Proxying Instance Metadata Service request](https://github.com/soccerGB/MSIRequestProxy/blob/master/docs/InstanceMetadata.png "Proxying Instance Metadata Service request")
 
 
 Note: 
-- This ProxyContainer plays a similiar role like [iam-docker](https://github.com/swipely/iam-docker) used in an EC2 instance except both client containers and the proxycontainer are in the same subnet. 
-- This experiment only focuses on the Windows specific setup needed in an Windows VM under Azure environment for the MSI proxying to work, that is, the additional setup discussed here needed to add on top of a component with similiar functinoality like iam-docker for the whole end-to-end scenario to work in production.
+- The ProxyContainer handles all the MSI requests on behalf app containers 
+- The MSIServiceClient container plays a similiar role like [iam-docker](https://github.com/swipely/iam-docker) used in an EC2 instance except both client containers and the proxycontainer are in the same subnet. 
+- This experiment only focuses on the Windows specific setup needed in an Windows VM under Azure environment for the MSI proxying to work, that is, the additional setup discussed here needed to be added add on top of a component with similiar functinoality like iam-docker for the whole end-to-end scenario to work in production.
 
 ## How it works
 
