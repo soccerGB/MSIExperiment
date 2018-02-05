@@ -24,8 +24,8 @@ Here is the operation sequence:
    
       MSIClientContainer\docker build -t MSIServiceContainer .
       
-         Inside the image, the following new route added into its routing table as part of the container startup sequence. 
-         This is needed for enabling accessing MSI from inside the MSIServiceClient container
+         Inside the image, the following new route added into its routing table as part of the container startup
+         sequence. This is needed for enabling accessing MSI from inside the MSIServiceClient container
 
          New-NetRoute –DestinationPrefix "169.254.169.254/32" –InterfaceIndex $ifIndex –NextHop $gatewayIP
 
