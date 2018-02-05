@@ -26,16 +26,16 @@
            as part of the container startup sequence. This is needed for enabling accessing MSI from
            inside the MSIServiceClient container
 
-   - msiserviceclient: 
+   - msiserviceclient [Dockerfile](https://github.com/soccerGB/MSIRequestProxy/blob/master/proxy/dockerfile)  
 
-                   All the actual MSI access is done through this container.[Dockerfile]() 
+                   All the actual MSI access is done through this container.
 
-   - proxy:   
+   - proxy: [Dockerfile](https://github.com/soccerGB/MSIRequestProxy/blob/master/proxy/dockerfile)   
 
                   The proxy container proxies the MSI requests from all other app containers inside the same subnet.
                   It forwards all the MSI request to the msiserviceclient for the actual MSi operation [Dockerfile]() 
 
-   - pythonrs3:
+   - pythonrs3:[Dockerfile](https://github.com/soccerGB/MSIRequestProxy/blob/master/proxy/dockerfile) 
 
                   This image is needed for testing purpose only, for helping creaste a simple server 
                   inside the msiserviceclient.[Dockerfile]() 
