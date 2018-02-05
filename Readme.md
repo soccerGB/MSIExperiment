@@ -22,12 +22,12 @@ Here is the operation sequence:
    
    1.	Build and launch MSIServiceClient container image.
    
-      C:\github\MSIRequestProxy\pythonOn1709>docker build -t pythonon1709 .
-      C:\github\MSIRequestProxy\MSIClientContainer>docker build -t msiservicecontainer . 
+      C:\github\MSIRequestProxy\pythononwindows> docker build -t pythononwindows . 
+      C:\github\MSIRequestProxy\msiserviceclient> docker build -t msiserviceclient .
+      
+         - The msiserviceclient container image depends on pythononwindows for setting up a simple http server.
 
-         - The msiservicecontainer image depends on pythonon1709 for setting up a simple http server.
-
-         - Inside the msiservicecontainer image, the following new route added into its routing table 
+         - Inside the msiserviceclient container image, the following new route added into its routing table 
            as part of the container startup sequence. This is needed for enabling accessing MSI from
            inside the MSIServiceClient container
 
@@ -35,8 +35,8 @@ Here is the operation sequence:
 
       Launch the proxycontainer with MSIServiceClient as its label
       
-            docker run -it --label  MSIServiceClient msiservicecontainer
-      
+            docker run -it --label  MSIServiceClient msiserviceclient
+             
    2.	Build and launch the Proxycontainer with MSIProxyContainer as its label
 
          proxy\docker build -t proxy .
