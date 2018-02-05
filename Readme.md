@@ -12,7 +12,7 @@ Note:
 
 ## How it works
 
-![Detailed interaction diagramt](https://github.com/soccerGB/MSIExperiment/blob/master/PortForwardingNat/docs/DetailedMSIPortforwardingComponents.png "Proxying Instance Metadata Service request")
+![Detailed interaction diagramt](https://github.com/soccerGB/MSIRequestProxy/blob/master/docs/DetailedMSIPortforwardingComponents.png "Proxying Instance Metadata Service request")
 
 ps.Only the color components need ne coding
 
