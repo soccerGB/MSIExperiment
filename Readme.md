@@ -77,7 +77,7 @@ Here is the operation sequence:
    - Cons:
       - Required configuration operations outside of containers:
         the additon of the "Global task" for configuring the MSI request forwarding, which is needed to workaround the 
-        existing Windows routing limitation - it does not support the Linux iptable routing feature used in [docker-iam] project(https://github.com/swipely/iam-docker) : (rerouting all traffics with specifc dest IP from a NAT to a specific net interface)
+        existing Windows routing limitation - it does not support the Linux iptable routing feature used in [docker-iam project](https://github.com/swipely/iam-docker) : (rerouting all traffics with specifc dest IP from a NAT to a specific net interface)
       
 ## An example test run 
 
