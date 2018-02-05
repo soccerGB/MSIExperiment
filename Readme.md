@@ -73,5 +73,5 @@ Here is the operation sequence:
 
 ## How to run this test 
 
-   [A look at this test run log here will get you better idea on how it actually works](https://github.com/soccerGB/MSIExperiment/blob/master/PortForwardingNat/docs/TestRun.md)
+   [A look at this test run log here will get you better idea on how it actually works](https://github.com/soccerGB/MSIRequestProxy/blob/master/docs/TestRun.md)
 
