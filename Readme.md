@@ -60,8 +60,8 @@ Here is the operation sequence:
         we would need to reconfigure Proxy contaier's forwarding destination for the proxying to get back to working
         state. Once it's reconfigured, the MSI metadata will become avaiable to the app containers without the need 
         to restart them. 
-     3. In the case, the Proxy container is crashed or lost, it would have to be relaunch and reconfiured (like above) 
-        for the proxying to be functioning again.
+     3. In the case, the Proxy container is crashed or lost, it would have to be relaunch and reconfiured 
+        (like above case 2) for the proxying to be functioning again.
      4. It's likely to pick a fixed known ip address (such as x.x.x.2) inside a subnet, which would simplify the 
         confgure/reconfigure process. It might be tricky to channel this known ip address from a DC/OS service task
      5. In the case that, either the Proxy container or the MSIServiceClient container is unable to resume, the 
