@@ -65,7 +65,9 @@ Here is the operation sequence:
      4. It's likely to pick a fixed known ip address (such as x.x.x.2) inside a subnet, which would simplify the 
         confgure/reconfigure process. It might be tricky to channel this known ip address from a DC/OS service task
      5. In the case that, either the Proxy container or the MSIServiceClient container is unable to resume, the 
-        MSI service will become unavailable to any app containers. This is the behavior in this prototype. 
+        MSI service will become unavailable to any app containers. This is the behavior in this prototype.
+     6. The current Windows networking does not provide a proxy for a NAT, so that is why there are two containers to 
+         make up the proxy functionality instead of just one.
       
    - Pros:
       - Fits well into DC/OS Mesos’s Docker Containerizer model     
