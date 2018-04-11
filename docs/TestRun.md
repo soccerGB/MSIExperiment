@@ -26,7 +26,7 @@
 
    - proxy: [Dockerfile](https://github.com/soccerGB/MSIRequestProxy/blob/master/proxy/dockerfile)  
    
-            C:\github\MSIRequestProxy\proxy>docker build -t msiserviceclient .
+            C:\github\MSIRequestProxy\proxy>docker build -t proxy .
          
             The proxy container proxies the MSI requests from all other app containers inside the same subnet.
             It forwards all the MSI request to the msiserviceclient for the actual MSi operation [Dockerfile]() 
