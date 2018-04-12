@@ -3,14 +3,15 @@
 
 # Test container images involved:
       
-         C:\github\MSIRequestProxy\pythonOn1709>docker images
-         REPOSITORY                    TAG                 IMAGE ID            CREATED             SIZE
-         proxy                         latest              d5db1ac1de23        5 minutes ago       6.57GB
-         msiserviceclient              latest              d98b7f1a5331        12 minutes ago      6.29GB
-         pythonon1709                  latest              bcf47de890e3        14 minutes ago      6.25GB
-         golang                        latest              1002c7d901fc        12 days ago         6.53GB
-         microsoft/windowsservercore   1709                0a41f8d5bbff        4 weeks ago         6.09GB
-         microsoft/nanoserver          1709                c4f1aa3885f1        4 weeks ago         303MB
+            PS C:\> docker images
+            REPOSITORY                            TAG                 IMAGE ID            CREATED             SIZE
+            msiserviceclient                      latest              946c20ad23c4        2 minutes ago       3.8GB
+            python-windows-rs4-insider            latest              8e19e8442def        4 minutes ago       3.79GB
+            proxy                                 latest              ca571384fda9        8 minutes ago       4.01GB
+            golang-windows-rs4-insider            latest              da708fd0e299        9 minutes ago       4GB
+            microsoft/windowsservercore-insider   latest              cfe539d8e1b2        7 days ago          3.68GB
+            microsoft/nanoserver-insider          latest              cf1b1fc82be8        7 days ago          231MB         
+         
                
 # How to build test container images:
    
@@ -33,7 +34,7 @@
 
    - pythonrs3:[Dockerfile](https://github.com/soccerGB/MSIRequestProxy/blob/master/pythonOn1709/dockerfile) 
    
-            C:\github\MSIRequestProxy\pythonOn1709> docker build -t pythonon1709 .
+            C:\github\MSIRequestProxy\pythonOnRS4> docker build -t python-windows-rs4-insider .
 
             This image is needed for testing purpose only, for helping creaste a simple server 
             inside the msiserviceclient.[Dockerfile]() 
@@ -48,7 +49,6 @@ Note:
       at right moments
    - For debugging purpose, the log from below test run has networking config information output 
       
-
 
 ## 1. Launch a msiserviceclient instance with "MSIServiceClientContainer" as its label
     
@@ -171,15 +171,24 @@ Note:
             
             PS C:\github\MSIRequestProxy\scripts> .\SetupMSIProxy.ps1
             Searching for a cotnainer with [MSIProxyContainer] label
-            Found: [wizardly_goldberg]
-            with ip address = [172.23.22.222]
-            proxyContainer: name([wizardly_goldberg]) ipaddress([172.23.22.222])
+            Found: [adoring_goldstine]
+            with ip address = [172.22.235.64]
+            proxyContainer: name([adoring_goldstine]) ipaddress([172.22.235.64])
             Searching for a cotnainer with [MSIServiceClientContainer] label
-            Found: [elated_stonebraker]
-            with ip address = [172.23.16.46]
-            MSIServiceContainer: name([elated_stonebraker]) ipaddress([172.23.16.46])
-            docker exec wizardly_goldberg c:\app\proxy -proxyip 172.23.16.46:80
-            ....
+            Found: [gallant_kowalevski]
+            with ip address = [172.22.230.199]
+            MSIServiceContainer: name([gallant_kowalevski]) ipaddress([172.22.230.199])
+            docker exec adoring_goldstine c:\app\proxy -proxyip 172.22.230.199:80
+            init() called
+            proxyip is
+            Utiltiy container is running!
+            server will run on : %v:%v
+             169.254.169.254 80
+            redirecting to : 172.22.230.199:80
+            backendServiceIpPort :%s
+             http://172.22.230.199:80
+            Waiting for new connection resuest:
+
             
             
 Note . In this test run, manually running SetupMSIProxy.ps1 was used to replace 
@@ -193,74 +202,112 @@ Note . In this test run, manually running SetupMSIProxy.ps1 was used to replace
 
       New a cmd window:
       
-      C:\>docker run -it microsoft/windowsservercore:1709 cmd
-      Microsoft Windows [Version 10.0.16299.192]
-      (c) 2017 Microsoft Corporation. All rights reserved.
+      PS C:\> docker run -it microsoft/windowsservercore-insider cmd
+      Microsoft Windows [Version 10.0.17133.1]
+      (c) 2018 Microsoft Corporation. All rights reserved.
 
       C:\>ipconfig
       Windows IP Configuration
-      Ethernet adapter vEthernet (Ethernet) 2:
-
-         Connection-specific DNS Suffix  . : 0u4ybne0y4fu5ohbuybmvnje0h.xx.internal.cloudapp.net
-         Link-local IPv6 Address . . . . . : fe80::6922:e220:2568:f74e%21
-         IPv4 Address. . . . . . . . . . . : 172.23.17.4
+      Ethernet adapter vEthernet (Ethernet) 3:
+         Connection-specific DNS Suffix  . : w34qrs0grtuexhf54ugtziktnf.xx.internal.cloudapp.net
+         Link-local IPv6 Address . . . . . : fe80::f8d9:14f6:71f8:be6a%35
+         IPv4 Address. . . . . . . . . . . : 172.22.225.58
          Subnet Mask . . . . . . . . . . . : 255.255.240.0
-         Default Gateway . . . . . . . . . : 172.23.16.1
+         Default Gateway . . . . . . . . . : 172.22.224.1
+
          
       App container 2:  
       
       New a cmd window:
-      C:\>docker run -it microsoft/windowsservercore:1709 cmd
-      Microsoft Windows [Version 10.0.16299.192]
-      (c) 2017 Microsoft Corporation. All rights reserved.
+      C:\>docker run -it microsoft/windowsservercore-insider cmd
+      Microsoft Windows [Version 10.0.17133.1]
+      (c) 2018 Microsoft Corporation. All rights reserved.
 
-      C:\>ipconfig      
-        Windows IP Configuration
-        Ethernet adapter vEthernet (Ethernet):
+      C:\>ipconfig
 
-         Connection-specific DNS Suffix  . : 0u4ybne0y4fu5ohbuybmvnje0h.xx.internal.cloudapp.net
-         Link-local IPv6 Address . . . . . : fe80::8133:60f3:472c:e8f8%16
-         IPv4 Address. . . . . . . . . . . : 172.23.27.67
+      Windows IP Configuration
+
+
+      Ethernet adapter vEthernet (Ethernet) 4:
+
+         Connection-specific DNS Suffix  . : w34qrs0grtuexhf54ugtziktnf.xx.internal.cloudapp.net
+         Link-local IPv6 Address . . . . . : fe80::5040:4148:9727:5076%40
+         IPv4 Address. . . . . . . . . . . : 172.22.225.15
          Subnet Mask . . . . . . . . . . . : 255.255.240.0
-         Default Gateway . . . . . . . . . : 172.23.16.1
+         Default Gateway . . . . . . . . . : 172.22.224.1
 
  
-## 5. ready for querying MSI metadata from app containers
+## 5. Querying MSI metadata from app containers
 
-      Inside an app container:
+      Accessing MSI data from inside the container 1:
       
       C:\>curl -H Metadata:true "http://169.254.169.254"
-            {"compute":
-                  {"location":"westus2",
-                  "name":"wp27499900-vmss_0",
-                  "offer":"WindowsServerSemiAnnual",
+      {
+            "compute":{
+                  "location":"westus2",
+                  "name":"wp41724900-vmss_1",
+                  "offer":"",
                   "osType":"Windows",
-                  "platformFaultDomain":"0",
-                  "platformUpdateDomain":"0",
-                  "publisher":"MicrosoftWindowsServer",
-                  "sku":"Datacenter-Core-1709-with-Containers-smalldisk",
-                  "version":"1709.0.20171219",
-                  "vmId":"1a03b159-571f-4d78-bc5a-f5f7df6d0637",
-                  "vmSize":"Standard_D2s_v3"},
-              "network"
-                  :{"interface":[{"ipv4":
-                  {"ipAddress":[{"privateIpAddress":"10.0.0.4","publicIpAddress":""}],
-                  "subnet":[{"address":"10.0.0.0","prefix":"16"}]},
-                  "ipv6":{"ipAddress":[]},"macAddress":"000D3AFDB2EC"}]}}
+                  "platformFaultDomain":"1",
+                  "platformUpdateDomain":"1",
+                  "publisher":"",
+                  "sku":"",
+                  "version":"",
+                  "vmId":"c4f95933-e5bd-495f-8fa1-0a6a30d32063",
+                  "vmSize":"Standard_D2s_v3"}
+                   },
+              "network":{
+                  "interface":[{"ipv4":{
+                                    "ipAddress":[{"privateIpAddress":"10.0.0.5","publicIpAddress":""}],
+                                    "subnet":[{"address":"10.0.0.0", "prefix":"16"}]},
+                              "ipv6":{"ipAddress":[]},
+                              "macAddress":"000D3AF9FA3B"}]
+                  }
+      }
+
+      Accessing MSI data from inside the container 2:
+      
+
+      C:\>curl -H Metadata:true "http://169.254.169.254"
+      {
+               "compute":{
+                  "location":"westus2",
+                  "name":"wp41724900-vmss_1",
+                  "offer":"",
+                  "osType":"Windows",
+                  "platformFaultDomain":"1",
+                  "platformUpdateDomain":"1",
+                  "publisher":"","sku":"",
+                  "version":"",
+                  "vmId":"c4f95933-e5bd-495f-8fa1-0a6a30d32063",
+                  "vmSize":"Standard_D2s_v3"
+                  },
+                  
+                  "network":{
+                        "interface":[{"ipv4":{
+                                               "ipAddress":[{"privateIpAddress":"10.0.0.5","publicIpAddress":""}],
+                                                "subnet":[{"address":"10.0.0.0","prefix":"16"}]},
+                                    "ipv6":{"ipAddress":[]},
+                                    "macAddress":"000D3AF9FA3B"}]
+                             }
+      }
+  
+
+
 
      The following logging from the MSIServiceClient container showing the MSI requests were acutally proxied
      through the Proxy container (172.23.22.222). The app container's ip addresses could also be seen inside the 
      MSIServiceClient container.
 
-    From inside the MSIServiceCLient container:
+    Output from inside the MSIServiceCLient container:
   
        * Running on http://0.0.0.0:80/ (Press CTRL+C to quit)
-      HTTP request: from client:172.23.27.67 ----------------------------------> this is the app1  container's ip
+      HTTP request: from client:172.22.225.15  -------------------------> this is ip address of the container 1
+      returned from 169.254.169.25 endpoint ...
+      172.22.235.64 - - [12/Apr/2018 02:48:29] "GET / HTTP/1.1" 200 -
+      HTTP request: from client:172.22.225.58 -------------------------> this is ip address of the container 2
       returned from 169.254.169.254 endpoint ...
-      172.23.22.222 - - [05/Feb/2018 21:22:25] "GET / HTTP/1.1" 200 -  --------> 172.23.22.222 is the Proxy container' ip
-      HTTP request: from client:172.23.17.4  ----------------------------------> this is the app2  container's ip
-      returned from 169.254.169.254 endpoint ...
-      172.23.22.222 - - [05/Feb/2018 21:22:33] "GET / HTTP/1.1" 200 -
+      172.22.235.64 - - [12/Apr/2018 02:52:18] "GET / HTTP/1.1" 200 -
 
 
                 
