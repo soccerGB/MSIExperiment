@@ -195,13 +195,17 @@ Note . In this test run, manually running SetupMSIProxy.ps1 was used to replace
 
 ## 4. Run any number of app containers
 
+   You can run as many app container as you want. All the app containers will have access to MSI data after 
+   setup in step 1-3 were done, this holds true whether an app container was launched before or after those setup.
+   You can also add label on the 
+   
    eg:   Let run two app containers as follows
    
       App container 1:
 
       New a cmd window:
       
-      PS C:\> docker run -it microsoft/windowsservercore-insider cmd
+      PS C:\> docker run -it --label MyMSIAppContainer  microsoft/windowsservercore-insider cmd
       Microsoft Windows [Version 10.0.17133.1]
       (c) 2018 Microsoft Corporation. All rights reserved.
 
@@ -218,7 +222,7 @@ Note . In this test run, manually running SetupMSIProxy.ps1 was used to replace
       App container 2:  
       
       New a cmd window:
-      C:\>docker run -it microsoft/windowsservercore-insider cmd
+      C:\>docker run -it --label MyMSIAppContainer microsoft/windowsservercore-insider cmd
       Microsoft Windows [Version 10.0.17133.1]
       (c) 2018 Microsoft Corporation. All rights reserved.
 
