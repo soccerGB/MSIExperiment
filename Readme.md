@@ -1,7 +1,7 @@
 
 # Proxying MSI requests inside a DC/OS's Windows agent node on Azure 
 
-   This experiment was to find a way to access [Azure's Instance Metadata Service](https://docs.microsoft.com/en-us/azure/virtual-machines/windows/instance-metadata-service) endpoint (http:// 169.254.169.254) from app containers through a dedicated proxy container. The experiment below shows this can be done with appropriate request forwading and routing setup on a DC/OS Windows agent node running WindowsServerCore:1709 build. 
+   This experiment was to find a way to access [Azure's Instance Metadata Service](https://docs.microsoft.com/en-us/azure/virtual-machines/windows/instance-metadata-service) endpoint (http:// 169.254.169.254) from app containers through a dedicated proxy container. The experiment below shows this can be done with appropriate request forwading and routing setup on a DC/OS Windows agent node running Windows RS4 Insider build. 
 
 ![Block diagram for Proxying Instance Metadata Service request](https://github.com/soccerGB/MSIRequestProxy/blob/master/docs/InstanceMetadata.png "Proxying Instance Metadata Service request")
 
@@ -41,7 +41,7 @@ Here is the operation sequence:
   4.	Launch app containers
   
          Example:
-         docker run -d microsoft/windowsservercore:1709 cmd     
+         docker run -it microsoft/windowsservercore-insider cmd    
      
   5.	MSI requests were sent from inside an app ontainer 
          
