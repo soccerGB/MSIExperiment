@@ -61,7 +61,7 @@ func main() {
 	// proxy
         proxy := New(backendServiceIpPort)
 
-	fmt.Println("Waiting for new connection resuest:\n")
+	fmt.Println("Waiting for new connection request:\n")
 	// server
 	http.HandleFunc("/", proxy.handle)
 	http.ListenAndServe(MSI_ADDRESS, nil)
