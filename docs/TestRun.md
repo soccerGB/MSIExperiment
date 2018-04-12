@@ -3,14 +3,14 @@
 
 # Test container images involved:
       
-            PS C:\> docker images
-            REPOSITORY                            TAG                 IMAGE ID            CREATED             SIZE
-            msiserviceclient                      latest              946c20ad23c4        2 minutes ago       3.8GB
-            python-windows-rs4-insider            latest              8e19e8442def        4 minutes ago       3.79GB
-            proxy                                 latest              ca571384fda9        8 minutes ago       4.01GB
-            golang-windows-rs4-insider            latest              da708fd0e299        9 minutes ago       4GB
-            microsoft/windowsservercore-insider   latest              cfe539d8e1b2        7 days ago          3.68GB
-            microsoft/nanoserver-insider          latest              cf1b1fc82be8        7 days ago          231MB         
+      PS C:\> docker images
+      REPOSITORY                            TAG                 IMAGE ID            CREATED             SIZE
+      msiserviceclient                      latest              946c20ad23c4        2 minutes ago       3.8GB
+      python-windows-rs4-insider            latest              8e19e8442def        4 minutes ago       3.79GB
+      proxy                                 latest              ca571384fda9        8 minutes ago       4.01GB
+      golang-windows-rs4-insider            latest              da708fd0e299        9 minutes ago       4GB
+      microsoft/windowsservercore-insider   latest              cfe539d8e1b2        7 days ago          3.68GB
+      microsoft/nanoserver-insider          latest              cf1b1fc82be8        7 days ago          231MB         
          
                
 # How to build test container images:
