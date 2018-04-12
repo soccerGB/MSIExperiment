@@ -32,7 +32,7 @@
             The proxy container proxies the MSI requests from all other app containers inside the same subnet.
             It forwards all the MSI request to the msiserviceclient for the actual MSi operation [Dockerfile]() 
 
-   - pythonrs3:[Dockerfile](https://github.com/soccerGB/MSIRequestProxy/blob/master/pythonOn1709/dockerfile) 
+   - python-windows-rs4-insider:[Dockerfile](https://github.com/soccerGB/MSIRequestProxy/blob/master/pythonOnRS4/dockerfile) 
    
             C:\github\MSIRequestProxy\pythonOnRS4> docker build -t python-windows-rs4-insider .
 
