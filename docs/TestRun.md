@@ -45,7 +45,7 @@
 Note: 
    - This test was run inside a Windows agent node of an DC/OS cluster hosted on Azure
    - There is no "Container Monitor Task" in this test run. It was replaced by running two Powershell scripts manually
-      ([SetupMSIProxy.ps1](https://github.com/soccerGB/MSIRequestProxy/blob/master/scripts/SetupMSIProxy.ps1)
+      [SetupMSIProxy.ps1](https://github.com/soccerGB/MSIRequestProxy/blob/master/scripts/SetupMSIProxy.ps1)
    - For debugging purpose, the log from below test run has networking config information output 
       
 
