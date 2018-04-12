@@ -52,6 +52,8 @@ Note:
 
 ## 1. Launch a msiserviceclient instance with "MSIServiceClientContainer" as its label
     
+            New a cmd window:
+            
             C:\github\MSIRequestProxy\msiserviceclient>docker run -it --label MSIServiceClientContainer msiserviceclient
 
             C:\app>echo "Start running setupproxynet.ps1"
@@ -113,6 +115,8 @@ Note:
         
 ## 2. Launch a Proxy container instance with MSIProxyContainer as its label
 
+            New a cmd window:
+            
             C:\github\MSIRequestProxy\proxy>docker run -it --label MSIProxyContainer proxy
 
             C:\app>PowerShell -NoProfile -ExecutionPolicy Bypass -Command "& '.\addnewnetip.ps1'"
@@ -163,6 +167,8 @@ Note:
 
 ## 3. Run SetupMSIProxy.ps1 to set the proxy container's forwarding target (MSIServiceClient container instance)
         
+            New a Powershell cmd window:
+            
             PS C:\github\MSIRequestProxy\scripts> .\SetupMSIProxy.ps1
             Searching for a cotnainer with [MSIProxyContainer] label
             Found: [wizardly_goldberg]
@@ -184,6 +190,8 @@ Note . In this test run, manually running SetupMSIProxy.ps1 was used to replace
    eg:   Let run two app containers as follows
    
       App container 1:
+
+      New a cmd window:
       
       C:\>docker run -it microsoft/windowsservercore:1709 cmd
       Microsoft Windows [Version 10.0.16299.192]
@@ -199,7 +207,9 @@ Note . In this test run, manually running SetupMSIProxy.ps1 was used to replace
          Subnet Mask . . . . . . . . . . . : 255.255.240.0
          Default Gateway . . . . . . . . . : 172.23.16.1
          
-      App container 2:     
+      App container 2:  
+      
+      New a cmd window:
       C:\>docker run -it microsoft/windowsservercore:1709 cmd
       Microsoft Windows [Version 10.0.16299.192]
       (c) 2017 Microsoft Corporation. All rights reserved.
