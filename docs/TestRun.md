@@ -4,16 +4,21 @@
 # Test container images involved:
       
       PS C:\> docker images
-      REPOSITORY                            TAG                 IMAGE ID            CREATED             SIZE
-      msiserviceclient                      latest              946c20ad23c4        2 minutes ago       3.8GB
-      python-windows-rs4-insider            latest              8e19e8442def        4 minutes ago       3.79GB
-      proxy                                 latest              ca571384fda9        8 minutes ago       4.01GB
-      golang-windows-rs4-insider            latest              da708fd0e299        9 minutes ago       4GB
-      microsoft/windowsservercore-insider   latest              cfe539d8e1b2        7 days ago          3.68GB
-      microsoft/nanoserver-insider          latest              cf1b1fc82be8        7 days ago          231MB         
+      REPOSITORY                              TAG                 IMAGE ID            CREATED             SIZE
+      msiserviceclient                        latest              c14e6177f4c4        3 minutes ago       466MB
+      python-windows-rs4-nanoserver-insider   latest              9e6bd3564a9a        About an hour ago   453MB
+      proxy                                   latest              dd131fefa416        About an hour ago   683MB
+      golang-windows-rs4-nanoserver-insider   latest              41e1211d18cb        About an hour ago   669MB
+      microsoft/nanoserver-insider-ps         latest              d4563d4cc1e8        6 hours ago         363MB
+      microsoft/windowsservercore-insider     latest              cfe539d8e1b2        9 days ago          3.68GB
+      microsoft/nanoserver-insider            latest              cf1b1fc82be8        9 days ago          231MB
+      
          
                
 # How to build test container images:
+   
+      
+   Key images:
    
    - msiserviceclient [Dockerfile](https://github.com/soccerGB/MSIRequestProxy/blob/master/msiserviceclient/dockerfile)  
 
@@ -32,6 +37,13 @@
             The proxy container proxies the MSI requests from all other app containers inside the same subnet.
             It forwards all the MSI request to the msiserviceclient for the actual MSi operation [Dockerfile]() 
 
+    Supporting images:
+         Due to the fact that Windows RS4 nanoserver docker image is not finalized yet. The following images have
+         to be built specifically from nanoserver for enabling the whole prototype to run on RS4 Insider environment
+      
+   - microsoft/nanoserver-insider-ps:[Dockerfile](https://github.com/soccerGB/MSIRequestProxy/blob/master/pythonOnRS4/dockerfile) 
+   
+
    - python-windows-rs4-insider:[Dockerfile](https://github.com/soccerGB/MSIRequestProxy/blob/master/pythonOnRS4/dockerfile) 
    
             C:\github\MSIRequestProxy\pythonOnRS4> docker build -t python-windows-rs4-insider .
@@ -39,11 +51,12 @@
             This image is needed for testing purpose only, for helping creaste a simple server 
             inside the msiserviceclient.[Dockerfile]() 
 
+   - golang-windows-rs4-nanoserver-insider:[Dockerfile](https://github.com/soccerGB/MSIRequestProxy/blob/master/pythonOnRS4/dockerfile) 
 
 # Test run
 
 Note: 
-   - This test was run inside a Windows agent node of an DC/OS cluster hosted on Azure
+   - This test needs to run inside a Windows (RS4) agent node of an DC/OS cluster hosted on Azure
    - There is no "Container Monitor Task" in this test run. It was replaced by running two Powershell scripts manually
       [SetupMSIProxy.ps1](https://github.com/soccerGB/MSIRequestProxy/blob/master/scripts/SetupMSIProxy.ps1)
    - For debugging purpose, the log from below test run has networking config information output 
@@ -195,9 +208,9 @@ Note . In this test run, manually running SetupMSIProxy.ps1 was used to replace
 
 ## 4. Run any number of app containers
 
-   You can run as many app container as you want. All the app containers will have access to MSI data after 
+   You can run as many app containers as you want. All the app containers will have access to MSI data after 
    setup in step 1-3 were done, this holds true whether an app container was launched before or after those setup.
-   You can also add label on the 
+   And it works for app containers that based on any flavors (full version, servercore or nanosserver docker images)
    
    eg:   Let run two app containers as follows
    
@@ -270,7 +283,6 @@ Note . In this test run, manually running SetupMSIProxy.ps1 was used to replace
 
       Accessing MSI data from inside the container 2:
       
-
       C:\>curl -H Metadata:true "http://169.254.169.254"
       {
                "compute":{
