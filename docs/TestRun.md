@@ -41,9 +41,10 @@
          Due to the fact that Windows RS4 nanoserver docker image is not finalized yet. The following images have
          to be built specifically from nanoserver for enabling the whole prototype to run on RS4 Insider environment
       
-   - microsoft/nanoserver-insider-ps:[Dockerfile](https://github.com/soccerGB/MSIRequestProxy/blob/master/pythonOnRS4/dockerfile) 
+   - microsoft/nanoserver-insider-ps:[Dockerfile](https://github.com/soccerGB/MSIRequestProxy/blob/master/nanoserverPS/dockerfile)
+         The Powershell support in the nanoserver has been removed from RS4 release, which was why we need to generate this image
+         for other required images (golang and python) to build on top of.
    
-
    - python-windows-rs4-insider:[Dockerfile](https://github.com/soccerGB/MSIRequestProxy/blob/master/pythonOnRS4/dockerfile) 
    
             C:\github\MSIRequestProxy\pythonOnRS4> docker build -t python-windows-rs4-insider .
@@ -51,7 +52,8 @@
             This image is needed for testing purpose only, for helping creaste a simple server 
             inside the msiserviceclient.[Dockerfile]() 
 
-   - golang-windows-rs4-nanoserver-insider:[Dockerfile](https://github.com/soccerGB/MSIRequestProxy/blob/master/pythonOnRS4/dockerfile) 
+   - golang-windows-rs4-nanoserver-insider:[Dockerfile](https://github.com/soccerGB/MSIRequestProxy/blob/master/golangRS4/dockerfile) 
+           This golang docker image was created from rs4 nanoserver for running on RS4 environment
 
 # Test run
 
