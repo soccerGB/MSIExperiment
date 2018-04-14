@@ -1,6 +1,7 @@
 echo "Start running setupproxynet.ps1"
 
-PowerShell -NoProfile -ExecutionPolicy Bypass -Command "& '.\setupproxynet.ps1'"
+# Powershell core
+pwsh -NoProfile -ExecutionPolicy Bypass -Command "& '.\setupproxynet.ps1'"
 
 REM the followign lines are debugging prupose
 ipconfig 

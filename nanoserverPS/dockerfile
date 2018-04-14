@@ -1,0 +1,13 @@
+FROM microsoft/nanoserver-insider
+
+# Setup powershell in nanoserver
+ADD PowershellCore  PowershellCore  
+
+SHELL ["c:\\PowershellCore\\pwsh", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
+
+# PATH isn't actually set in the Docker image, so we have to set it from within the container
+RUN $newPath = ('{0};c:\PowershellCore' -f $env:PATH); \
+	Write-Host ('Updating PATH: {0}' -f $newPath); \
+# Nano Server does not have "[Environment]::SetEnvironmentVariable()"
+	setx /M PATH $newPath;
+
